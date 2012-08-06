@@ -42,14 +42,14 @@ public class StateRecharge {
 	private static final short PIC_ID_EXCHANGE0 = NUM_PICS++;
 	//private static final short PIC_ID_EXCHANGE1 = NUM_PICS++;
 	private static final short PIC_ID_PASSWORD_BG = NUM_PICS++;
-	private static final short PIC_ID_RULE = NUM_PICS++;
+	//private static final short PIC_ID_RULE = NUM_PICS++;
 	
 	private static final String[] imagePaths = {
 		"/business/recharge-bg.jpg",
 		"/business/recharge-title.png",
 		"/business/exchange-title.png",
 		//"/business/amounts-bg.png",
-		"/business/confirm-bg.png",
+		"/business/confirm-bg.jpg",
 		"/business/checked.png",
 		"/business/unchecked.png",
 		"/business/ok0.png",
@@ -63,7 +63,7 @@ public class StateRecharge {
 		"/business/exchange0.png",
 		//"/business/exchange1.png",
 		"/business/password-bg.png",
-		"/business/rule.png",
+		//"/business/rule.png",
 	};
 	
 	private static char[][] inputChars = {
@@ -414,12 +414,13 @@ public class StateRecharge {
 		sx = amountsBgX+33;
 		sy = amountsBgY+90;
 		for (int i = 0; i < amountList.length; ++i) {
-			/*g.setColor(20, 14, 7);
+			g.setColor(0X062C39);
 			g.fillRect(sx, sy, sw, sh);
-			g.setColor(172, 166, 83);
-			g.drawRect(sx, sy, sw, sh);*/
-			Image rule = resource.loadImage(PIC_ID_RULE);
-			g.drawImage(rule, sx, sy, 0);
+			g.setColor(0XA2FFFF);
+            DrawUtil.drawRect(g, sx, sy, sw, sh, 2);
+			//g.drawRect(sx, sy, sw, sh);
+			//Image rule = resource.loadImage(PIC_ID_RULE);
+			//g.drawImage(rule, sx, sy, 0);
 			
 			if (curPayType == 1) {
 				amount = amountList[i]*engineService.getCashToPointsRatio();
@@ -851,7 +852,7 @@ public class StateRecharge {
 						}
 					}
 					if (canRecharge) {
-						resource.freeImage(PIC_ID_RULE);
+						//resource.freeImage(PIC_ID_RULE);
 						state = STATE_CONFIRM;
 						if (conf.isSubscribeFocusOk()) {
 							confirmIndex = 0;
