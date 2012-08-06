@@ -26,6 +26,7 @@ public class Configurations {
 	public static final String TAG_OHYEAH = "ohyeah";			/*欧耶平台*/
 	public static final String TAG_WINSIDE = "winside";			/*掌世界平台*/
 	public static final String TAG_THE9 = "the9";				/*九城平台*/
+	public static final String TAG_DIJOY = "dijoy";				/*鼎亿平台*/
 	
 	private static Configurations instance = new Configurations();
 	private static boolean success;
@@ -108,6 +109,10 @@ public class Configurations {
 	
 	public boolean isServiceProviderThe9() {
 		return TAG_THE9.equals(serviceProvider);
+	}
+	
+	public boolean isServiceProviderDijoy() {
+		return TAG_DIJOY.equals(serviceProvider);
 	}
 	
 	public String getFavorWay() {

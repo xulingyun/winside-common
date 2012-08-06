@@ -27,7 +27,7 @@ public class StateRecharge {
 	private static final short PIC_ID_RECHARGE_BG = NUM_PICS++;
 	private static final short PIC_ID_RECHARGE_TITLE = NUM_PICS++;
 	private static final short PIC_ID_EXCHANGE_TITLE = NUM_PICS++;
-	private static final short PIC_ID_AMOUNTS_BG = NUM_PICS++;
+	//private static final short PIC_ID_AMOUNTS_BG = NUM_PICS++;
 	private static final short PIC_ID_CONFIRM_BG = NUM_PICS++;
 	private static final short PIC_ID_CHECKED = NUM_PICS++;
 	private static final short PIC_ID_UNCHECKED = NUM_PICS++;
@@ -42,12 +42,13 @@ public class StateRecharge {
 	private static final short PIC_ID_EXCHANGE0 = NUM_PICS++;
 	//private static final short PIC_ID_EXCHANGE1 = NUM_PICS++;
 	private static final short PIC_ID_PASSWORD_BG = NUM_PICS++;
+	private static final short PIC_ID_RULE = NUM_PICS++;
 	
 	private static final String[] imagePaths = {
 		"/business/recharge-bg.jpg",
 		"/business/recharge-title.png",
 		"/business/exchange-title.png",
-		"/business/amounts-bg.png",
+		//"/business/amounts-bg.png",
 		"/business/confirm-bg.png",
 		"/business/checked.png",
 		"/business/unchecked.png",
@@ -61,7 +62,8 @@ public class StateRecharge {
 		//"/business/recharge1.png",
 		"/business/exchange0.png",
 		//"/business/exchange1.png",
-		"/business/password-bg.jpg",
+		"/business/password-bg.png",
+		"/business/rule.png",
 	};
 	
 	private static char[][] inputChars = {
@@ -184,7 +186,7 @@ public class StateRecharge {
 	}
 	
 	private void drawPassword(Graphics g, int x, int y, int w, int h, boolean drawCursor, boolean drawChar) {
-		g.setColor(0);
+		g.setColor(0Xffff00);
 		Font font = g.getFont();
 		int charW = font.charWidth('*');
 		int charH = font.getHeight();
@@ -205,7 +207,7 @@ public class StateRecharge {
 		if (drawChar) {
 			g.setColor(215, 215, 215);
 			g.fillRect(sx, sy, 22, charH);
-			g.setColor(0);
+			g.setColor(0Xffff00);
 			g.drawChar(pwdChars[pwdCharIndex], sx+(22-font.charWidth(pwdChars[pwdCharIndex]))/2, sy, 20);
 		}
 	}
@@ -238,33 +240,33 @@ public class StateRecharge {
 		
 		if (subState == SUB_STATE_INPUT_PWD_VIEW) {
 			if (pwdGroupIndex == 0) {
-				drawPassword(g, bgX+85, bgY+97, 285, 40, true, false);
+				drawPassword(g, bgX+85, bgY+123, 285, 40, true, false);
 			}
 			else {
-				drawPassword(g, bgX+85, bgY+97, 285, 40, false, false);	
+				drawPassword(g, bgX+85, bgY+123, 285, 40, false, false);	
 			}
 		}
 		else {
-			drawPassword(g, bgX+85, bgY+97, 285, 40, false, true);
+			drawPassword(g, bgX+85, bgY+123, 285, 40, false, true);
 		}
 		
 		if (subState == SUB_STATE_INPUT_PWD_SELECT_CHAR) {
-			drawSelectChars(g, bgX+77, bgY+140);
+			drawSelectChars(g, bgX+77, bgY+166);
 		}
 		
 		Image ok = resource.loadImage(PIC_ID_OK0);
-		g.drawImage(ok, bgX+120, bgY+265, 20);
+		g.drawImage(ok, bgX+120, bgY+280, 20);
 		
 		Image cancel = resource.loadImage(PIC_ID_CANCEL0);
-		g.drawImage(cancel, bgX+266, bgY+265, 20);
+		g.drawImage(cancel, bgX+266, bgY+280, 20);
 		
 		if (subState == SUB_STATE_INPUT_PWD_VIEW) {
 			if (pwdGroupIndex == 1) {
 				if (pwdBtnIndex == 0) {
-					DrawUtil.drawRect(g, bgX+120, bgY+265, ok.getWidth(), ok.getHeight(), 2, 0XFFFF00);
+					DrawUtil.drawRect(g, bgX+120, bgY+280, ok.getWidth(), ok.getHeight(), 2, 0XFFFF00);
 				}
 				else {
-					DrawUtil.drawRect(g, bgX+266, bgY+265, cancel.getWidth(), cancel.getHeight(), 2, 0XFFFF00);
+					DrawUtil.drawRect(g, bgX+266, bgY+280, cancel.getWidth(), cancel.getHeight(), 2, 0XFFFF00);
 				}
 			}
 		}
@@ -324,10 +326,10 @@ public class StateRecharge {
 		g.drawImage(bgImg, 0, 0, 20);
 		
 		Font font = g.getFont();
-		Image amountsBg = resource.loadImage(PIC_ID_AMOUNTS_BG);
-		int amountsBgX = (engine.getScreenWidth()-amountsBg.getWidth())>>1;
-		int amountsBgY = (engine.getScreenHeight()-amountsBg.getHeight())>>1;
-		g.drawImage(amountsBg, amountsBgX, amountsBgY, 20);
+		//Image amountsBg = resource.loadImage(PIC_ID_AMOUNTS_BG);
+		int amountsBgX = (engine.getScreenWidth()-434)>>1;
+		int amountsBgY = (engine.getScreenHeight()-324)>>1;
+		//g.drawImage(amountsBg, amountsBgX, amountsBgY, 20);
 		
 		Image title = null;
 		if (engineService.getRechargeCommand().equals("¶Ò»»")) {
@@ -339,7 +341,7 @@ public class StateRecharge {
 		
 		if (title != null) {
 			g.drawImage(title, 
-					amountsBgX + ((amountsBg.getWidth()-title.getWidth())>>1), 
+					amountsBgX + ((434-title.getWidth())>>1), 
 					amountsBgY + 17, 
 					20);
 		}
@@ -412,10 +414,12 @@ public class StateRecharge {
 		sx = amountsBgX+33;
 		sy = amountsBgY+90;
 		for (int i = 0; i < amountList.length; ++i) {
-			g.setColor(20, 14, 7);
+			/*g.setColor(20, 14, 7);
 			g.fillRect(sx, sy, sw, sh);
 			g.setColor(172, 166, 83);
-			g.drawRect(sx, sy, sw, sh);
+			g.drawRect(sx, sy, sw, sh);*/
+			Image rule = resource.loadImage(PIC_ID_RULE);
+			g.drawImage(rule, sx, sy, 0);
 			
 			if (curPayType == 1) {
 				amount = amountList[i]*engineService.getCashToPointsRatio();
@@ -446,12 +450,12 @@ public class StateRecharge {
 		}
 		
 		Image back = resource.loadImage(PIC_ID_BACK1);
-		sx = amountsBgX+((amountsBg.getWidth()-back.getWidth())>>1);
+		sx = amountsBgX+((434-back.getWidth())>>1);
 		sy = amountsBgY+284;
 		g.drawImage(back, sx, sy, 20);
 		
 		if (groupIndex == 1) {
-			DrawUtil.drawRect(g, btnX, amountY, recharge.getWidth(), recharge.getHeight(), 2, 0XFFFF00);
+			DrawUtil.drawRect(g, btnX, amountY+2, recharge.getWidth(), recharge.getHeight(), 2, 0XFFFF00);
 		}
 		else if (groupIndex == 2){
 			DrawUtil.drawRect(g, sx, sy, back.getWidth(), back.getHeight(), 2, 0XFFFF00);
@@ -847,7 +851,7 @@ public class StateRecharge {
 						}
 					}
 					if (canRecharge) {
-						resource.freeImage(PIC_ID_AMOUNTS_BG);
+						resource.freeImage(PIC_ID_RULE);
 						state = STATE_CONFIRM;
 						if (conf.isSubscribeFocusOk()) {
 							confirmIndex = 0;

@@ -48,6 +48,7 @@ public interface Constant {
 	public static final byte SUBSCRIBE_CMD_SUBSCRIBE_PRODUCT = 5;		/*订购产品*/
 	public static final byte SUBSCRIBE_CMD_RECHARGE_WINSIDEGD = 6;		/*winsidegd充值*/
 	public static final byte SUBSCRIBE_CMD_GOTO_ORDER_PAGE_WINSIDEFJ = 7;		/*winsidefj跳转到充值界面*/
+	public static final byte SUBSCRIBE_CMD_RECHARGE_DIJOY = 8;		/*winsidegd充值*/
 	
 	public static final byte PURCHASE_CMD_PURCHASE_PROP = 1;			/*购买道具*/
 	public static final byte PURCHASE_CMD_EXPEND = 2;					/*花费金币*/

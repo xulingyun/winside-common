@@ -22,6 +22,12 @@ final class ParamManager {
 	String code;			/*中游特需参数*/
 	String timeStmp;		/*中游特需参数*/
 	
+	String dijoyAppID;			/*鼎亿特需参数*/
+	String dijoyRechargeUrl;	/*鼎亿特需参数, 充值页面URL地址*/
+	String dijoyPlatformExt;	/*鼎亿特需参数, 网页平台传递给应用的扩展信息*/
+	String dijoyReturnUrl;		/*鼎亿特需参数*/
+	String dijoyAppExt;		/*鼎亿特需参数*/
+	
 	String spid;			/*供应商ID，中游和掌世界充值时需要*/
 	String gameid;			/*游戏ID，中游和掌世界充值时需要*/
 	String buyURL;			/*查询元宝和扣除元宝服务器地址*/
@@ -85,6 +91,8 @@ final class ParamManager {
 		else if (conf.isServiceProviderThe9()
 				|| conf.isServiceProviderOhyeah()) {
 			parseOhyeahPlatParam();
+		}else if(conf.isServiceProviderDijoy()){
+			parseDijoyPlatParam();
 		}
 		else {
 			parseSuccessful = false;
@@ -148,6 +156,21 @@ final class ParamManager {
 		gameid = "";
 		spid = "";
 		checkKey = "";
+	}
+	
+	private void parseDijoyPlatParam() {
+		userId = getStringParam("LoginID");
+		server = getStringParam("HomeUrl");
+		accountName = getStringParam("UserID");
+		appName = getStringParam("product");
+		dijoyAppID = getStringParam("AppID");
+		dijoyReturnUrl = getStringParam("ReturnUrl");
+		dijoyPlatformExt = getStringParam("PlatformExt");
+		dijoyAppExt = getStringParam("appExt");
+		buyURL = getStringParam("BuyService");
+		checkKey = getStringParam("payKey");
+		userToken = "";
+		spid = "";
 	}
 	
 	private void parseWinsidegdPlatParam() {

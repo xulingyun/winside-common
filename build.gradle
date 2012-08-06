@@ -1,5 +1,5 @@
 ext.jmeGroup = 'ohyeah'
-ext.jmeArchivesBaseName = 'itvgame-client'
+ext.jmeArchivesBaseName = 'itvgame-common'
 ext.jmeVersion = '1.0.0-SNAPSHOT'
 
 configurations {

@@ -61,6 +61,7 @@ public final class PurchaseService extends AbstractHttpService{
 		}
 	}
 	
+	
 	/**
 	 * 消费金币,amount,消费金额，单位元宝（金币）
 	 * @param buyURL
