@@ -314,7 +314,7 @@ abstract public class GameCanvasEngine extends GameCanvas implements Runnable, I
 				errorMessage += "原因： "+engineService.getLoginMessage()+"\n\n";
 				errorMessage += "#R请按#Y确认\\OK键#R重试，请按#Y其他键#R退出";
 				showError();
-				subState = 1;;
+				subState = 1;
 			}
 		}
 		if (subState == 1) {
