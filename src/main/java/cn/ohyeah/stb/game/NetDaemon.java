@@ -298,7 +298,7 @@ public class NetDaemon implements Runnable, IAsynService {
 					throw new RuntimeException("no such state, (state="+state+")");
 				}
 				
-				Thread.sleep(50);
+				Thread.sleep(75);
 			} catch (InterruptedException e) {
 				e.printStackTrace();
 				exitFlag = true;

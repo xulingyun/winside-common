@@ -1,8 +1,8 @@
 package cn.ohyeah.stb.game;
 
-import cn.ohyeah.stb.modelv2.Authorization;
-import cn.ohyeah.stb.modelv2.LoginInfo;
-import cn.ohyeah.stb.modelv2.SubscribeProperties;
+import cn.ohyeah.itvgame.model.Authorization;
+import cn.ohyeah.itvgame.model.LoginInfo;
+import cn.ohyeah.itvgame.model.SubscribeProperties;
 import cn.ohyeah.stb.util.DateUtil;
 
 /**
@@ -130,17 +130,16 @@ public final class EngineService {
 		if (!pm.offline) {
 			if (!isLoginSuccessful()) {
 				try {
-					AsynServices serv = AsynServices.createAsynServices();
-					AsynServiceResult result = serv.userLogin();
-					LoginInfo info = (LoginInfo)result.get();
-					if (result.isSuccessful()) {
+					ServiceWrapper sw = engine.getServiceWrapper();
+					LoginInfo info = sw.userLogin();
+					if (sw.isServiceSuccessful()) {
 						setLoginSuccessful();
 						assignLoginInfo(info);
 						System.out.println("用户登录成功:");
 						printParams();
 					}
 					else {
-						loginMessage = result.getErrorMessage();
+						loginMessage = sw.getServiceMessage();
 					}
 				}
 				catch (Exception e) {

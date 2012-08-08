@@ -5,8 +5,6 @@ import java.io.IOException;
 
 import javax.microedition.io.HttpConnection;
 
-import cn.ohyeah.itvgame.service.ServiceException;
-
 /**
  * http¿Í»§¶Ë
  * @author maqian
@@ -37,7 +35,7 @@ public class HttpClient extends AbstractNetClient{
 	protected void logicBeforeReceive() throws IOException {
 		HttpConnection conn = (HttpConnection)super.conn;
 		if (conn.getResponseCode() != HttpConnection.HTTP_OK) {
-	        throw new ServiceException(conn.getResponseMessage());
+	        throw new RuntimeException(conn.getResponseMessage());
 	    }
 	}
 }

@@ -4,15 +4,17 @@ import javax.microedition.lcdui.Font;
 import javax.microedition.lcdui.Graphics;
 import javax.microedition.lcdui.Image;
 
+import cn.ohyeah.itvgame.model.SubscribePayType;
+import cn.ohyeah.itvgame.service.ServiceException;
 import cn.ohyeah.stb.game.Configurations;
 import cn.ohyeah.stb.game.EngineService;
+import cn.ohyeah.stb.game.ServiceWrapper;
 import cn.ohyeah.stb.res.ResourceManager;
 import cn.ohyeah.stb.res.UIResource;
 import cn.ohyeah.stb.ui.DrawUtil;
 import cn.ohyeah.stb.ui.PopupText;
 import cn.ohyeah.stb.key.KeyCode;
 import cn.ohyeah.stb.key.KeyState;
-import cn.ohyeah.stb.modelv2.SubscribePayType;
 
 public class StateRecharge {
 	
@@ -608,29 +610,27 @@ public class StateRecharge {
 					pt.setText("正在"+engineService.getRechargeCommand()+"，请稍后...");
 					pt.show(engine.getGraphics());
 					engine.flushGraphics();
-					AsynServices serv = AsynServices.createAsynServices();
-					AsynServiceResult result = null;
+					ServiceWrapper sw = engine.getServiceWrapper();
 					try {
 						if (curPayType == 0) {
-							result = serv.recharge(rechargeAmount, SubscribePayType.PAY_TYPE_BILL, 
+							sw.recharge(rechargeAmount, SubscribePayType.PAY_TYPE_BILL, 
 										engineService.getProductName()
 										+engineService.getRechargeCommand()
 										+rechargeAmount
 										+engineService.getSubscribeAmountUnit(), password);
 						}
 						else {
-							result = serv.recharge(rechargeAmount*engineService.getCashToPointsRatio(), SubscribePayType.PAY_TYPE_POINTS, 
+							sw.recharge(rechargeAmount*engineService.getCashToPointsRatio(), SubscribePayType.PAY_TYPE_POINTS, 
 										engineService.getProductName()
 										+engineService.getRechargeCommand()
 										+rechargeAmount*engineService.getCashToPointsRatio()
 										+engineService.getPointsUnit(), password);
 						}
-						result.get();
-						if (result.isSuccessful()) {
+						if (sw.isServiceSuccessful()) {
 							resultMsg = engineService.getRechargeCommand()+"成功";
 						}
 						else {
-							resultMsg = engineService.getRechargeCommand()+"失败，原因："+result.getErrorMessage();
+							resultMsg = engineService.getRechargeCommand()+"失败，原因："+sw.getServiceMessage();
 						}
 					}
 					catch (Exception e) {
@@ -640,12 +640,12 @@ public class StateRecharge {
 					finally {
 						pt.setText(resultMsg);
 						pt.popup();
-						if (result.isSuccessful()) {
+						if (sw.isServiceSuccessful()) {
 							resource.freeImage(PIC_ID_PASSWORD_BG);
 							state=STATE_SELECT_AMOUNT;
 						}
 						else {
-							if (isPasswordError(result.getErrorMessage())) {
+							if (isPasswordError(sw.getServiceMessage())) {
 								password = "";
 								pwdGroupIndex = 0;
 							}
@@ -719,29 +719,27 @@ public class StateRecharge {
 				pt.setText("正在"+engineService.getRechargeCommand()+"，请稍后...");
 				pt.show(engine.getGraphics());
 				engine.flushGraphics();
-				AsynServices serv = AsynServices.createAsynServices();
-				AsynServiceResult result = null;
+				ServiceWrapper sw = engine.getServiceWrapper();
 				try {
 					if (curPayType == 0) {
-						result = serv.recharge(rechargeAmount, SubscribePayType.PAY_TYPE_BILL, 
+						sw.recharge(rechargeAmount, SubscribePayType.PAY_TYPE_BILL, 
 									engineService.getProductName()
 									+engineService.getRechargeCommand()
 									+rechargeAmount
 									+engineService.getSubscribeAmountUnit(), "");
 					}
 					else {
-						result = serv.recharge(rechargeAmount*engineService.getCashToPointsRatio(), SubscribePayType.PAY_TYPE_POINTS, 
+						sw.recharge(rechargeAmount*engineService.getCashToPointsRatio(), SubscribePayType.PAY_TYPE_POINTS, 
 									engineService.getProductName()
 									+engineService.getRechargeCommand()
 									+rechargeAmount*engineService.getCashToPointsRatio()
 									+engineService.getPointsUnit(), "");
 					}
-					result.get();
-					if (result.isSuccessful()) {
+					if (sw.isServiceSuccessful()) {
 						resultMsg = engineService.getRechargeCommand()+"成功";
 					}
 					else {
-						resultMsg = engineService.getRechargeCommand()+"失败，原因："+result.getErrorMessage();
+						resultMsg = engineService.getRechargeCommand()+"失败，原因："+sw.getServiceMessage();
 					}
 				}
 				catch (Exception e) {
@@ -749,14 +747,14 @@ public class StateRecharge {
 					resultMsg = engineService.getRechargeCommand()+"失败, 原因: "+e.getMessage();
 				}
 				finally {
-					if (result.isSuccessful()) {
+					if (sw.isServiceSuccessful()) {
 						pt.setText(resultMsg);
 						pt.popup();
 						resource.freeImage(PIC_ID_CONFIRM_BG);
 						state=STATE_SELECT_AMOUNT;
 					}
 					else {
-						if (isPasswordError(result.getErrorMessage())) {
+						if (isPasswordError(sw.getServiceMessage())) {
 							gotoStatePassword();
 						}
 						else {

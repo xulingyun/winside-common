@@ -6,14 +6,13 @@ import javax.microedition.lcdui.Image;
 import javax.microedition.lcdui.game.GameCanvas;
 import javax.microedition.midlet.MIDlet;
 
-import cn.ohyeah.stb.protocolv2.HeadWrapper;
+import cn.ohyeah.stb.buf.ByteBuffer;
 import cn.ohyeah.stb.res.GamePropsManager;
 import cn.ohyeah.stb.res.ResourceManager;
 import cn.ohyeah.stb.res.UIResource;
 import cn.ohyeah.stb.servicev2.AbstractService;
 import cn.ohyeah.stb.servicev2.FrameDecoder;
 import cn.ohyeah.stb.ui.TextView;
-import cn.ohyeah.stb.buf.ByteBuffer;
 import cn.ohyeah.stb.key.KeyCode;
 import cn.ohyeah.stb.key.KeyState;
 
@@ -100,22 +99,6 @@ abstract public class GameCanvasEngine extends GameCanvas implements Runnable, I
 		debugModule = new DebugModule(this);
 		UIResource.registerEngine(this);
 		GamePropsManager.registerService(engineService);
-		
-		//TODO test code
-		AsynServices.registerEngine(this);
-		ByteBuffer heartBeat = buildHeartBeat();
-		netDaemon = NetDaemon.create(heartBeat, 10000);
-		AbstractService.registerAsynService(netDaemon);
-		AbstractService.registerFrameDecoder(new FrameDecoder());
-	}
-	
-	protected ByteBuffer buildHeartBeat() {
-		ByteBuffer heartBeat = new ByteBuffer(8);
-		HeadWrapper head = new HeadWrapper();
-		head.setAckparam(1);
-		heartBeat.writeInt(head.getHead());
-		heartBeat.writeInt(0);
-		return heartBeat;
 	}
 	
 	protected void registerPropClasses(Class c) {
