@@ -3,8 +3,6 @@ package cn.ohyeah.itvgame.model;
 import java.io.DataInputStream;
 import java.io.IOException;
 
-import cn.ohyeah.stb.buf.ByteBuffer;
-
 /**
  * ”Œœ∑≈≈––¿‡
  * @author maqian
@@ -73,16 +71,6 @@ public class GameRanking {
 		ranking = dis.readInt();
 		remark = dis.readUTF();
 		time = dis.readUTF();
-	}
-	
-	public void readQueryResponseData(ByteBuffer buf) {
-		accountId = buf.readInt();
-		userId = buf.readUTF();
-		playDuration = buf.readInt();
-		scores = buf.readInt();
-		ranking = buf.readInt();
-		remark = buf.readUTF();
-		time = buf.readUTF();
 	}
 	
 }

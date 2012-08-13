@@ -3,8 +3,6 @@ package cn.ohyeah.itvgame.model;
 import java.io.DataInputStream;
 import java.io.IOException;
 
-import cn.ohyeah.stb.buf.ByteBuffer;
-
 /**
  * 订购相关属性类
  * @author maqian
@@ -112,20 +110,6 @@ public class SubscribeProperties {
 		expendCashToAmountRatio = dis.readInt();
 		balance = dis.readInt();
 		rechargeRatio = dis.readInt();
-	}
-	public void readSubscribeProperties(ByteBuffer buf) {
-		supportSubscribe = buf.readBoolean();
-		subscribeAmountUnit = buf.readUTF();
-		subscribeCashToAmountRatio = buf.readInt();
-		supportSubscribeByPoints = buf.readBoolean();
-		pointsUnit = buf.readUTF();
-		availablePoints = buf.readInt();
-		cashToPointsRatio = buf.readInt();
-		supportRecharge = buf.readBoolean();
-		expendAmountUnit = buf.readUTF();
-		expendCashToAmountRatio = buf.readInt();
-		balance = buf.readInt();
-		rechargeRatio = buf.readInt();
 	}
 
 	public void print() {

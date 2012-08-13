@@ -3,8 +3,6 @@ package cn.ohyeah.itvgame.model;
 import java.io.DataInputStream;
 import java.io.IOException;
 
-import cn.ohyeah.stb.buf.ByteBuffer;
-
 /**
  * µÇÂ¼ÐÅÏ¢
  * @author maqian
@@ -80,17 +78,5 @@ public class LoginInfo {
 		auth.readAuthorization(dis);
 		subProps = new SubscribeProperties();
 		subProps.readSubscribeProperties(dis);
-	}
-	public void readLoginInfo(ByteBuffer buf) {
-		accountId = buf.readInt();
-		userId = buf.readUTF();
-		productId = buf.readInt();
-		productName = buf.readUTF();
-		appName = buf.readUTF();
-		systemTime = new java.util.Date(buf.readLong());
-		auth = new Authorization();
-		auth.readAuthorization(buf);
-		subProps = new SubscribeProperties();
-		subProps.readSubscribeProperties(buf);
 	}
 }

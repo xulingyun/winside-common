@@ -23,7 +23,6 @@ public final class SubscribeService extends AbstractHttpService{
 	 * @param accountName
 	 * @param userToken
 	 * @param productId
-	 * @param amount
 	 * @param purchaseId
 	 * @throws ServiceException
 	 */
@@ -183,7 +182,6 @@ public final class SubscribeService extends AbstractHttpService{
 	 * @param spid
 	 * @param gameid
 	 * @param enterURL
-	 * @param zyUserToken
 	 * @param stbType
 	 * @return
 	 */
@@ -240,15 +238,15 @@ public final class SubscribeService extends AbstractHttpService{
 	}
 	
 	public int rechargeDijoy(String buyURL, int accountId, String accountName, String userToken, 
-			int productId, int amount, String remark, String checkKey, String appId, 
-			String platformExt, String appExt) {
+			int productId, int amount, String remark, String appId,
+			String platformExt) {
 		return rechargeDijoy(buyURL, accountId, accountName, userToken, productId, amount,  
-				SubscribePayType.PAY_TYPE_BILL, remark, checkKey, appId, platformExt, appExt);
+				SubscribePayType.PAY_TYPE_BILL, remark, appId, platformExt);
 	}
 	
 	public int rechargeDijoy(String buyURL, int accountId, String accountName, String userToken, 
-			int productId, int amount,int payType, String remark, String checkKey, String appId, 
-			String platformExt, String appExt) {
+			int productId, int amount,int payType, String remark, String appId,
+			String platformExt) {
 		try {
 			int balance = -1;
 			initHead(Constant.PROTOCOL_TAG_SUBSCRIBE, Constant.SUBSCRIBE_CMD_RECHARGE_DIJOY);
@@ -262,10 +260,8 @@ public final class SubscribeService extends AbstractHttpService{
 			bufferDos.writeInt(amount);
 			bufferDos.writeInt(payType);
 			bufferDos.writeUTF(remark);
-			bufferDos.writeUTF(checkKey);
 			bufferDos.writeUTF(appId);
 			bufferDos.writeUTF(platformExt);
-			bufferDos.writeUTF(appExt);
 			byte[] data = bufferBaos.toByteArray();
 			closeBufferDataOutputStream();
 			
@@ -281,11 +277,6 @@ public final class SubscribeService extends AbstractHttpService{
 		finally {
 			close();
 		}
-	}
-	
-	
-	public void gotoOrderPageWinsidefj(String buyURL, String userId) {
-		
 	}
 	
 	/**

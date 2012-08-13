@@ -617,9 +617,9 @@ public final class ServiceWrapper {
 						paramManager.userToken, paramManager.productId, amount, engineService.subProps.getRechargeRatio(), 
 						remark, paramManager.checkKey, paramManager.spid, paramManager.gameid, paramManager.enterURL, paramManager.stbType, password);
 			}else if(Configurations.getInstance().isServiceProviderDijoy()){
-				b = subscribeService.rechargeDijoy(paramManager.buyURL, paramManager.accountId, paramManager.accountName, 
-						paramManager.userToken, paramManager.productId, amount, remark, paramManager.checkKey,
-						paramManager.dijoyAppID,paramManager.dijoyPlatformExt,paramManager.dijoyAppExt);
+				b = subscribeService.rechargeDijoy(paramManager.buyURL, paramManager.accountId,
+                        paramManager.accountName, paramManager.userToken, paramManager.productId, amount, remark,
+						paramManager.dijoyAppID,paramManager.dijoyPlatformExt);
 			}
 			else {
 				
@@ -666,9 +666,9 @@ public final class ServiceWrapper {
 						payType, remark, paramManager.checkKey, paramManager.spid, paramManager.gameid, 
 						paramManager.enterURL, paramManager.stbType, password); 
 			}else if(Configurations.getInstance().isServiceProviderDijoy()){
-				b = subscribeService.rechargeDijoy(paramManager.buyURL, paramManager.accountId, paramManager.accountName, 
-						paramManager.userToken, paramManager.productId, amount, remark, paramManager.checkKey,
-						paramManager.dijoyAppID,paramManager.dijoyPlatformExt,paramManager.dijoyAppExt);
+				b = subscribeService.rechargeDijoy(paramManager.buyURL, paramManager.accountId,
+                        paramManager.accountName, paramManager.userToken, paramManager.productId, amount,
+                        remark,paramManager.dijoyAppID,paramManager.dijoyPlatformExt);
 			}
 			else {
 				b = subscribeService.recharge(paramManager.buyURL, paramManager.accountId, paramManager.accountName, 

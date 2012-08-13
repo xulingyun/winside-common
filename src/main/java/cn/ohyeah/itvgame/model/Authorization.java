@@ -6,8 +6,6 @@ import java.util.Calendar;
 import java.util.Date;
 import java.util.TimeZone;
 
-import cn.ohyeah.stb.buf.ByteBuffer;
-
 /**
  * 产品授权类
  * @author maqian
@@ -127,15 +125,6 @@ public class Authorization {
 		leftValidCount = dis.readInt();
 		authorizationStartTime = new java.util.Date(dis.readLong());
 		authorizationEndTime = new java.util.Date(dis.readLong());
-	}
-	
-	public void readAuthorization(ByteBuffer buf) {
-		authorizationType = buf.readInt();
-		leftTryNumber = buf.readInt();
-		leftValidSeconds = buf.readInt();
-		leftValidCount = buf.readInt();
-		authorizationStartTime = new java.util.Date(buf.readLong());
-		authorizationEndTime = new java.util.Date(buf.readLong());
 	}
 	
 }

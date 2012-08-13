@@ -3,8 +3,6 @@ package cn.ohyeah.itvgame.model;
 import java.io.DataInputStream;
 import java.io.IOException;
 
-import cn.ohyeah.stb.buf.ByteBuffer;
-
 /**
  * ”Œœ∑º«¬º√Ë ˆ¿‡
  * @author maqian
@@ -57,12 +55,5 @@ public class GameRecordDesc {
 		scores = dis.readInt();
 		remark = dis.readUTF();
 		time = dis.readUTF();
-	}
-	public void readQueryResponseData(ByteBuffer buf) {
-		recordId = buf.readInt();
-		playDuration = buf.readInt();
-		scores = buf.readInt();
-		remark = buf.readUTF();
-		time = buf.readUTF();
 	}
 }

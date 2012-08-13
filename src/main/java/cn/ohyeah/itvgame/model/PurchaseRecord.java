@@ -3,8 +3,6 @@ package cn.ohyeah.itvgame.model;
 import java.io.DataInputStream;
 import java.io.IOException;
 
-import cn.ohyeah.stb.buf.ByteBuffer;
-
 /**
  * 消费记录类
  * @author maqian
@@ -54,12 +52,5 @@ public class PurchaseRecord {
 		amount = dis.readInt();
 		remark = dis.readUTF();
 		time = dis.readUTF();
-	}
-	public void readQueryResponseData(ByteBuffer buf) {
-		propId = buf.readInt();
-		propCount = buf.readInt();
-		amount = buf.readInt();
-		remark = buf.readUTF();
-		time = buf.readUTF();
 	}
 }

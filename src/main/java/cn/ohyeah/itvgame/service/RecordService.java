@@ -77,7 +77,7 @@ public final class RecordService extends AbstractHttpService{
 	/**
 	 * 读取游戏记录
 	 * @param accountId
-	 * @param gameId
+	 * @param productId
 	 * @param recordId
 	 * @return 返回非空，则成功；否则，失败
 	 * @throws ServiceException 
@@ -96,7 +96,7 @@ public final class RecordService extends AbstractHttpService{
 			
 			writeData(data);
 			checkHead();
-		    if (readResult() == 0) {
+		    if (readResult() == 0 && connectionDis.available() > 0) {
 		    	record = new GameRecord();
 		    	record.readReadResponseData(connectionDis);
 		    }

@@ -3,8 +3,6 @@ package cn.ohyeah.itvgame.model;
 import java.io.DataInputStream;
 import java.io.IOException;
 
-import cn.ohyeah.stb.buf.ByteBuffer;
-
 /**
  * 游戏成就描述类
  * @author maqian
@@ -64,12 +62,5 @@ public class GameAttainmentDesc {
 		remark = dis.readUTF();
 		time = dis.readUTF();
 	}
-	public void readQueryResponseData(ByteBuffer buf) {
-		attainmentId = buf.readInt();
-		playDuration = buf.readInt();
-		scores = buf.readInt();
-		ranking = buf.readInt();
-		remark = buf.readUTF();
-		time = buf.readUTF();
-	}
+
 }

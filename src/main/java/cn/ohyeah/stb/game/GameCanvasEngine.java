@@ -6,12 +6,8 @@ import javax.microedition.lcdui.Image;
 import javax.microedition.lcdui.game.GameCanvas;
 import javax.microedition.midlet.MIDlet;
 
-import cn.ohyeah.stb.buf.ByteBuffer;
-import cn.ohyeah.stb.res.GamePropsManager;
 import cn.ohyeah.stb.res.ResourceManager;
 import cn.ohyeah.stb.res.UIResource;
-import cn.ohyeah.stb.servicev2.AbstractService;
-import cn.ohyeah.stb.servicev2.FrameDecoder;
 import cn.ohyeah.stb.ui.TextView;
 import cn.ohyeah.stb.key.KeyCode;
 import cn.ohyeah.stb.key.KeyState;
@@ -45,7 +41,6 @@ abstract public class GameCanvasEngine extends GameCanvas implements Runnable, I
 	private int subState;
 	private byte[] stateStack;
 	private int stateStackPointer;
-	protected NetDaemon netDaemon;
 	protected MIDlet midlet;
 	protected KeyState keyState;
 	protected Graphics g;
@@ -98,11 +93,6 @@ abstract public class GameCanvasEngine extends GameCanvas implements Runnable, I
 		stateStack = new byte[16];
 		debugModule = new DebugModule(this);
 		UIResource.registerEngine(this);
-		GamePropsManager.registerService(engineService);
-	}
-	
-	protected void registerPropClasses(Class c) {
-		GamePropsManager.getInstance().registerGamePropClass(c);
 	}
 	
 	private void pushState(byte state) {
@@ -289,18 +279,9 @@ abstract public class GameCanvasEngine extends GameCanvas implements Runnable, I
 		if (subState == 0) {
 			recordTime = System.currentTimeMillis();
 			showLogo(IMG_LOGO_OHYEAH, 0);
-			if (engineService.userLogin()) {
-				subState = 2;
-			}
-			else {
-				errorMessage = "用户登录失败。"+"\n";
-				errorMessage += "原因： "+engineService.getLoginMessage()+"\n\n";
-				errorMessage += "#R请按#Y确认\\OK键#R重试，请按#Y其他键#R退出";
-				showError();
-				subState = 1;
-			}
+            subState = 3;
 		}
-		if (subState == 1) {
+		else if (subState == 1) {
 			if (keyState.containsAndRemove(KeyCode.OK)) {
 				subState = 0;
 				errorMessage = "";
@@ -311,11 +292,23 @@ abstract public class GameCanvasEngine extends GameCanvas implements Runnable, I
 				}
 			}
 		}
-		if (subState == 2) {
+		else if (subState == 2) {
 			if (timePass(3000)) {
 				state = STATE_USER_LOOP;
 			}
 		}
+        else if (subState == 3) {
+            if (engineService.userLogin()) {
+                subState = 2;
+            }
+            else {
+                errorMessage = "用户登录失败。"+"\n";
+                errorMessage += "原因： "+engineService.getLoginMessage()+"\n\n";
+                errorMessage += "#R请按#Y确认\\OK键#R重试，请按#Y其他键#R退出";
+                showError();
+                subState = 1;
+            }
+        }
 	}
 	
 	private void playLogo() {

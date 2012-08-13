@@ -18,7 +18,6 @@ public final class PropService extends AbstractHttpService{
 	
 	/**
 	 * 查询游戏道具列表
-	 * @param accountId
 	 * @param productId
 	 * @return 返回非空，则查询成功；否则，失败
 	 * @throws ServiceException

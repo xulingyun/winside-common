@@ -3,8 +3,6 @@ package cn.ohyeah.itvgame.model;
 import java.io.DataInputStream;
 import java.io.IOException;
 
-import cn.ohyeah.stb.buf.ByteBuffer;
-
 /**
  * 玩家拥有道具信息类
  * @author maqian
@@ -27,10 +25,6 @@ public class OwnProp {
 		this.count = count;
 	}
 	public void readQueryResponseData(DataInputStream dis) throws IOException {
-		propId = dis.readInt();
-		count = dis.readInt();
-	}
-	public void readQueryResponseData(ByteBuffer dis) {
 		propId = dis.readInt();
 		count = dis.readInt();
 	}

@@ -4,8 +4,6 @@ import java.io.DataInputStream;
 import java.io.DataOutputStream;
 import java.io.IOException;
 
-import cn.ohyeah.stb.buf.ByteBuffer;
-
 /**
  * ÓÎÏ·¼ÇÂ¼Àà
  * @author maqian
@@ -73,16 +71,6 @@ public class GameRecord {
 		}
 	}
 	
-	public void writeData(ByteBuffer buf) {
-		if (data!=null && data.length>0) {
-			buf.writeInt(data.length);
-			buf.writeBytes(data, 0, data.length);
-		}
-		else {
-			buf.writeInt(0);
-		}
-	}
-	
 	public void readData(DataInputStream dis) throws IOException {
 		int totalLen = dis.readInt();
 		if (totalLen > 0) {
@@ -98,27 +86,12 @@ public class GameRecord {
 		}
 	}
 	
-	public void readData(ByteBuffer buf) {
-		int len = buf.readInt();
-		if (len > 0) {
-			data = buf.readBytes(len);
-		}
-	}
-	
 	public void writeSaveRequestData(DataOutputStream dos) throws IOException {
 		dos.writeInt(recordId);
 		dos.writeInt(playDuration);
 		dos.writeInt(scores);
 		dos.writeUTF(remark);
 		writeData(dos);
-	}
-	
-	public void writeSaveRequestData(ByteBuffer buf) {
-		buf.writeInt(recordId);
-		buf.writeInt(playDuration);
-		buf.writeInt(scores);
-		buf.writeUTF(remark);
-		writeData(buf);
 	}
 	
 	public void writeUpdateRequestData(DataOutputStream dos) throws IOException {
@@ -129,24 +102,7 @@ public class GameRecord {
 		writeData(dos);
 	}
 	
-	public void writeUpdateRequestData(ByteBuffer buf) {
-		buf.writeInt(recordId);
-		buf.writeInt(playDuration);
-		buf.writeInt(scores);
-		buf.writeUTF(remark);
-		writeData(buf);
-	}
-	
 	public void readReadResponseData(DataInputStream dis) throws IOException {
-		recordId = dis.readInt();
-		playDuration = dis.readInt();
-		scores = dis.readInt();
-		remark = dis.readUTF();
-		time = dis.readUTF();
-		readData(dis);
-	}
-	
-	public void readReadResponseData(ByteBuffer dis) {
 		recordId = dis.readInt();
 		playDuration = dis.readInt();
 		scores = dis.readInt();

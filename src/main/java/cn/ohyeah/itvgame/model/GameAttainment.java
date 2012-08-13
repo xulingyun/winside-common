@@ -4,8 +4,6 @@ import java.io.DataInputStream;
 import java.io.DataOutputStream;
 import java.io.IOException;
 
-import cn.ohyeah.stb.buf.ByteBuffer;
-
 /**
  * 游戏成就类
  * @author maqian
@@ -83,15 +81,6 @@ public class GameAttainment {
 			dos.writeInt(0);
 		}
 	}
-	public void writeData(ByteBuffer buf) throws IOException {
-		if (data!=null && data.length>0) {
-			buf.writeInt(data.length);
-			buf.writeBytes(data, 0, data.length);
-		}
-		else {
-			buf.writeInt(0);
-		}
-	}
 	
 	public void readData(DataInputStream dis) throws IOException {
 		int totalLen = dis.readInt();
@@ -107,13 +96,7 @@ public class GameAttainment {
 			}
 		}
 	}
-	
-	public void readData(ByteBuffer buf) {
-		int len = buf.readInt();
-		if (len > 0) {
-			data = buf.readBytes(len);
-		}
-	}
+
 	public void writeSaveRequestData(DataOutputStream dos) throws IOException {
 		dos.writeInt(attainmentId);
 		dos.writeInt(playDuration);
@@ -122,14 +105,7 @@ public class GameAttainment {
 		writeData(dos);
 		
 	}
-	public void writeSaveRequestData(ByteBuffer buf) throws IOException {
-		buf.writeInt(attainmentId);
-		buf.writeInt(playDuration);
-		buf.writeInt(scores);
-		buf.writeUTF(remark);
-		writeData(buf);
-		
-	}
+
 	public void writeUpdateRequestData(DataOutputStream dos) throws IOException {
 		dos.writeInt(attainmentId);
 		dos.writeInt(playDuration);
@@ -137,13 +113,7 @@ public class GameAttainment {
 		dos.writeUTF(remark);
 		writeData(dos);
 	}
-	public void writeUpdateRequestData(ByteBuffer buf) throws IOException {
-		buf.writeInt(attainmentId);
-		buf.writeInt(playDuration);
-		buf.writeInt(scores);
-		buf.writeUTF(remark);
-		writeData(buf);
-	}
+
 	public void readReadResponseData(DataInputStream dis) throws IOException {
 		attainmentId = dis.readInt();
 		playDuration = dis.readInt();
@@ -152,16 +122,6 @@ public class GameAttainment {
 		remark = dis.readUTF();
 		time = dis.readUTF();
 		readData(dis);
-	}
-	
-	public void readReadResponseData(ByteBuffer buf) throws IOException {
-		attainmentId = buf.readInt();
-		playDuration = buf.readInt();
-		scores = buf.readInt();
-		ranking = buf.readInt();
-		remark = buf.readUTF();
-		time = buf.readUTF();
-		readData(buf);
 	}
 	
 }

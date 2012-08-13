@@ -84,7 +84,7 @@ public final class AttainmentService extends AbstractHttpService{
 			
 			writeData(data);
 			checkHead();
-		    if (readResult() == 0) {
+		    if (readResult() == 0 && connectionDis.available() > 0) {
 		    	attainment = new GameAttainment();
 		    	attainment.readReadResponseData(connectionDis);
 		    }
@@ -127,20 +127,22 @@ public final class AttainmentService extends AbstractHttpService{
 			close();
 		}
 	}
-	
-	/**
-	 * <pre>
-	 * 查询玩家排行列表
-	 * 若查询排名靠前的1~10条记录,offset=0, limit=10
-	 * 若查询排名靠前的11-20条记录，offset=10， limit=10
-	 * </pre>
-	 * @param accountId
-	 * @param productId
-	 * @param offset
-	 * @param length
-	 * @return 返回非空，则成功；返回null，失败
-	 * @throws ServiceException
-	 */
+
+    /**
+     * <pre>
+     * 查询玩家排行列表
+     * 若查询排名靠前的1~10条记录,offset=0, limit=10
+     * 若查询排名靠前的11-20条记录，offset=10， limit=10
+     * </pre>
+     *
+     * @param productId
+     * @param orderCmd
+     * @param start
+     * @param end
+     * @param offset
+     * @param length
+     * @return
+     */
 	public GameRanking[] queryRankingList(int productId, String orderCmd, 
 			java.util.Date start, java.util.Date end, int offset, int length) {
 		try {

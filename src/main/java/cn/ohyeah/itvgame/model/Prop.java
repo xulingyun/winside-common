@@ -3,8 +3,6 @@ package cn.ohyeah.itvgame.model;
 import java.io.DataInputStream;
 import java.io.IOException;
 
-import cn.ohyeah.stb.buf.ByteBuffer;
-
 /**
  * 游戏道具类
  * @author maqian
@@ -45,11 +43,5 @@ public class Prop {
 		propName = dis.readUTF();
 		price = dis.readInt();
 		description = dis.readUTF();
-	}
-	public void readQueryResponseData(ByteBuffer buf) {
-		propId = buf.readInt();
-		propName = buf.readUTF();
-		price = buf.readInt();
-		description = buf.readUTF();
 	}
 }
