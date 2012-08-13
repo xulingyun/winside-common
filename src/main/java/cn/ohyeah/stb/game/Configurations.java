@@ -38,6 +38,7 @@ public class Configurations {
 	private String subscribeFocus;
 	private String rechargeCmd;
 	private String price;
+    private String appName;
 	
 	public static Configurations loadConfigurations() {
 		return loadConfigurations(DEFAULT_CONF_PATH);
@@ -65,6 +66,7 @@ public class Configurations {
 		subscribeFocus = props.get("subscribeFocus");
 		rechargeCmd = props.get("rechargeCmd");
 		price = props.get("price");
+        appName = props.get("appName");
 	}
 	
 	public static Configurations getInstance() {
@@ -173,6 +175,10 @@ public class Configurations {
 	public String getPrice() {
 		return price;
 	}
+
+    public String getAppName() {
+        return appName;
+    }
 	
 	public String toString() {
 		return telcomOperators+";"+serviceProvider+";"+favorWay

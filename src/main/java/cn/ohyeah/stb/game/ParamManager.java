@@ -162,7 +162,10 @@ final class ParamManager {
 		userId = getStringParam("LoginID");
 		server = getStringParam("HomeUrl");
 		accountName = getStringParam("UserID");
-		appName = getStringParam("product");
+        appName = Configurations.getInstance().getAppName();
+        if (appName == null || "".equals(appName)) {
+		    appName = getStringParam("appName");
+        }
 		dijoyAppID = getStringParam("AppID");
 		dijoyReturnUrl = getStringParam("ReturnUrl");
 		dijoyPlatformExt = getStringParam("PlatformExt");
