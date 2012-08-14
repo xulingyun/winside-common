@@ -172,7 +172,10 @@ final class ParamManager {
 		buyURL = getStringParam("BuyService");
 		userToken = "";
 		spid = "";
-        checkKey = "";
+		checkKey = Configurations.getInstance().getDijoyPayKey();
+        if (checkKey == null || "".equals(checkKey)) {
+        	checkKey = getStringParam("payKey");
+        }
 	}
 	
 	private void parseWinsidegdPlatParam() {

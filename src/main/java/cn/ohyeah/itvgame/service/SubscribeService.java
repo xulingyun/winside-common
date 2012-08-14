@@ -238,14 +238,14 @@ public final class SubscribeService extends AbstractHttpService{
 	}
 	
 	public int rechargeDijoy(String buyURL, int accountId, String accountName, String userToken, 
-			int productId, int amount, String remark, String appId,
+			int productId, int amount, String remark, String appId, String checkKey,
 			String platformExt) {
 		return rechargeDijoy(buyURL, accountId, accountName, userToken, productId, amount,  
-				SubscribePayType.PAY_TYPE_BILL, remark, appId, platformExt);
+				SubscribePayType.PAY_TYPE_BILL, remark, appId, checkKey, platformExt);
 	}
 	
 	public int rechargeDijoy(String buyURL, int accountId, String accountName, String userToken, 
-			int productId, int amount,int payType, String remark, String appId,
+			int productId, int amount,int payType, String remark, String appId, String checkKey,
 			String platformExt) {
 		try {
 			int balance = -1;
@@ -261,6 +261,7 @@ public final class SubscribeService extends AbstractHttpService{
 			bufferDos.writeInt(payType);
 			bufferDos.writeUTF(remark);
 			bufferDos.writeUTF(appId);
+			bufferDos.writeUTF(checkKey);
 			bufferDos.writeUTF(platformExt);
 			byte[] data = bufferBaos.toByteArray();
 			closeBufferDataOutputStream();

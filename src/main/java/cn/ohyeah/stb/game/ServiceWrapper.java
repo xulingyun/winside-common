@@ -619,7 +619,7 @@ public final class ServiceWrapper {
 			}else if(Configurations.getInstance().isServiceProviderDijoy()){
 				b = subscribeService.rechargeDijoy(paramManager.buyURL, paramManager.accountId,
                         paramManager.accountName, paramManager.userToken, paramManager.productId, amount, remark,
-						paramManager.dijoyAppID,paramManager.dijoyPlatformExt);
+						paramManager.dijoyAppID, paramManager.checkKey, paramManager.dijoyPlatformExt);
 			}
 			else {
 				
@@ -668,7 +668,7 @@ public final class ServiceWrapper {
 			}else if(Configurations.getInstance().isServiceProviderDijoy()){
 				b = subscribeService.rechargeDijoy(paramManager.buyURL, paramManager.accountId,
                         paramManager.accountName, paramManager.userToken, paramManager.productId, amount,
-                        remark,paramManager.dijoyAppID,paramManager.dijoyPlatformExt);
+                        remark,paramManager.dijoyAppID, paramManager.checkKey, paramManager.dijoyPlatformExt);
 			}
 			else {
 				b = subscribeService.recharge(paramManager.buyURL, paramManager.accountId, paramManager.accountName, 
