@@ -1,6 +1,7 @@
 package cn.ohyeah.stb.ui;
 
-import javax.microedition.lcdui.Graphics;
+import cn.ohyeah.stb.game.SGraphics;
+
 
 /**
  * ²Ëµ¥½Ó¿Ú
@@ -10,7 +11,7 @@ import javax.microedition.lcdui.Graphics;
 public interface IMenu {
 	public int getHilightIndex();
 	public void setHilightIndex(int index);
-	public void show(Graphics g);
+	public void show(SGraphics g);
 	public void nextItem();
 	public void prevItem();
 }

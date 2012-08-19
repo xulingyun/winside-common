@@ -1,8 +1,9 @@
 package cn.ohyeah.stb.ui;
 
 import javax.microedition.lcdui.Font;
-import javax.microedition.lcdui.Graphics;
 import javax.microedition.lcdui.Image;
+
+import cn.ohyeah.stb.game.SGraphics;
 
 /**
  *  ˙≈≈¡–±Ì≤Àµ•
@@ -86,7 +87,7 @@ public class VerticalListMenu implements IMenu{
 		this.itemNormalColor = color;
 	}
 	
-	public void show(Graphics g) {
+	public void show(SGraphics g) {
 		int sx, sy;
 		Font font = g.getFont();
 		int col = 0, row = 0;

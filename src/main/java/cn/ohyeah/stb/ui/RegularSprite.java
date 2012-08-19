@@ -1,8 +1,9 @@
 package cn.ohyeah.stb.ui;
 
-import javax.microedition.lcdui.Graphics;
 import javax.microedition.lcdui.Image;
 import javax.microedition.lcdui.game.Sprite;
+
+import cn.ohyeah.stb.game.SGraphics;
 
 /**
  * 规则的精灵类
@@ -70,7 +71,7 @@ public class RegularSprite implements ISprite {
 		frameIndex = (byte)((frameIndex+frameSequence.length-1)%frameSequence.length);
 	}
 
-	public void show(Graphics g, int x, int y) {
+	public void show(SGraphics g, int x, int y) {
 		int col = frameSequence[frameIndex]%cols;
 		int row = frameSequence[frameIndex]/cols;
 		g.drawRegion(image, col*frameWidth, row*frameHeight, frameWidth, frameHeight, transform, x, y, 20);
@@ -92,7 +93,7 @@ public class RegularSprite implements ISprite {
 		this.transform = Sprite.TRANS_MIRROR_ROT180;
 	}
 
-	public void show(Graphics g) {
+	public void show(SGraphics g) {
 		show(g, x, y);
 	}
 

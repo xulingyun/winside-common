@@ -1,10 +1,10 @@
 package cn.ohyeah.stb.ui;
 
 import javax.microedition.lcdui.Font;
-import javax.microedition.lcdui.Graphics;
 import javax.microedition.lcdui.Image;
 
 import cn.ohyeah.stb.game.IEngine;
+import cn.ohyeah.stb.game.SGraphics;
 import cn.ohyeah.stb.key.KeyCode;
 import cn.ohyeah.stb.key.KeyState;
 
@@ -91,7 +91,7 @@ public class PopupText {
 		this.textColor = textColor;
 	}
 	
-	public void show(Graphics g) {
+	public void show(SGraphics g) {
 		if (textBg == null) {
 			throw new RuntimeException("±≥æ∞Õº∆¨Œ¥…Ë÷√");
 		}
@@ -120,7 +120,7 @@ public class PopupText {
 	public void popup() {
 		boolean run = true;
 		KeyState key = engine.getKeyState();
-		Graphics g = engine.getGraphics();
+		SGraphics g = engine.getSGraphics();
 		while (run) {
 			if (key.containsAndRemove(KeyCode.OK)) {
 				key.clear();

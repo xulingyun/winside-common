@@ -29,7 +29,7 @@ public interface IEngine {
 	abstract public int getScreenWidth();
 	abstract public int getScreenHeight();
 	abstract public void flushGraphics();
-	abstract public Graphics getGraphics();
+	abstract public SGraphics getSGraphics();
 	abstract public KeyState getKeyState();
 	abstract public Font getFont();
 	abstract public void setFont(Font font);

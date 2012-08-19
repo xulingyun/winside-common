@@ -1,7 +1,6 @@
 package cn.ohyeah.stb.game;
 
 import javax.microedition.lcdui.Font;
-import javax.microedition.lcdui.Graphics;
 import javax.microedition.lcdui.Image;
 
 import cn.ohyeah.itvgame.model.SubscribePayType;
@@ -114,7 +113,7 @@ public class StateRecharge {
 	
 	public int recharge() {
 		int result = 0;
-		Graphics g = engine.getGraphics();
+		SGraphics g = engine.getSGraphics();
 		KeyState KeyState = engine.getKeyState();
 		if (engineService.isSupportSubscribeByPoints()) {
 			payTypeCount = 2;
@@ -163,7 +162,7 @@ public class StateRecharge {
 		}
 	}
 	
-	private void show(Graphics g) {
+	private void show(SGraphics g) {
 		switch(state) {
 		case STATE_SELECT_AMOUNT: 
 			showSelectAmount(g);
@@ -187,7 +186,7 @@ public class StateRecharge {
 		password = "";
 	}
 	
-	private void drawPassword(Graphics g, int x, int y, int w, int h, boolean drawCursor, boolean drawChar) {
+	private void drawPassword(SGraphics g, int x, int y, int w, int h, boolean drawCursor, boolean drawChar) {
 		g.setColor(0Xffff00);
 		Font font = g.getFont();
 		int charW = font.charWidth('*');
@@ -214,7 +213,7 @@ public class StateRecharge {
 		}
 	}
 	
-	private void drawSelectChars(Graphics g, int x, int y) {
+	private void drawSelectChars(SGraphics g, int x, int y) {
 		int sx = x;
 		int sy = y;
 		int sl = 22;
@@ -234,7 +233,7 @@ public class StateRecharge {
 		}
 	}
 	
-	private void showInputPwd(Graphics g) {
+	private void showInputPwd(SGraphics g) {
 		Image pwdBg = resource.loadImage(PIC_ID_PASSWORD_BG);
 		int bgX = (engine.getScreenWidth()-pwdBg.getWidth())>>1;
 		int bgY = (engine.getScreenHeight()-pwdBg.getHeight())>>1;
@@ -274,7 +273,7 @@ public class StateRecharge {
 		}
 	}
 
-	private void showConfirm(Graphics g) {
+	private void showConfirm(SGraphics g) {
 		Image bgImg = resource.loadImage(PIC_ID_CONFIRM_BG);
 		int confirmX = (engine.getScreenWidth()-bgImg.getWidth())>>1;
 		int confirmY = (engine.getScreenHeight()-bgImg.getHeight())>>1;
@@ -320,7 +319,7 @@ public class StateRecharge {
 		}
 	}
 
-	private void showSelectAmount(Graphics g) {
+	private void showSelectAmount(SGraphics g) {
 		g.setColor(43, 39, 36);
 		g.fillRect(0, 0, engine.getScreenWidth(), engine.getScreenHeight());
 		
@@ -608,7 +607,7 @@ public class StateRecharge {
 					String resultMsg = "";
 					PopupText pt = UIResource.getInstance().buildDefaultPopupText();
 					pt.setText("正在"+engineService.getRechargeCommand()+"，请稍后...");
-					pt.show(engine.getGraphics());
+					pt.show(engine.getSGraphics());
 					engine.flushGraphics();
 					ServiceWrapper sw = engine.getServiceWrapper();
 					try {
@@ -717,7 +716,7 @@ public class StateRecharge {
 				String resultMsg = "";
 				PopupText pt = UIResource.getInstance().buildDefaultPopupText();
 				pt.setText("正在"+engineService.getRechargeCommand()+"，请稍后...");
-				pt.show(engine.getGraphics());
+				pt.show(engine.getSGraphics());
 				engine.flushGraphics();
 				ServiceWrapper sw = engine.getServiceWrapper();
 				try {

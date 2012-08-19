@@ -1,7 +1,8 @@
 package cn.ohyeah.stb.ui;
 
-import javax.microedition.lcdui.Graphics;
 import javax.microedition.lcdui.Image;
+
+import cn.ohyeah.stb.game.SGraphics;
 
 /**
  * 图像处理工具类
@@ -20,7 +21,7 @@ public class ImageUtil {
 	 * @param destX 显示的X坐标
 	 * @param destY 显示的Y坐标
 	 */
-	public static void drawGrayByLine(Graphics g, Image pic, 
+	public static void drawGrayByLine(SGraphics g, Image pic, 
 			int srcX, int srcY, int w, int h, int destX, int destY) {
 		int []rgbData = new int[w];
 		for (int hd = h-1; hd>=0; --hd) {
@@ -43,7 +44,7 @@ public class ImageUtil {
 	 * @param destX 显示的X坐标
 	 * @param destY 显示的Y坐标
 	 */
-	public static void drawGray(Graphics g, Image pic, 
+	public static void drawGray(SGraphics g, Image pic, 
 			int srcX, int srcY, int w, int h, int destX, int destY) {
 		int []rgbData = new int[w*h];
 		Image grayImg;
@@ -85,7 +86,7 @@ public class ImageUtil {
 	 * @param destY 显示的Y坐标
 	 * @param alpha alpha通道值
 	 */
-	public static void drawTransparenceByLine(Graphics g, Image pic, 
+	public static void drawTransparenceByLine(SGraphics g, Image pic, 
 			int srcX, int srcY, int w, int h, int destX, int destY, int alpha) {
 
 		int []rgbData = new int[w];
@@ -112,7 +113,7 @@ public class ImageUtil {
 	 * @param destY 显示的Y坐标
 	 * @param alpha alpha通道值
 	 */
-	public static void drawTransparence(Graphics g, Image pic, 
+	public static void drawTransparence(SGraphics g, Image pic, 
 			int srcX, int srcY, int w, int h, int destX, int destY, int alpha) {
 		
 		int []rgbData = new int[w*h];
@@ -163,7 +164,7 @@ public class ImageUtil {
 	 * @param destY 显示的Y坐标
 	 * @param delta
 	 */
-	public static void drawBrightByLine(Graphics g, Image pic, 
+	public static void drawBrightByLine(SGraphics g, Image pic, 
 			int srcX, int srcY, int w, int h, int destX, int destY, int delta) {
 
 		int []rgbData = new int[w];
@@ -190,7 +191,7 @@ public class ImageUtil {
 	 * @param destY 显示的Y坐标
 	 * @param delta
 	 */
-	public static void drawBright(Graphics g, Image pic, 
+	public static void drawBright(SGraphics g, Image pic, 
 			int srcX, int srcY, int w, int h, int destX, int destY, int delta) {
 		
 		int []rgbData = new int[w*h];

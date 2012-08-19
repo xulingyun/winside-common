@@ -1,8 +1,9 @@
 package cn.ohyeah.stb.ui;
 
-import javax.microedition.lcdui.Graphics;
 import javax.microedition.lcdui.Image;
 import javax.microedition.lcdui.game.Sprite;
+
+import cn.ohyeah.stb.game.SGraphics;
 
 /**
  * ¹ö¶¯Ìõ
@@ -24,7 +25,7 @@ public class ScrollBar {
 	private short totalPage;
 	private byte scrollType;
 	
-	public void show(Graphics g) {
+	public void show(SGraphics g) {
 		if (scrollBarLen == 0) {
 			calculate();
 		}

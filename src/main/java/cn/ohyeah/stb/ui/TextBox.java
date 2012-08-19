@@ -1,9 +1,9 @@
 package cn.ohyeah.stb.ui;
 
 import javax.microedition.lcdui.Font;
-import javax.microedition.lcdui.Graphics;
 import javax.microedition.lcdui.Image;
 
+import cn.ohyeah.stb.game.SGraphics;
 import cn.ohyeah.stb.key.KeyCode;
 import cn.ohyeah.stb.key.KeyState;
 
@@ -146,7 +146,7 @@ public class TextBox {
 		insertMode = false;
 	}
 
-	public void show(Graphics g) {
+	public void show(SGraphics g) {
 		if (charLen == 0) {
 			insertMode = true;
 		}

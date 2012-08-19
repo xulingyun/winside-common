@@ -28,6 +28,8 @@ public class Configurations {
 	public static final String TAG_THE9 = "the9";				/*九城平台*/
 	public static final String TAG_DIJOY = "dijoy";				/*鼎亿平台*/
 	
+	public static final short Abs_Coords_X = 35, Abs_Coords_Y = 20;
+	
 	private static Configurations instance = new Configurations();
 	private static boolean success;
 	private static String errorMessage;

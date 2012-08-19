@@ -43,7 +43,7 @@ abstract public class GameCanvasEngine extends GameCanvas implements Runnable, I
 	private int stateStackPointer;
 	protected MIDlet midlet;
 	protected KeyState keyState;
-	protected Graphics g;
+	protected SGraphics g;
 	protected int screenWidth;
 	protected int screenHeight;
 	protected int loopCircle;
@@ -83,7 +83,7 @@ abstract public class GameCanvasEngine extends GameCanvas implements Runnable, I
 		appStartTimeMillis = System.currentTimeMillis();
 		setFullScreenMode(true);
 		keyState = new KeyState();
-		g = super.getGraphics();
+		g = new SGraphics(super.getGraphics(),Configurations.Abs_Coords_X,Configurations.Abs_Coords_Y);
 		initFontSize();
 		setDefaultFont();
 		screenWidth = getWidth();
@@ -186,7 +186,7 @@ abstract public class GameCanvasEngine extends GameCanvas implements Runnable, I
 		super.flushGraphics();
 	}
 	
-	public Graphics getGraphics() {
+	public SGraphics getSGraphics() {
 		return g;
 	}
 

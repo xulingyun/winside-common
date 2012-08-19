@@ -1,7 +1,5 @@
 package cn.ohyeah.stb.game;
 
-import javax.microedition.lcdui.Graphics;
-
 import cn.ohyeah.stb.ui.TextView;
 
 /**
@@ -89,7 +87,7 @@ public class DebugModule {
 			+", TM: "+totalMem+"kb"+", MM: "+__DEBUG_MAX_MEM+"kb"+", CM: "+useMem+"kb\n";
 	}
 	
-	public void showDebugInfo(Graphics g) {
+	public void showDebugInfo(SGraphics g) {
 		calcDebugInfo();
 		int sy = engine.getScreenHeight()-66;
 		g.setColor(0);

@@ -1,10 +1,10 @@
 package cn.ohyeah.stb.ui;
 
 import javax.microedition.lcdui.Font;
-import javax.microedition.lcdui.Graphics;
 import javax.microedition.lcdui.Image;
 
 import cn.ohyeah.stb.game.IEngine;
+import cn.ohyeah.stb.game.SGraphics;
 import cn.ohyeah.stb.key.KeyCode;
 import cn.ohyeah.stb.key.KeyState;
 
@@ -126,7 +126,7 @@ public class PopupConfirm {
 		}
 	}
 	
-	public void show(Graphics g) {
+	public void show(SGraphics g) {
 		if (textBg == null) {
 			throw new RuntimeException("±≥æ∞Õº∆¨Œ¥…Ë÷√");
 		}
@@ -175,7 +175,7 @@ public class PopupConfirm {
 		int confirmIndex = 0;
 		boolean run = true;
 		KeyState keyState = engine.getKeyState();
-		Graphics g = engine.getGraphics();
+		SGraphics g = engine.getSGraphics();
 		while (run) {
 			if (keyState.containsAndRemove(KeyCode.OK)) {
 				confirmIndex = getButtonIndex();

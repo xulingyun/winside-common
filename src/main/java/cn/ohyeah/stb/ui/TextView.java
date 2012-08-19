@@ -1,7 +1,8 @@
 package cn.ohyeah.stb.ui;
 
 import javax.microedition.lcdui.Font;
-import javax.microedition.lcdui.Graphics;
+
+import cn.ohyeah.stb.game.SGraphics;
 
 /**
  * 文字显示工具
@@ -48,7 +49,7 @@ public class TextView {
 	
 	private static TextView textView = new TextView();
 	
-	private void showText(Graphics g, String text, int gap, int x, int y, int w, int h, boolean isSingleLine) {
+	private void showText(SGraphics g, String text, int gap, int x, int y, int w, int h, boolean isSingleLine) {
 		if (text == null) {
 			return;
 		}
@@ -361,7 +362,7 @@ public class TextView {
 		return new int[]{cmd, info, scanLen};
 	}
 	
-	public void showSingleLine(Graphics g, String text, int x, int y, int w, int h, int style) {
+	public void showSingleLine(SGraphics g, String text, int x, int y, int w, int h, int style) {
 		Font font = g.getFont();
 		int sx = 0, sy = 0;
 		
@@ -394,23 +395,23 @@ public class TextView {
 		
 	}
 	
-	public void showSingleLine(Graphics g, String text, int x, int y) {
+	public void showSingleLine(SGraphics g, String text, int x, int y) {
 		showSingleLine(g, text, x, y, 0, 0, STYLE_NORMAL);
 	}
 	
-	public void showMultiLine(Graphics g, String text, int gap, int x, int y, int w, int h) {
+	public void showMultiLine(SGraphics g, String text, int gap, int x, int y, int w, int h) {
 		showText(g, text, gap, x, y, w, h, false);
 	}
 	
-	public static void showSingleLineText(Graphics g, String text, int x, int y) {
+	public static void showSingleLineText(SGraphics g, String text, int x, int y) {
 		showSingleLineText(g, text, x, y, 0, 0, STYLE_NORMAL);
 	}
 	
-	public static void showSingleLineText(Graphics g, String text, int x, int y, int w, int h, int style) {
+	public static void showSingleLineText(SGraphics g, String text, int x, int y, int w, int h, int style) {
 		textView.showSingleLine(g, text, x, y, w, h, style);
 	}
 	
-	public static void showMultiLineText(Graphics g, String text, int gap, int x, int y, int w, int h) {
+	public static void showMultiLineText(SGraphics g, String text, int gap, int x, int y, int w, int h) {
 		textView.showMultiLine(g, text, gap, x, y, w, h);
 	}
 

@@ -1,7 +1,8 @@
 package cn.ohyeah.stb.ui;
 
-import javax.microedition.lcdui.Graphics;
 import javax.microedition.lcdui.Image;
+
+import cn.ohyeah.stb.game.SGraphics;
 
 /**
  * 简单精灵接口
@@ -18,8 +19,8 @@ public interface ISprite {
 	public void setImage(Image image, int frameWidth, int frameHeight);
 	public void nextFrame();
 	public void prevFrame();
-	public void show(Graphics g, int x, int y);
-	public void show(Graphics g);
+	public void show(SGraphics g, int x, int y);
+	public void show(SGraphics g);
 	public void setX(int x);
 	public void setY(int y);
 	public void setPosition(int x, int y);

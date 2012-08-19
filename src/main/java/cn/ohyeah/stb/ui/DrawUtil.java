@@ -1,8 +1,9 @@
 package cn.ohyeah.stb.ui;
 
 import javax.microedition.lcdui.Font;
-import javax.microedition.lcdui.Graphics;
 import javax.microedition.lcdui.Image;
+
+import cn.ohyeah.stb.game.SGraphics;
 
 /**
  * 绘制工具
@@ -41,7 +42,7 @@ public class DrawUtil {
 	 * @param y 按钮显示位置
 	 * @param textColor 按钮文字颜色
 	 */
-	public static void drawAdaptiveButton(Graphics g, Image btnBg, int btnSrcX, int btnSrcY, int btnW, int btnH, 
+	public static void drawAdaptiveButton(SGraphics g, Image btnBg, int btnSrcX, int btnSrcY, int btnW, int btnH, 
 			int btnBorder, String text, int x, int y, int textColor) {
 		
 		int btnMidW = btnW-btnBorder-btnBorder;
@@ -99,7 +100,7 @@ public class DrawUtil {
 	 * @param y 按钮显示位置
 	 * @param textColor 按钮文字颜色
 	 */
-	public static void drawButton(Graphics g, Image btnBg, String text, int x, int y, int textColor) {
+	public static void drawButton(SGraphics g, Image btnBg, String text, int x, int y, int textColor) {
 		Font font = g.getFont();
 		int sx = x + ((btnBg.getWidth()-font.stringWidth(text))>>1);
 		int sy = y + ((btnBg.getHeight()-font.getHeight())>>1);
@@ -118,7 +119,7 @@ public class DrawUtil {
 	 * @param gap 每个数字间的间距
 	 * @return
 	 */
-	public static int drawNumber(Graphics g, Image img, int num, int x, int y, int gap) {
+	public static int drawNumber(SGraphics g, Image img, int num, int x, int y, int gap) {
 		String number = Integer.toString(num);
 		int imgW = img.getWidth()/10;
 		int imgH = img.getHeight();
@@ -141,7 +142,7 @@ public class DrawUtil {
 	 * @param gap 每个数字间的间距
 	 * @return
 	 */
-	public static int drawNumberWithSymbol(Graphics g, Image img, int num, int x, int y, int gap) {
+	public static int drawNumberWithSymbol(SGraphics g, Image img, int num, int x, int y, int gap) {
 		String number = num>=0?("+"+Integer.toString(num)):Integer.toString(num);
 		int imgW = img.getWidth()/12;
 		int imgH = img.getHeight();
@@ -172,7 +173,7 @@ public class DrawUtil {
 	 * @param lineW
 	 * @param color
 	 */
-	public static void drawRect(Graphics g, int x, int y, int w, int h, int lineW, int color) {
+	public static void drawRect(SGraphics g, int x, int y, int w, int h, int lineW, int color) {
 		g.setColor(color);
 		drawRect(g, x, y, w, h, lineW);
 	}
@@ -186,7 +187,7 @@ public class DrawUtil {
 	 * @param h
 	 * @param lineW
 	 */
-	public static void drawRect(Graphics g, int x, int y, int w, int h, int lineW) {
+	public static void drawRect(SGraphics g, int x, int y, int w, int h, int lineW) {
 		int sx = x-1, sy = y-1, sw = w+1, sh = h+1;
 		g.drawRect(sx, sy, sw, sh);
 		for (int i = 1; i < lineW; ++i) {
