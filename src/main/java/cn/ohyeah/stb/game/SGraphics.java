@@ -15,7 +15,6 @@ public class SGraphics {
 	}
 	
 	public void clipRect(int x, int y, int width, int height) {
-		// TODO Auto-generated method stub
 		g.clipRect(x+offsetX, y+offsetY, width, height);
 	}
 	public void copyArea(int x_src, int y_src, int width, int height,
@@ -38,11 +37,9 @@ public class SGraphics {
 		g.drawChars(data, offset, length, x, y, anchor);
 	}
 	public void drawImage(Image img, int x, int y, int anchor) {
-		// TODO Auto-generated method stub
 		g.drawImage(img, x+offsetX, y+offsetY, anchor);
 	}
 	public void drawLine(int x1, int y1, int x2, int y2) {
-		// TODO Auto-generated method stub
 		g.drawLine(x1+offsetX, y1+offsetY, x2+offsetX, y2+offsetY);
 	}
 	public void drawRGB(int[] rgbData, int offset, int scanlength, int x,
@@ -51,46 +48,37 @@ public class SGraphics {
 		g.drawRGB(rgbData, offset, scanlength, x, y, width, height, processAlpha);
 	}
 	public void drawRect(int x, int y, int width, int height) {
-		// TODO Auto-generated method stub
 		g.drawRect(x+offsetX, y+offsetY, width, height);
 	}
 	public void drawRegion(Image src, int x_src, int y_src, int width,
 			int height, int transform, int x_dest, int y_dest, int anchor) {
-		// TODO Auto-generated method stub
 		g.drawRegion(src, x_src, y_src, width, height, transform, x_dest+offsetX, y_dest+offsetY,
 				anchor);
 	}
 	public void drawRoundRect(int x, int y, int width, int height,
 			int arcWidth, int arcHeight) {
-		// TODO Auto-generated method stub
 		g.drawRoundRect(x+offsetX, y+offsetY, width, height, arcWidth, arcHeight);
 	}
 	public void drawString(String str, int x, int y, int anchor) {
-		// TODO Auto-generated method stub
 		g.drawString(str, x+offsetX, y+offsetY, anchor);
 	}
 	public void drawSubstring(String str, int offset, int len, int x, int y,
 			int anchor) {
-		// TODO Auto-generated method stub
 		g.drawSubstring(str, offset, len, x+offsetX, y+offsetY, anchor);
 	}
 	public void fillArc(int x, int y, int width, int height, int startAngle,
 			int arcAngle) {
-		// TODO Auto-generated method stub
 		g.fillArc(x+offsetX, y+offsetY, width, height, startAngle, arcAngle);
 	}
 	public void fillRect(int x, int y, int width, int height) {
-		// TODO Auto-generated method stub
 		g.fillRect(x+offsetX, y+offsetY, width, height);
 	}
 	public void fillRoundRect(int x, int y, int width, int height,
 			int arcWidth, int arcHeight) {
-		// TODO Auto-generated method stub
 		g.fillRoundRect(x+offsetX, y+offsetY, width, height, arcWidth, arcHeight);
 	}
 	public void fillTriangle(int x1, int y1, int x2, int y2, int x3, int y3) {
-		// TODO Auto-generated method stub
-		g.fillTriangle(x1, y1, x2, y2, x3, y3);
+		g.fillTriangle(x1+offsetX, y1+offsetY, x2+offsetX, y2+offsetY, x3+offsetX, y3+offsetY);
 	}
 	public int getBlueComponent() {
 		// TODO Auto-generated method stub
