@@ -3,6 +3,7 @@ package cn.ohyeah.stb.ui;
 import javax.microedition.lcdui.Font;
 import javax.microedition.lcdui.Image;
 
+import cn.ohyeah.stb.game.Configurations;
 import cn.ohyeah.stb.game.IEngine;
 import cn.ohyeah.stb.game.SGraphics;
 import cn.ohyeah.stb.key.KeyCode;
@@ -98,7 +99,6 @@ public class PopupText {
 		if (text == null) {
 			throw new RuntimeException("Œƒ◊÷Œ¥…Ë÷√");
 		}
-
 		g.drawImage(textBg, textBgX, textBgY, 20);
 		g.setColor(textColor);
 		TextView.showMultiLineText(g, text, 1, textBgX+textOffsetX, textBgY+textOffsetY, textW, textH);

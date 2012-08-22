@@ -2,6 +2,7 @@ package cn.ohyeah.stb.res;
 
 import javax.microedition.lcdui.Image;
 
+import cn.ohyeah.stb.game.Configurations;
 import cn.ohyeah.stb.game.IEngine;
 import cn.ohyeah.stb.ui.PopupConfirm;
 import cn.ohyeah.stb.ui.PopupText;
@@ -81,8 +82,8 @@ public class UIResource {
 	private void registerTextBg(PopupText pt) {
 		Image textBg = resource.loadImage(PIC_ID_POPUP_BG);
 		pt.setTextBg(textBg);
-		pt.setTextBgPos((engine.getScreenWidth()-textBg.getWidth())>>1, 
-				(engine.getScreenHeight()-textBg.getHeight())>>1);
+		pt.setTextBgPos(((engine.getScreenWidth()-textBg.getWidth())>>1)-Configurations.Abs_Coords_X, 
+				((engine.getScreenHeight()-textBg.getHeight())>>1)-Configurations.Abs_Coords_Y);
 		defaultPt.setTextRegion(X_POPUP_TEXT, Y_POPUP_TEXT, W_POPUP_TEXT, H_POPUP_TEXT);
 		pt.setTextColor(0XFFFFFF);
 	}
@@ -134,8 +135,8 @@ public class UIResource {
 	private void registerTextBg(PopupConfirm pc) {
 		Image textBg = resource.loadImage(PIC_ID_POPUP_BG);
 		pc.setTextBg(textBg);
-		pc.setTextBgPos((engine.getScreenWidth()-textBg.getWidth())>>1, 
-				(engine.getScreenHeight()-textBg.getHeight())>>1);
+		pc.setTextBgPos(((engine.getScreenWidth()-textBg.getWidth())>>1)-Configurations.Abs_Coords_X, 
+				((engine.getScreenHeight()-textBg.getHeight())>>1)-Configurations.Abs_Coords_Y);
 		pc.setTextColor(0XFFFFFF);
 		pc.setTextRegion(X_POPUP_TEXT, Y_POPUP_TEXT, W_POPUP_TEXT, H_POPUP_TEXT);
 	}

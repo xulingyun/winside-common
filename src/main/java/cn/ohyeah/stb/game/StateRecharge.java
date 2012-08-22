@@ -236,6 +236,10 @@ public class StateRecharge {
 		Image pwdBg = resource.loadImage(PIC_ID_PASSWORD_BG);
 		int bgX = (engine.getScreenWidth()-pwdBg.getWidth())>>1;
 		int bgY = (engine.getScreenHeight()-pwdBg.getHeight())>>1;
+		
+		bgX -= Configurations.Abs_Coords_X;
+		bgY -= Configurations.Abs_Coords_Y;
+		
 		g.drawImage(pwdBg, bgX, bgY, 20);
 		
 		if (subState == SUB_STATE_INPUT_PWD_VIEW) {
@@ -276,6 +280,10 @@ public class StateRecharge {
 		Image bgImg = resource.loadImage(PIC_ID_CONFIRM_BG);
 		int confirmX = (engine.getScreenWidth()-bgImg.getWidth())>>1;
 		int confirmY = (engine.getScreenHeight()-bgImg.getHeight())>>1;
+		
+		confirmX -= Configurations.Abs_Coords_X;
+		confirmY -= Configurations.Abs_Coords_Y;
+		
 		g.drawImage(bgImg, confirmX, confirmY, 20);
 		
 		if (Configurations.getInstance().isServiceProviderWinside()) {
@@ -320,7 +328,7 @@ public class StateRecharge {
 
 	private void showSelectAmount(SGraphics g) {
 		g.setColor(43, 39, 36);
-		g.fillRect(0, 0, engine.getScreenWidth(), engine.getScreenHeight());
+		//g.fillRect(0, 0, engine.getScreenWidth()-Configurations.Abs_Coords_X, engine.getScreenHeight()-Configurations.Abs_Coords_Y);
 		
 		Image bgImg = resource.loadImage(PIC_ID_RECHARGE_BG);
 		g.drawImage(bgImg, 0, 0, 20);
@@ -330,6 +338,9 @@ public class StateRecharge {
 		int amountsBgX = (engine.getScreenWidth()-434)>>1;
 		int amountsBgY = (engine.getScreenHeight()-324)>>1;
 		//g.drawImage(amountsBg, amountsBgX, amountsBgY, 20);
+		
+		amountsBgX -= Configurations.Abs_Coords_X;
+		amountsBgY -= Configurations.Abs_Coords_Y;
 		
 		Image title = null;
 		if (engineService.getRechargeCommand().equals("¶Ò»»")) {
