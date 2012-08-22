@@ -1,7 +1,6 @@
 package cn.ohyeah.stb.game;
 
 import javax.microedition.lcdui.Font;
-import javax.microedition.lcdui.Graphics;
 import javax.microedition.lcdui.Image;
 import javax.microedition.lcdui.game.GameCanvas;
 import javax.microedition.midlet.MIDlet;
@@ -271,8 +270,9 @@ abstract public class GameCanvasEngine extends GameCanvas implements Runnable, I
 			logoPic = ResourceManager.loadImage(path);
 		}
 		g.setColor(bgColor);
-		g.fillRect(0, 0, screenWidth, screenHeight);
-		g.drawImage(logoPic, (screenWidth-logoPic.getWidth())>>1, (screenHeight-logoPic.getHeight())>>1, 20); 
+		g.fillRect(-Configurations.Abs_Coords_X, -Configurations.Abs_Coords_Y, screenWidth, screenHeight);
+		g.drawImage(logoPic, ((screenWidth-logoPic.getWidth())>>1)-Configurations.Abs_Coords_X,
+				((screenHeight-logoPic.getHeight())>>1)-Configurations.Abs_Coords_Y, 20); 
 	}
 	
 	private void userLogin() {
@@ -396,7 +396,7 @@ abstract public class GameCanvasEngine extends GameCanvas implements Runnable, I
 	protected void drawLoading(int progress, String message) {
 		initLoadingRes();
 		g.setColor(0);
-		g.fillRect(0, 0, screenWidth, screenHeight);
+		g.fillRect(-Configurations.Abs_Coords_X, -Configurations.Abs_Coords_Y, screenWidth, screenHeight);
 		g.drawImage(logoPic, 4, 4, 20);
 		
 		int progress1W = progressPic1.getWidth();
@@ -433,7 +433,7 @@ abstract public class GameCanvasEngine extends GameCanvas implements Runnable, I
 	
 	protected void showError() {
 		g.setColor(0);
-		g.fillRect(0, 0, screenWidth, screenHeight);
+		g.fillRect(-Configurations.Abs_Coords_X, -Configurations.Abs_Coords_Y, screenWidth, screenHeight);
 		g.setColor(0XFFFFFF);
 		TextView.showMultiLineText(g, errorMessage, 1, 10, 20, screenWidth, screenHeight);
 	}
@@ -456,7 +456,7 @@ abstract public class GameCanvasEngine extends GameCanvas implements Runnable, I
 		int sy = (screenHeight-g.getFont().getHeight())/2;
 		g.setClip(0, 0, screenWidth, screenHeight);
 		g.setColor(0);
-		g.fillRect(0, 0, screenWidth, screenHeight);
+		g.fillRect(-Configurations.Abs_Coords_X, -Configurations.Abs_Coords_Y, screenWidth, screenHeight);
 		g.setColor(-1);
 		g.drawString(msg, sx, sy, 0);
 	}

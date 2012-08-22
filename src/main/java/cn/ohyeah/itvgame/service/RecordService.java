@@ -14,6 +14,7 @@ import cn.ohyeah.itvgame.protocol.Constant;
 public final class RecordService extends AbstractHttpService{
 	public RecordService(String url) {
 		super(url);
+		System.out.println("url:"+url);
 	}
 	
 	/**

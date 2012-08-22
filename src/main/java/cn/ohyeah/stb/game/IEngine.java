@@ -1,7 +1,6 @@
 package cn.ohyeah.stb.game;
 
 import javax.microedition.lcdui.Font;
-import javax.microedition.lcdui.Graphics;
 
 import cn.ohyeah.stb.key.KeyState;
 

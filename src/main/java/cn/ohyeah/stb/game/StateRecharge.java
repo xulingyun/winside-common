@@ -4,7 +4,6 @@ import javax.microedition.lcdui.Font;
 import javax.microedition.lcdui.Image;
 
 import cn.ohyeah.itvgame.model.SubscribePayType;
-import cn.ohyeah.itvgame.service.ServiceException;
 import cn.ohyeah.stb.game.Configurations;
 import cn.ohyeah.stb.game.EngineService;
 import cn.ohyeah.stb.game.ServiceWrapper;
