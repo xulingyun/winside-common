@@ -6,7 +6,7 @@ package cn.ohyeah.stb.key;
  * @version 1.0
  */
 public class KeyState {
-	private Object keyLock = new Object();
+	//private Object keyLock = new Object();
 	private int keyStates;
 	volatile private int currKeyCode;
 	volatile private char ch;
@@ -38,9 +38,9 @@ public class KeyState {
 	 * @param keyCode
 	 */
 	public void set(int keyCode) {
-		synchronized (keyLock) {
+		//synchronized (keyLock) {
 			keyStates |= keyCode;
-		}
+		//}
 		if (currKeyCode ==  keyCode) {
 			if (isDoubleClick) {
 				isTripleClick = true;
@@ -61,18 +61,18 @@ public class KeyState {
 	 * @param keyCode
 	 */
 	public void remove(int keyCode) {
-		synchronized (keyLock) {
+		//synchronized (keyLock) {
 			keyStates &= ~keyCode;
-		}
+		//}
 	}
 	
 	/**
 	 * Çå¿Õ°´¼ü»º´æ
 	 */
 	public void clear() {
-		synchronized (keyLock) {
+		//synchronized (keyLock) {
 			keyStates = 0;
-		}
+		//}
 	}
 	
 	/**
@@ -81,9 +81,9 @@ public class KeyState {
 	 * @return
 	 */
 	public boolean contains(int keyCode) {
-		synchronized (keyLock) {
+		//synchronized (keyLock) {
 			return (keyStates&keyCode)!=0;
-		}
+		//}
 	}
 	
 	/**
@@ -91,19 +91,19 @@ public class KeyState {
 	 * @return
 	 */
 	public boolean containsAnyKey() {
-		synchronized (keyLock) {
+		//synchronized (keyLock) {
 			return keyStates!=0;
-		}
+		//}
 	}
 	
 	public boolean containsAnyKeyAndRemove() {
-		synchronized (keyLock) {
+		//synchronized (keyLock) {
 			if (containsAnyKey()) {
 				clear();
 				return true;
 			}
 			return false;
-		}
+		//}
 	}
 	
 	/**
@@ -114,13 +114,13 @@ public class KeyState {
 	 * @return
 	 */
 	public boolean containsAndRemove(int keyCode) {
-		synchronized (keyLock) {
+		//synchronized (keyLock) {
 			if (contains(keyCode)) {
 				remove(keyCode);
 				return true;
 			}
 			return false;
-		}
+		//}
 	}
 	
 	/**
