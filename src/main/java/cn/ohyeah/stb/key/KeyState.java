@@ -8,12 +8,12 @@ package cn.ohyeah.stb.key;
 public class KeyState {
 	//private Object keyLock = new Object();
 	private int keyStates;
-	volatile private int currKeyCode;
-	volatile private char ch;
-	volatile private boolean supportKeyReleased;
-	volatile private boolean isDoubleClick;
-	volatile private boolean isTripleClick;
-	volatile private boolean hasPersistMoveEvent;
+	private int currKeyCode;
+	private char ch;
+	private boolean supportKeyReleased;
+	private boolean isDoubleClick;
+	private boolean isTripleClick;
+	private boolean hasPersistMoveEvent;
 	
 	public KeyState(){}
 	
@@ -191,7 +191,7 @@ public class KeyState {
 	 * 按键点击处理函数
 	 * @param keyCode
 	 */
-	synchronized public void keyPressed(int keyCode) {
+	public void keyPressed(int keyCode) {
 		ch = 'V';
 		switch(keyCode)
 		{
@@ -299,7 +299,7 @@ public class KeyState {
 	 * 按键释放事件处理函数
 	 * @param keyCode
 	 */
-	synchronized public final void keyReleased(int keyCode) {
+	public final void keyReleased(int keyCode) {
 		if (!supportKeyReleased) {
 			supportKeyReleased = true;
 		}

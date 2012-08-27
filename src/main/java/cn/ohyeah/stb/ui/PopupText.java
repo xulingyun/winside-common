@@ -3,7 +3,6 @@ package cn.ohyeah.stb.ui;
 import javax.microedition.lcdui.Font;
 import javax.microedition.lcdui.Image;
 
-import cn.ohyeah.stb.game.Configurations;
 import cn.ohyeah.stb.game.IEngine;
 import cn.ohyeah.stb.game.SGraphics;
 import cn.ohyeah.stb.key.KeyCode;
