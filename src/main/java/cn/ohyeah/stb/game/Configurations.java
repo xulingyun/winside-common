@@ -41,7 +41,7 @@ public class Configurations {
 	private String rechargeCmd;
 	private String price;
     private String appName;
-    private String dijoyPayKey;
+   // private String dijoyPayKey;
 	
 	public static Configurations loadConfigurations() {
 		return loadConfigurations(DEFAULT_CONF_PATH);
@@ -70,7 +70,7 @@ public class Configurations {
 		rechargeCmd = props.get("rechargeCmd");
 		price = props.get("price");
         appName = props.get("appName");
-        dijoyPayKey = props.get("payKey");
+        //dijoyPayKey = props.get("payKey");
 	}
 	
 	public static Configurations getInstance() {
@@ -184,9 +184,9 @@ public class Configurations {
         return appName;
     }
     
-    public String getDijoyPayKey(){
+   /* public String getDijoyPayKey(){
     	return dijoyPayKey;
-    }
+    }*/
 	
 	public String toString() {
 		return telcomOperators+";"+serviceProvider+";"+favorWay
