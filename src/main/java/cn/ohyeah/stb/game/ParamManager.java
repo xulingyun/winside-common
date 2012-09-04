@@ -168,7 +168,7 @@ final class ParamManager {
         }
 		dijoyAppID = getStringParam("AppID");
 		dijoyReturnUrl = getStringParam("ReturnUrl");
-		dijoyPlatformExt = getStringParam("PlatformExt");
+		dijoyPlatformExt = getStringParamDijoy("PlatformExt"); //该参数可能为空
 		buyURL = getStringParam("BuyService");
 		userToken = "";
 		spid = "";
@@ -217,6 +217,19 @@ final class ParamManager {
 				parseSuccessful = false;
 				errorMessage += "[信息] ==> "+"获取参数"+"\""+paramName+"\""+"失败"+"\n";
 			}
+		}
+		catch (Exception e) {
+			e.printStackTrace();
+			parseSuccessful = false;
+			errorMessage += "[信息] ==> "+"获取参数"+"\""+paramName+"\""+"失败"+"\n";
+		}
+		return paramValue;
+	}
+	
+	private String getStringParamDijoy(String paramName) {
+		String paramValue = null;
+		try {
+			paramValue = engine.getAppProperty(paramName).trim();
 		}
 		catch (Exception e) {
 			e.printStackTrace();
