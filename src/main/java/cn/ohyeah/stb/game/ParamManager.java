@@ -26,6 +26,7 @@ final class ParamManager {
 	String dijoyRechargeUrl;	/*鼎亿特需参数, 充值页面URL地址*/
 	String dijoyPlatformExt;	/*鼎亿特需参数, 网页平台传递给应用的扩展信息*/
 	String dijoyReturnUrl;		/*鼎亿特需参数*/
+	String dijoyHomeUrl;		/*鼎亿特需参数*/
 	//String dijoyAppExt;		/*鼎亿特需参数*/
 	
 	String spid;			/*供应商ID，中游和掌世界充值时需要*/
@@ -160,7 +161,8 @@ final class ParamManager {
 	
 	private void parseDijoyPlatParam() {
 		userId = getStringParam("LoginID");
-		server = getStringParam("HomeUrl");
+		dijoyHomeUrl = getStringParam("HomeUrl");
+		server = getStringParam("loginUrl");
 		accountName = getStringParam("UserID");
         appName = Configurations.getInstance().getAppName();
         if (appName == null || "".equals(appName)) {
