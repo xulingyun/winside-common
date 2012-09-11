@@ -637,7 +637,11 @@ public final class ServiceWrapper {
 				}
 			}
 			else {
-				message = subscribeService.getMessage();
+				if(Configurations.getInstance().isServiceProviderDijoy()){
+					message = "账户余额不足，请返回到大厅充值！";
+				}else{
+					message = subscribeService.getMessage();
+				}
 			}
 		}
 		catch (Exception e) {

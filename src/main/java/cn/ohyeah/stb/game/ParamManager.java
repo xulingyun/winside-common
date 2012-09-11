@@ -160,10 +160,10 @@ final class ParamManager {
 	}
 	
 	private void parseDijoyPlatParam() {
-		userId = getStringParam("LoginID");
+		userId = getStringParam("UserID");
 		dijoyHomeUrl = getStringParam("HomeUrl");
 		server = getStringParam("loginUrl");
-		accountName = getStringParam("UserID");
+		accountName = getStringParam("LoginID");
         appName = Configurations.getInstance().getAppName();
         if (appName == null || "".equals(appName)) {
 		    appName = getStringParam("appName");
