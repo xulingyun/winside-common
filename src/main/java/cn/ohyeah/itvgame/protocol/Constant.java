@@ -47,11 +47,11 @@ public interface Constant {
 	public static final byte SUBSCRIBE_CMD_QUERY_BALANCE = 4;			/*查询余额*/
 	public static final byte SUBSCRIBE_CMD_SUBSCRIBE_PRODUCT = 5;		/*订购产品*/
 	public static final byte SUBSCRIBE_CMD_RECHARGE_WINSIDEGD = 6;		/*winsidegd充值*/
-	public static final byte SUBSCRIBE_CMD_RECHARGE_DIJOY = 7;		/*winsidegd充值*/
 	
 	public static final byte PURCHASE_CMD_PURCHASE_PROP = 1;			/*购买道具*/
 	public static final byte PURCHASE_CMD_EXPEND = 2;					/*花费金币*/
 	public static final byte PURCHASE_CMD_QUERY_PURCHASE_RECORD = 3;	/*查询消费记录*/
+	public static final byte PURCHASE_CMD_EXPEND_DIJOY = 4;				/*dijoy花费金币*/
 	
 	public static final byte ACCOUNT_CMD_QUERY_AUTHORIZATION = 1;		/*查询鉴权信息*/
 	public static final byte ACCOUNT_CMD_QUERY_SUB_PROPS = 2;			/*查询订购相关属性*/

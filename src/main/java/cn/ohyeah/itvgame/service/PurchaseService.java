@@ -3,6 +3,7 @@ package cn.ohyeah.itvgame.service;
 import java.io.IOException;
 
 import cn.ohyeah.itvgame.model.PurchaseRecord;
+import cn.ohyeah.itvgame.model.SubscribePayType;
 import cn.ohyeah.itvgame.protocol.Constant;
 
 /**
@@ -89,6 +90,49 @@ public final class PurchaseService extends AbstractHttpService{
 			bufferDos.writeInt(amount);
 			bufferDos.writeUTF(remark);
 			bufferDos.writeUTF(checkKey);
+			byte[] data = bufferBaos.toByteArray();
+			closeBufferDataOutputStream();
+			
+			writeData(data);
+			checkHead();
+			if (readResult() == 0) {
+				balance = connectionDis.readInt();
+			}
+			return balance;
+		} catch (IOException e) {
+			throw new ServiceException(e.getMessage());
+		}
+		finally {
+			close();
+		}
+	}
+	
+	public int expendDijoy(String buyURL, int accountId, String accountName, String userToken, 
+			int productId, int amount, String remark, String appId, String checkKey,
+			String platformExt) {
+		return expendDijoy(buyURL, accountId, accountName, userToken, productId, amount,  
+				SubscribePayType.PAY_TYPE_BILL, remark, appId, checkKey, platformExt);
+	}
+	
+	public int expendDijoy(String buyURL, int accountId, String accountName, String userToken, 
+			int productId, int amount,int payType, String remark, String appId, String checkKey,
+			String platformExt) {
+		try {
+			int balance = -1;
+			initHead(Constant.PROTOCOL_TAG_PURCHASE, Constant.PURCHASE_CMD_EXPEND_DIJOY);
+			openBufferDataOutputStream();
+			bufferDos.writeInt(headWrapper.getHead());
+			bufferDos.writeUTF(buyURL);
+			bufferDos.writeInt(accountId);
+			bufferDos.writeUTF(accountName);
+			bufferDos.writeUTF(userToken);
+			bufferDos.writeInt(productId);
+			bufferDos.writeInt(amount);
+			bufferDos.writeInt(payType);
+			bufferDos.writeUTF(remark);
+			bufferDos.writeUTF(appId);
+			bufferDos.writeUTF(checkKey);
+			bufferDos.writeUTF(platformExt);
 			byte[] data = bufferBaos.toByteArray();
 			closeBufferDataOutputStream();
 			

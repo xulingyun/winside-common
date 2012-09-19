@@ -377,8 +377,15 @@ public final class ServiceWrapper {
 		}
 		try {
 			PurchaseService purchaseService = new PurchaseService(server);
-			int b = purchaseService.expend(paramManager.buyURL, paramManager.accountId, paramManager.accountName, 
-					paramManager.userToken, paramManager.productId, amount, remark, paramManager.checkKey);
+			int b=0;
+			if(Configurations.getInstance().isServiceProviderDijoy()){
+				b = purchaseService.expendDijoy(paramManager.buyURL, paramManager.accountId,
+                        paramManager.accountName, paramManager.userToken, paramManager.productId, amount,
+                        remark,paramManager.dijoyAppID, paramManager.checkKey, paramManager.dijoyPlatformExt);
+			}else{
+				b = purchaseService.expend(paramManager.buyURL, paramManager.accountId, paramManager.accountName, 
+						paramManager.userToken, paramManager.productId, amount, remark, paramManager.checkKey);
+			}
 			result = purchaseService.getResult();
 			if (result == 0) {
 				if (b >= 0) {
@@ -616,13 +623,8 @@ public final class ServiceWrapper {
 				b = subscribeService.rechargeWinsidegd(paramManager.buyURL, paramManager.accountId, paramManager.accountName, 
 						paramManager.userToken, paramManager.productId, amount, engineService.subProps.getRechargeRatio(), 
 						remark, paramManager.checkKey, paramManager.spid, paramManager.gameid, paramManager.enterURL, paramManager.stbType, password);
-			}else if(Configurations.getInstance().isServiceProviderDijoy()){
-				b = subscribeService.rechargeDijoy(paramManager.buyURL, paramManager.accountId,
-                        paramManager.accountName, paramManager.userToken, paramManager.productId, amount, remark,
-						paramManager.dijoyAppID, paramManager.checkKey, paramManager.dijoyPlatformExt);
 			}
 			else {
-				
 				b = subscribeService.recharge(paramManager.buyURL, paramManager.accountId, paramManager.accountName, 
 						paramManager.userToken, paramManager.productId, amount,	engineService.subProps.getRechargeRatio(), 
 						remark, paramManager.checkKey, paramManager.spid, password);
@@ -637,11 +639,7 @@ public final class ServiceWrapper {
 				}
 			}
 			else {
-				if(Configurations.getInstance().isServiceProviderDijoy()){
-					message = "账户余额不足，请返回到大厅充值！";
-				}else{
-					message = subscribeService.getMessage();
-				}
+				message = subscribeService.getMessage();
 			}
 		}
 		catch (Exception e) {
@@ -669,10 +667,6 @@ public final class ServiceWrapper {
 						paramManager.userToken, paramManager.productId, amount,	engineService.subProps.getRechargeRatio(), 
 						payType, remark, paramManager.checkKey, paramManager.spid, paramManager.gameid, 
 						paramManager.enterURL, paramManager.stbType, password); 
-			}else if(Configurations.getInstance().isServiceProviderDijoy()){
-				b = subscribeService.rechargeDijoy(paramManager.buyURL, paramManager.accountId,
-                        paramManager.accountName, paramManager.userToken, paramManager.productId, amount,
-                        remark,paramManager.dijoyAppID, paramManager.checkKey, paramManager.dijoyPlatformExt);
 			}
 			else {
 				b = subscribeService.recharge(paramManager.buyURL, paramManager.accountId, paramManager.accountName, 
