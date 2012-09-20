@@ -377,15 +377,44 @@ public final class ServiceWrapper {
 		}
 		try {
 			PurchaseService purchaseService = new PurchaseService(server);
-			int b=0;
-			if(Configurations.getInstance().isServiceProviderDijoy()){
-				b = purchaseService.expendDijoy(paramManager.buyURL, paramManager.accountId,
-                        paramManager.accountName, paramManager.userToken, paramManager.productId, amount,
-                        remark,paramManager.dijoyAppID, paramManager.checkKey, paramManager.dijoyPlatformExt);
-			}else{
-				b = purchaseService.expend(paramManager.buyURL, paramManager.accountId, paramManager.accountName, 
+			int b = purchaseService.expend(paramManager.buyURL, paramManager.accountId, paramManager.accountName, 
 						paramManager.userToken, paramManager.productId, amount, remark, paramManager.checkKey);
+			result = purchaseService.getResult();
+			if (result == 0) {
+				if (b >= 0) {
+					engineService.balance -= b;
+				}
+				else {
+					engineService.balance += b;
+				}
 			}
+			else {
+				message = purchaseService.getMessage();
+			}
+		}
+		catch (Exception e) {
+			e.printStackTrace();
+			result = -1;
+			message = e.getMessage();
+		}
+	}
+	
+	/*鼎亿消费道具*/
+	public void expend(int price, int propId, String remark) {
+		if (engine.isDebugMode()) {
+			result = 0;
+			return;
+		}
+		if (offline) {
+			result = -1;
+			message = OFFLINE_MSG;
+			return;
+		}
+		try {
+			PurchaseService purchaseService = new PurchaseService(server);
+			int b = purchaseService.expendDijoy(paramManager.buyURL, paramManager.accountId,
+                        paramManager.accountName, paramManager.userToken, paramManager.productId, price, propId,
+                        remark,paramManager.dijoyAppID, paramManager.checkKey, paramManager.dijoyPlatformExt);
 			result = purchaseService.getResult();
 			if (result == 0) {
 				if (b >= 0) {

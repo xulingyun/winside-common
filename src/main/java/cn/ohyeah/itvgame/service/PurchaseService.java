@@ -108,14 +108,14 @@ public final class PurchaseService extends AbstractHttpService{
 	}
 	
 	public int expendDijoy(String buyURL, int accountId, String accountName, String userToken, 
-			int productId, int amount, String remark, String appId, String checkKey,
+			int productId, int amount,int propId, String remark, String appId, String checkKey,
 			String platformExt) {
-		return expendDijoy(buyURL, accountId, accountName, userToken, productId, amount,  
+		return expendDijoy(buyURL, accountId, accountName, userToken, productId, amount,  propId,
 				SubscribePayType.PAY_TYPE_BILL, remark, appId, checkKey, platformExt);
 	}
 	
 	public int expendDijoy(String buyURL, int accountId, String accountName, String userToken, 
-			int productId, int amount,int payType, String remark, String appId, String checkKey,
+			int productId, int amount, int propId, int payType, String remark, String appId, String checkKey,
 			String platformExt) {
 		try {
 			int balance = -1;
@@ -128,6 +128,7 @@ public final class PurchaseService extends AbstractHttpService{
 			bufferDos.writeUTF(userToken);
 			bufferDos.writeInt(productId);
 			bufferDos.writeInt(amount);
+			bufferDos.writeInt(propId);
 			bufferDos.writeInt(payType);
 			bufferDos.writeUTF(remark);
 			bufferDos.writeUTF(appId);

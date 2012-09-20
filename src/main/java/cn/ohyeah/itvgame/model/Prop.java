@@ -12,8 +12,15 @@ public class Prop {
 	private int propId;
 	private String propName;
 	private int price;				/*价格*/
+	private int feeCode;			/*扣费点*/
 	private String description;		/*描述*/
 	
+	public int getFeeCode() {
+		return feeCode;
+	}
+	public void setFeeCode(int feeCode) {
+		this.feeCode = feeCode;
+	}
 	public int getPropId() {
 		return propId;
 	}
