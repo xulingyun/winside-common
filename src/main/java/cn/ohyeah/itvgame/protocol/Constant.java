@@ -47,6 +47,7 @@ public interface Constant {
 	public static final byte SUBSCRIBE_CMD_QUERY_BALANCE = 4;			/*查询余额*/
 	public static final byte SUBSCRIBE_CMD_SUBSCRIBE_PRODUCT = 5;		/*订购产品*/
 	public static final byte SUBSCRIBE_CMD_RECHARGE_WINSIDEGD = 6;		/*winsidegd充值*/
+	public static final byte SUBSCRIBE_CMD_RECHARGE_SHENGYI = 7;		/*shengyi充值*/
 	
 	public static final byte PURCHASE_CMD_PURCHASE_PROP = 1;			/*购买道具*/
 	public static final byte PURCHASE_CMD_EXPEND = 2;					/*花费金币*/

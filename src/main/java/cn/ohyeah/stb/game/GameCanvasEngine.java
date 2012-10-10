@@ -192,7 +192,7 @@ abstract public class GameCanvasEngine extends GameCanvas implements Runnable, I
 	}
 
 	public void setDefaultFont() {
-		setFont(20);
+		setFont(20,false);
 	}
 	
 	public int getScreenWidth() {

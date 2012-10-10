@@ -32,7 +32,7 @@ public interface IEngine {
 	abstract public KeyState getKeyState();
 	abstract public Font getFont();
 	abstract public void setFont(Font font);
-	abstract public void setFont(int size);
+	abstract public void setFont(int size, boolean isBold);
 	abstract public void setDefaultFont();
 	
 	abstract public boolean isOffline();

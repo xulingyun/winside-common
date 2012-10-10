@@ -29,6 +29,11 @@ final class ParamManager {
 	String dijoyHomeUrl;		/*鼎亿特需参数*/
 	//String dijoyAppExt;		/*鼎亿特需参数*/
 	
+	String shengyiCPID;			/*盛翼特需参数*/
+	String shengyiCPPassWord;	/*盛翼特需参数*/
+	String shengyiUserIdType;	/*盛翼特需参数*/
+	String shengyiProductId;	/*盛翼特需参数*/
+	
 	String spid;			/*供应商ID，中游和掌世界充值时需要*/
 	String gameid;			/*游戏ID，中游和掌世界充值时需要*/
 	String buyURL;			/*查询元宝和扣除元宝服务器地址*/
@@ -81,6 +86,8 @@ final class ParamManager {
 		}
 		
 		Configurations conf = Configurations.getInstance();
+		System.out.println("telcomOperators:"+conf.getTelcomOperators());
+		System.out.println("serviceProvider:"+conf.getServiceProvider());
 		if (conf.isServiceProviderWinside()) {
 			if (conf.isTelcomOperatorsTelcomgd()) {
 				parseWinsidegdPlatParam();
@@ -94,6 +101,8 @@ final class ParamManager {
 			parseOhyeahPlatParam();
 		}else if(conf.isServiceProviderDijoy()){
 			parseDijoyPlatParam();
+		}else if(conf.isServiceProviderShengYi()){
+			parseShengYiPlatParam();
 		}
 		else {
 			parseSuccessful = false;
@@ -178,6 +187,22 @@ final class ParamManager {
         //if (checkKey == null || "".equals(checkKey)) {
     	checkKey = getStringParam("payKey");
         //}
+	}
+	
+	private void parseShengYiPlatParam(){
+		server = getStringParam("server");
+		userId = getStringParam("userId");
+		accountName = getStringParam("accountName");
+		userToken = getStringParam("userToken");
+		appName = getStringParam("appName");
+		shengyiCPID = getStringParam("cpId");
+		shengyiCPPassWord = getStringParam("cpPassWord");
+		shengyiUserIdType = getStringParam("userIdType");
+		shengyiProductId = getStringParam("productID");
+		buyURL = "";
+		gameid = "";
+		spid = "";
+		checkKey = "";
 	}
 	
 	private void parseWinsidegdPlatParam() {
