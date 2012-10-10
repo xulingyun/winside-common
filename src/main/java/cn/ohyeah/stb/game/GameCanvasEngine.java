@@ -139,29 +139,54 @@ abstract public class GameCanvasEngine extends GameCanvas implements Runnable, I
 		largeFontSize = font.getHeight();
 	}
 	
-	public void setFont(int size) {
+	public void setFont(int size, boolean isBold) {
 		Font font = null;
-		if (size <= smallFontSize) {
-			font = Font.getFont(Font.FACE_MONOSPACE, Font.STYLE_PLAIN, Font.SIZE_SMALL);
-		}
-		else if (size <= mediumFontSize) {
-			if (size >= smallFontSize+((mediumFontSize-smallFontSize)>>1)) {
-				font = Font.getFont(Font.FACE_MONOSPACE, Font.STYLE_PLAIN, Font.SIZE_MEDIUM);
-			}
-			else {
+		if(!isBold){
+			if (size <= smallFontSize) {
 				font = Font.getFont(Font.FACE_MONOSPACE, Font.STYLE_PLAIN, Font.SIZE_SMALL);
 			}
-		}
-		else if (size <= largeFontSize) {
-			if (size >= mediumFontSize+((largeFontSize-mediumFontSize)>>1)) {
-				font = Font.getFont(Font.FACE_MONOSPACE, Font.STYLE_PLAIN, Font.SIZE_LARGE);
+			else if (size <= mediumFontSize) {
+				if (size >= smallFontSize+((mediumFontSize-smallFontSize)>>1)) {
+					font = Font.getFont(Font.FACE_MONOSPACE, Font.STYLE_PLAIN, Font.SIZE_MEDIUM);
+				}
+				else {
+					font = Font.getFont(Font.FACE_MONOSPACE, Font.STYLE_PLAIN, Font.SIZE_SMALL);
+				}
+			}
+			else if (size <= largeFontSize) {
+				if (size >= mediumFontSize+((largeFontSize-mediumFontSize)>>1)) {
+					font = Font.getFont(Font.FACE_MONOSPACE, Font.STYLE_PLAIN, Font.SIZE_LARGE);
+				}
+				else {
+					font = Font.getFont(Font.FACE_MONOSPACE, Font.STYLE_PLAIN, Font.SIZE_MEDIUM);
+				}
 			}
 			else {
-				font = Font.getFont(Font.FACE_MONOSPACE, Font.STYLE_PLAIN, Font.SIZE_MEDIUM);
+				font = Font.getFont(Font.FACE_MONOSPACE, Font.STYLE_PLAIN, Font.SIZE_LARGE);
 			}
-		}
-		else {
-			font = Font.getFont(Font.FACE_MONOSPACE, Font.STYLE_PLAIN, Font.SIZE_LARGE);
+		}else{
+			if (size <= smallFontSize) {
+				font = Font.getFont(Font.FACE_MONOSPACE, Font.STYLE_BOLD, Font.SIZE_SMALL);
+			}
+			else if (size <= mediumFontSize) {
+				if (size >= smallFontSize+((mediumFontSize-smallFontSize)>>1)) {
+					font = Font.getFont(Font.FACE_MONOSPACE, Font.STYLE_BOLD, Font.SIZE_MEDIUM);
+				}
+				else {
+					font = Font.getFont(Font.FACE_MONOSPACE, Font.STYLE_BOLD, Font.SIZE_SMALL);
+				}
+			}
+			else if (size <= largeFontSize) {
+				if (size >= mediumFontSize+((largeFontSize-mediumFontSize)>>1)) {
+					font = Font.getFont(Font.FACE_MONOSPACE, Font.STYLE_BOLD, Font.SIZE_LARGE);
+				}
+				else {
+					font = Font.getFont(Font.FACE_MONOSPACE, Font.STYLE_BOLD, Font.SIZE_MEDIUM);
+				}
+			}
+			else {
+				font = Font.getFont(Font.FACE_MONOSPACE, Font.STYLE_BOLD, Font.SIZE_LARGE);
+			}
 		}
 		g.setFont(font);
 	}
