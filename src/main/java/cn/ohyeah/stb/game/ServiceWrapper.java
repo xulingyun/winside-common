@@ -794,8 +794,15 @@ public final class ServiceWrapper {
 		}
 		try {
 			SubscribeService subscribeService = new SubscribeService(server);
-			subscribeService.subscribeProduct(paramManager.buyURL, paramManager.accountId, paramManager.accountName, 
-					paramManager.userToken, paramManager.productId, subscribeType, remark, paramManager.checkKey);
+			if(Configurations.getInstance().isServiceProviderShengYi()){
+				subscribeService.subscribeProductShengyi(paramManager.accountId, 
+						paramManager.accountName, paramManager.userToken, paramManager.productId, 
+						subscribeType, remark, paramManager.shengyiCPID, paramManager.shengyiCPPassWord,
+						paramManager.shengyiUserIdType, paramManager.shengyiProductId);
+			}else{
+				subscribeService.subscribeProduct(paramManager.buyURL, paramManager.accountId, paramManager.accountName, 
+						paramManager.userToken, paramManager.productId, subscribeType, remark, paramManager.checkKey);
+			}
 			result = subscribeService.getResult();
 			if (result != 0) {
 				message = subscribeService.getMessage();

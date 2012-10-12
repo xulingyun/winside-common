@@ -105,6 +105,45 @@ public final class SubscribeService extends AbstractHttpService{
 			close();
 		}
 	}
+	
+	public void subscribeProductShengyi(int accountId, String accountName, String userToken, 
+			int productId, String subscribeType, String remark, String shengyiCPID,
+			String shengyiCPPassWord, String shengyiUserIdType, String shengyiProductId) {
+		subscribeProductShengyi(accountId, accountName, userToken, productId, subscribeType, SubscribePayType.PAY_TYPE_BILL,
+				remark, shengyiCPID, shengyiCPPassWord, shengyiUserIdType, shengyiProductId);
+	}
+	
+	public void subscribeProductShengyi(int accountId, String accountName, String userToken,	
+			int productId, String subscribeType, byte payTypeBill, String remark, String shengyiCPID, 
+			String shengyiCPPassWord, String shengyiUserIdType, String shengyiProductId){
+		try {
+			initHead(Constant.PROTOCOL_TAG_SUBSCRIBE, Constant.SUBSCRIBE_CMD_SUBSCRIBE_PRODUCT_SHENGYI);
+			openBufferDataOutputStream();
+			bufferDos.writeInt(headWrapper.getHead());
+			bufferDos.writeInt(accountId);
+			bufferDos.writeUTF(accountName);
+			bufferDos.writeUTF(userToken);
+			bufferDos.writeInt(productId);
+			bufferDos.writeUTF(subscribeType);
+			bufferDos.writeInt(payTypeBill);
+			bufferDos.writeUTF(remark);
+			bufferDos.writeUTF(shengyiCPID);
+			bufferDos.writeUTF(shengyiCPPassWord);
+			bufferDos.writeUTF(shengyiUserIdType);
+			bufferDos.writeUTF(shengyiProductId);
+			byte[] data = bufferBaos.toByteArray();
+			closeBufferDataOutputStream();
+			
+			writeData(data);
+			checkHead();
+			readResult();
+		} catch (IOException e) {
+			throw new ServiceException(e.getMessage());
+		}
+		finally {
+			close();
+		}
+	}
 
 	/**
 	 * ”Œœ∑¿‡≥‰÷µ
