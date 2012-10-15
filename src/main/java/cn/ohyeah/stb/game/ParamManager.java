@@ -198,7 +198,7 @@ final class ParamManager {
 		shengyiCPID = getStringParam("cpId");
 		shengyiCPPassWord = getStringParam("cpPassWord");
 		shengyiUserIdType = getStringParam("userIdType");
-		shengyiProductId = getStringParam("productID");
+		shengyiProductId = getStringParam("shengyiProductID");
 		buyURL = "";
 		gameid = "";
 		spid = "";
