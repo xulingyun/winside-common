@@ -1,6 +1,7 @@
 package cn.ohyeah.stb.util;
 
 import java.io.UnsupportedEncodingException;
+import java.util.Vector;
 
 /**
  * 转换工具
@@ -432,5 +433,53 @@ public class ConvertUtil {
 		}
 	}
 	
-	
+	/**
+	 * 拆分字符串
+	 * @param original
+	 * @param regex
+	 * @return
+	 */
+	public static String[] split(String original, String regex) {
+		// 取子串的起始位置
+		int startIndex = 0;
+		
+		// 将结果数据先放入Vector中 注意应当引入
+		Vector v = new Vector();
+		
+		// 返回的结果字符串数组
+		String[] str = null;
+		
+		// 存储取子串时起始位置
+		int index = 0;
+		
+		// 获得匹配子串的位置
+		startIndex = original.indexOf(regex);
+		
+		// 如果起始字符串的位置小于字符串的长度，则证明没有取到字符串末尾。
+		// -1代表取到了末尾
+		// 判断的条件，循环查找依据
+		while (startIndex < original.length() && startIndex != -1) {
+			
+			String temp = original.substring(index, startIndex);
+			
+			// 取子串
+			v.addElement(temp);
+			
+			// 设置取子串的起始位置
+			index = startIndex + regex.length();
+			
+			// 获得匹配子串的位置
+			startIndex = original.indexOf(regex, startIndex + regex.length());
+			
+		}
+		// 取结束的子串
+		v.addElement(original.substring(index + 1 - regex.length()));
+		
+		// 将Vector对象转换成数组
+		str = new String[v.size()];
+		for (int i = 0; i < v.size(); i++)
+			str[i] = (String) v.elementAt(i);
+		// 返回生成的数组
+		return str;
+	}
 }
