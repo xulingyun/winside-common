@@ -298,7 +298,10 @@ abstract public class GameCanvasEngine extends GameCanvas implements Runnable, I
 		g.fillRect(-Configurations.Abs_Coords_X, -Configurations.Abs_Coords_Y, screenWidth, screenHeight);
 		//g.drawImage(logoPic, ((screenWidth-logoPic.getWidth())>>1)-Configurations.Abs_Coords_X,
 		//		((screenHeight-logoPic.getHeight())>>1)-Configurations.Abs_Coords_Y, 20);
+		int col = g.getColor();
+		g.setColor(0xffffff);
 		g.drawString("”Œœ∑µ«»Î÷–...", 290,260, 20);
+		g.setColor(col);
 	}
 	
 	private void userLogin() {
