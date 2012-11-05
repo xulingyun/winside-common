@@ -1,6 +1,6 @@
 ext.jmeGroup = 'ohyeah'
 ext.jmeArchivesBaseName = 'itvgame-common'
-ext.jmeVersion = '1.2.9.5'
+ext.jmeVersion = '1.2.9.6'
 
 configurations {
     refProvide

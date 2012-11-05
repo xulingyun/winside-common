@@ -296,12 +296,15 @@ abstract public class GameCanvasEngine extends GameCanvas implements Runnable, I
 		}
 		g.setColor(bgColor);
 		g.fillRect(-Configurations.Abs_Coords_X, -Configurations.Abs_Coords_Y, screenWidth, screenHeight);
-		//g.drawImage(logoPic, ((screenWidth-logoPic.getWidth())>>1)-Configurations.Abs_Coords_X,
-		//		((screenHeight-logoPic.getHeight())>>1)-Configurations.Abs_Coords_Y, 20);
-		int col = g.getColor();
-		g.setColor(0xffffff);
-		g.drawString("游戏登入中...", 290,260, 20);
-		g.setColor(col);
+		if(Configurations.getInstance().isTelcomOperatorsTelcomgd()){
+			g.drawImage(logoPic, ((screenWidth-logoPic.getWidth())>>1)-Configurations.Abs_Coords_X,
+					((screenHeight-logoPic.getHeight())>>1)-Configurations.Abs_Coords_Y, 20);
+		}else{
+			int col = g.getColor();
+			g.setColor(0xffffff);
+			g.drawString("游戏登入中...", 290,260, 20);
+			g.setColor(col);
+		}
 	}
 	
 	private void userLogin() {
