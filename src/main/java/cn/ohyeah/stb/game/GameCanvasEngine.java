@@ -310,7 +310,7 @@ abstract public class GameCanvasEngine extends GameCanvas implements Runnable, I
 	private void userLogin() {
 		if (subState == 0) {
 			recordTime = System.currentTimeMillis();
-			showLogo(IMG_LOGO_OHYEAH, 0);
+			//showLogo(IMG_LOGO_OHYEAH, 0);
             subState = 3;
 		}
 		else if (subState == 1) {
