@@ -446,9 +446,15 @@ public final class ServiceWrapper {
 			return;
 		}
 		try {
+			int b=0;
 			PurchaseService purchaseService = new PurchaseService(server);
-			int b = purchaseService.purchaseProp(paramManager.buyURL, paramManager.accountId, paramManager.accountName, 
-					paramManager.userToken, paramManager.productId, propId, propCount, remark, paramManager.checkKey);
+			if(Configurations.getInstance().isTelcomOperatorsTelcomfj()){
+				b = purchaseService.expendWinsideLack(paramManager.buyURL, paramManager.accountId, paramManager.accountName, 
+						paramManager.userToken, paramManager.productId, propId, propCount, remark, paramManager.checkKey);
+			}else{
+				b = purchaseService.purchaseProp(paramManager.buyURL, paramManager.accountId, paramManager.accountName, 
+						paramManager.userToken, paramManager.productId, propId, propCount, remark, paramManager.checkKey);
+			}
 			result = purchaseService.getResult();
 			if (result == 0) {
 				if (b >= 0) {

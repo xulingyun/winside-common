@@ -107,6 +107,10 @@ public class Configurations {
 		return TAG_TELCOMGD.equals(telcomOperators);
 	}
 	
+	public boolean isTelcomOperatorsTelcomfj() {
+		return TAG_TELCOMFJ.equals(telcomOperators);
+	}
+	
 	public boolean isTelcomOperatorsCommon() {
 		return TAG_TELCOMCOMMON.equals(telcomOperators);
 	}

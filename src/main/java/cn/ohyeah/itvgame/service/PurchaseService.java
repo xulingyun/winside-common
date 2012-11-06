@@ -107,6 +107,41 @@ public final class PurchaseService extends AbstractHttpService{
 		}
 	}
 	
+	/**/
+	public int expendWinsideLack(String buyURL, int accountId, String accountName, String userToken, 
+			int productId, int propId, int propConut, String remark, String checkKey) {
+		try {
+			int balance = -1;
+			initHead(Constant.PROTOCOL_TAG_PURCHASE, Constant.PURCHASE_CMD_EXPEND_WINSIDE_LACK);
+			openBufferDataOutputStream();
+			bufferDos.writeInt(headWrapper.getHead());
+			bufferDos.writeUTF(buyURL);
+			bufferDos.writeInt(accountId);
+			bufferDos.writeUTF(accountName);
+			bufferDos.writeUTF(userToken);
+			bufferDos.writeInt(productId);
+			bufferDos.writeInt(propId);
+			bufferDos.writeInt(propConut);
+			bufferDos.writeInt(SubscribePayType.PAY_TYPE_BILL);
+			bufferDos.writeUTF(remark);
+			bufferDos.writeUTF(checkKey);
+			byte[] data = bufferBaos.toByteArray();
+			closeBufferDataOutputStream();
+			
+			writeData(data);
+			checkHead();
+			if (readResult() == 0) {
+				balance = connectionDis.readInt();
+			}
+			return balance;
+		} catch (IOException e) {
+			throw new ServiceException(e.getMessage());
+		}
+		finally {
+			close();
+		}
+	}
+	
 	public int expendDijoy(String buyURL, int accountId, String accountName, String userToken, 
 			int productId, int amount,int propId, String remark, String appId, String checkKey,
 			String platformExt) {
