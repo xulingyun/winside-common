@@ -109,7 +109,7 @@ public final class PurchaseService extends AbstractHttpService{
 	
 	/**/
 	public int expendWinsideLack(String buyURL, int accountId, String accountName, String userToken, 
-			int productId, int propId, int propConut, String remark, String checkKey) {
+			int productId, int propId, int amount, String remark, String checkKey) {
 		try {
 			int balance = -1;
 			initHead(Constant.PROTOCOL_TAG_PURCHASE, Constant.PURCHASE_CMD_EXPEND_WINSIDE_LACK);
@@ -121,7 +121,7 @@ public final class PurchaseService extends AbstractHttpService{
 			bufferDos.writeUTF(userToken);
 			bufferDos.writeInt(productId);
 			bufferDos.writeInt(propId);
-			bufferDos.writeInt(propConut);
+			bufferDos.writeInt(amount);
 			bufferDos.writeInt(SubscribePayType.PAY_TYPE_BILL);
 			bufferDos.writeUTF(remark);
 			bufferDos.writeUTF(checkKey);

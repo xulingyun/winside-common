@@ -412,9 +412,15 @@ public final class ServiceWrapper {
 		}
 		try {
 			PurchaseService purchaseService = new PurchaseService(server);
-			int b = purchaseService.expendDijoy(paramManager.buyURL, paramManager.accountId,
+			int b = 0;
+			if(Configurations.getInstance().isTelcomOperatorsTelcomfj()){
+				b = purchaseService.expendWinsideLack(paramManager.buyURL, paramManager.accountId, paramManager.accountName, 
+						paramManager.userToken, paramManager.productId, propId, price, remark, paramManager.checkKey);
+			}else if(Configurations.getInstance().isServiceProviderDijoy()){
+				b = purchaseService.expendDijoy(paramManager.buyURL, paramManager.accountId,
                         paramManager.accountName, paramManager.userToken, paramManager.productId, price, propId,
                         remark,paramManager.dijoyAppID, paramManager.checkKey, paramManager.dijoyPlatformExt);
+			}
 			result = purchaseService.getResult();
 			if (result == 0) {
 				if (b >= 0) {
@@ -446,15 +452,9 @@ public final class ServiceWrapper {
 			return;
 		}
 		try {
-			int b=0;
 			PurchaseService purchaseService = new PurchaseService(server);
-			if(Configurations.getInstance().isTelcomOperatorsTelcomfj()){
-				b = purchaseService.expendWinsideLack(paramManager.buyURL, paramManager.accountId, paramManager.accountName, 
+			int	b = purchaseService.purchaseProp(paramManager.buyURL, paramManager.accountId, paramManager.accountName, 
 						paramManager.userToken, paramManager.productId, propId, propCount, remark, paramManager.checkKey);
-			}else{
-				b = purchaseService.purchaseProp(paramManager.buyURL, paramManager.accountId, paramManager.accountName, 
-						paramManager.userToken, paramManager.productId, propId, propCount, remark, paramManager.checkKey);
-			}
 			result = purchaseService.getResult();
 			if (result == 0) {
 				if (b >= 0) {
@@ -880,6 +880,27 @@ public final class ServiceWrapper {
 			SystemService systemService = new SystemService(server);
 			systemService.addFavoritegd(paramManager.hosturl, paramManager.accountId, paramManager.userId, paramManager.accountName, 
 					paramManager.productId, paramManager.gameid, paramManager.spid, paramManager.code, paramManager.timeStmp);
+			result = systemService.getResult();
+			if (result != 0) {
+				message = systemService.getMessage();
+			}
+		}
+		catch (Exception e) {
+			e.printStackTrace();
+			result = -1;
+			message = e.getMessage();
+		}
+	}
+	
+	public void gotoRechargePage() {
+		if (offline) {
+			result = -1;
+			message = OFFLINE_MSG;
+			return ;
+		}
+		try {
+			SystemService systemService = new SystemService(server);
+			systemService.gotoRechargePage(paramManager.buyURL, paramManager.userId);
 			result = systemService.getResult();
 			if (result != 0) {
 				message = systemService.getMessage();
