@@ -130,6 +130,7 @@ public class StateRechargeWinsideTW {
 		String subscribeUnit = engineService.getSubscribeAmountUnit();
 		String unit = engineService.getExpendAmountUnit();
 		g.setColor(0x000000);
+		engine.setFont(20, true);
 		String s1 = "请选择充值金额：";
 		String s2 = "一"+subscribeUnit+"=10"+unit;
 		g.drawString(s1, 107, 160, 20);
@@ -146,13 +147,13 @@ public class StateRechargeWinsideTW {
 			by += 5;
 			g.drawString(amountList[i]+subscribeUnit, bx, by, 20);
 		}
-		engine.setFont(25, true);
+		
 		g.setColor(0x000000);
-		TextView.showMultiLineText(g, info, 5, 107, 210, 425, 56);
+		TextView.showMultiLineText(g, info, 2, 107, 240, 425, 56);
 		g.drawString(info3, 160, 335, 20);
 		
 		engine.setFont(30, true);
-		g.drawString(info2, 150, 325, 20);
+		g.drawString(info2, 150, 305, 20);
 		engine.setDefaultFont();
 		g.setColor(0xffffff);
 		
