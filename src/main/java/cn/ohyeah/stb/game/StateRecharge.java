@@ -14,6 +14,11 @@ import cn.ohyeah.stb.ui.PopupText;
 import cn.ohyeah.stb.key.KeyCode;
 import cn.ohyeah.stb.key.KeyState;
 
+/**
+ * 通用充值界面
+ * @author Administrator
+ *
+ */
 public class StateRecharge {
 	
 	private static final byte STATE_SELECT_AMOUNT = 0;
@@ -27,43 +32,29 @@ public class StateRecharge {
 	private static final short PIC_ID_RECHARGE_BG = NUM_PICS++;
 	private static final short PIC_ID_RECHARGE_TITLE = NUM_PICS++;
 	private static final short PIC_ID_EXCHANGE_TITLE = NUM_PICS++;
-	//private static final short PIC_ID_AMOUNTS_BG = NUM_PICS++;
 	private static final short PIC_ID_CONFIRM_BG = NUM_PICS++;
 	private static final short PIC_ID_CHECKED = NUM_PICS++;
 	private static final short PIC_ID_UNCHECKED = NUM_PICS++;
 	private static final short PIC_ID_OK0 = NUM_PICS++;
-	//private static final short PIC_ID_OK1 = NUM_PICS++;
 	private static final short PIC_ID_CANCEL0 = NUM_PICS++;
-	//private static final short PIC_ID_CANCEL1 = NUM_PICS++;
-	//private static final short PIC_ID_BACK0 = NUM_PICS++;
-	private static final short PIC_ID_BACK1 = NUM_PICS++;
+	private static final short PIC_ID_BACK0 = NUM_PICS++;
 	private static final short PIC_ID_RECHARGE0 = NUM_PICS++;
-	//private static final short PIC_ID_RECHARGE1 = NUM_PICS++;
 	private static final short PIC_ID_EXCHANGE0 = NUM_PICS++;
-	//private static final short PIC_ID_EXCHANGE1 = NUM_PICS++;
 	private static final short PIC_ID_PASSWORD_BG = NUM_PICS++;
-	//private static final short PIC_ID_RULE = NUM_PICS++;
 	
 	private static final String[] imagePaths = {
 		"/business/recharge-bg.jpg",
 		"/business/recharge-title.png",
 		"/business/exchange-title.png",
-		//"/business/amounts-bg.png",
 		"/business/confirm-bg.jpg",
 		"/business/checked.png",
 		"/business/unchecked.png",
 		"/business/ok0.png",
-		//"/business/ok1.png",
 		"/business/cancel0.png",
-		//"/business/cancel1.png",
-		//"/business/back0.png",
-		"/business/back1.png",
+		"/business/back0.png",
 		"/business/recharge0.png",
-		//"/business/recharge1.png",
 		"/business/exchange0.png",
-		//"/business/exchange1.png",
 		"/business/password-bg.png",
-		//"/business/rule.png",
 	};
 	
 	private static char[][] inputChars = {
@@ -461,7 +452,7 @@ public class StateRecharge {
 			g.drawString(ss, sx, sy, 20);
 		}
 		
-		Image back = resource.loadImage(PIC_ID_BACK1);
+		Image back = resource.loadImage(PIC_ID_BACK0);
 		sx = amountsBgX+((434-back.getWidth())>>1);
 		sy = amountsBgY+284;
 		g.drawImage(back, sx, sy, 20);
