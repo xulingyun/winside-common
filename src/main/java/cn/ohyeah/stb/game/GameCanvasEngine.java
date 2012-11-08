@@ -300,10 +300,10 @@ abstract public class GameCanvasEngine extends GameCanvas implements Runnable, I
 			g.drawImage(logoPic, ((screenWidth-logoPic.getWidth())>>1)-Configurations.Abs_Coords_X,
 					((screenHeight-logoPic.getHeight())>>1)-Configurations.Abs_Coords_Y, 20);
 		}else{
-			int col = g.getColor();
+			g.setColor(bgColor);
+			g.fillRect(-Configurations.Abs_Coords_X, -Configurations.Abs_Coords_Y, screenWidth, screenHeight);
 			g.setColor(0xffffff);
 			g.drawString("”Œœ∑µ«»Î÷–...", 290,260, 20);
-			g.setColor(col);
 		}
 	}
 	
@@ -352,7 +352,7 @@ abstract public class GameCanvasEngine extends GameCanvas implements Runnable, I
 			}
 		}
 		else {
-			showLogo(IMG_LOGO_CHINAGAMES, 0XC7A774);
+			showLogo(IMG_LOGO_CHINAGAMES, 0x000000);
 			state = STATE_USER_LOGIN;
 		}
 	}
