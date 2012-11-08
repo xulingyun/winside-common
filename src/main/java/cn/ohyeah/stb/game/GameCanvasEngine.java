@@ -352,6 +352,7 @@ abstract public class GameCanvasEngine extends GameCanvas implements Runnable, I
 			}
 		}
 		else {
+			showLogo(IMG_LOGO_CHINAGAMES, 0XC7A774);
 			state = STATE_USER_LOGIN;
 		}
 	}
