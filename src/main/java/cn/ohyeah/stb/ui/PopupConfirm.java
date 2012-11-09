@@ -176,6 +176,7 @@ public class PopupConfirm {
 		boolean run = true;
 		KeyState keyState = engine.getKeyState();
 		SGraphics g = engine.getSGraphics();
+		btnIndex=1;
 		while (run) {
 			if (keyState.containsAndRemove(KeyCode.OK)) {
 				confirmIndex = getButtonIndex();

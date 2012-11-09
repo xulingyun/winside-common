@@ -303,7 +303,7 @@ abstract public class GameCanvasEngine extends GameCanvas implements Runnable, I
 			g.setColor(bgColor);
 			g.fillRect(-Configurations.Abs_Coords_X, -Configurations.Abs_Coords_Y, screenWidth, screenHeight);
 			g.setColor(0xffffff);
-			g.drawString("游戏登入中...", 290,260, 20);
+			g.drawString("游戏登入中...", 270,260, 20);
 		}
 	}
 	

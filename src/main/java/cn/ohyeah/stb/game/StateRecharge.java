@@ -502,7 +502,7 @@ public class StateRecharge {
 			}
 		}
 		if (key.containsAndRemove(KeyCode.OK)) {
-			key.clear();
+			//key.clear();
 			subState = SUB_STATE_INPUT_PWD_VIEW;
 			password += pwdChars[pwdCharIndex];
 		}
@@ -598,7 +598,7 @@ public class StateRecharge {
 		}
 		
 		if (key.containsAndRemove(KeyCode.OK)) {
-			key.clear();
+			//key.clear();
 			if (pwdGroupIndex == 0) {
 				pwdGroupIndex = 1;
 				pwdBtnIndex = 0;
@@ -704,15 +704,16 @@ public class StateRecharge {
 		}
 		
 		if (key.containsAndRemove(KeyCode.NUM0|KeyCode.BACK)) {
-			key.clear();
-			resource.freeImage(PIC_ID_RECHARGE_BG);
+			//key.clear();
+			/*resource.freeImage(PIC_ID_RECHARGE_BG);
 			resource.freeImage(PIC_ID_OK0);
-			resource.freeImage(PIC_ID_CANCEL0);
+			resource.freeImage(PIC_ID_CANCEL0);*/
+			clear();
 			state=STATE_SELECT_AMOUNT;
 		}
 		
 		if (key.containsAndRemove(KeyCode.OK)) {
-			key.clear();
+			//key.clear();
 			if (confirmIndex == 0) {
 				String resultMsg = "";
 				PopupText pt = UIResource.getInstance().buildDefaultPopupText();
@@ -750,7 +751,8 @@ public class StateRecharge {
 					if (sw.isServiceSuccessful()) {
 						pt.setText(resultMsg);
 						pt.popup();
-						resource.freeImage(PIC_ID_CONFIRM_BG);
+						//resource.freeImage(PIC_ID_CONFIRM_BG);
+						clear();
 						state=STATE_SELECT_AMOUNT;
 					}
 					else {
@@ -760,14 +762,16 @@ public class StateRecharge {
 						else {
 							pt.setText(resultMsg);
 							pt.popup();
-							resource.freeImage(PIC_ID_CONFIRM_BG);
+							//resource.freeImage(PIC_ID_CONFIRM_BG);
+							clear();
 							state=STATE_SELECT_AMOUNT;
 						}
 					}
 				}
 			}
 			else {
-				resource.freeImage(PIC_ID_CONFIRM_BG);
+				//resource.freeImage(PIC_ID_CONFIRM_BG);
+				clear();
 				state=STATE_SELECT_AMOUNT;
 			}
 		}
@@ -825,13 +829,13 @@ public class StateRecharge {
 		}
 		
 		if (key.containsAndRemove(KeyCode.NUM0|KeyCode.BACK)) {
-			key.clear();
+			//key.clear();
 			clear();
 			back = true;
 		}
 		
 		if (key.containsAndRemove(KeyCode.OK)) {
-			key.clear();
+			//key.clear();
 			if (groupIndex == 0) {
 				if (payTypeCount > 1) {
 					curPayType = payTypeIndex;
@@ -851,6 +855,7 @@ public class StateRecharge {
 					}
 					if (canRecharge) {
 						//resource.freeImage(PIC_ID_RULE);
+						clear();
 						state = STATE_CONFIRM;
 						if (conf.isSubscribeFocusOk()) {
 							confirmIndex = 0;
@@ -868,7 +873,8 @@ public class StateRecharge {
 			}
 			else {
 				back = true;
-				resource.freeImage(PIC_ID_RECHARGE_BG);
+				clear();
+				//resource.freeImage(PIC_ID_RECHARGE_BG);
 			}
 		}
 	}
