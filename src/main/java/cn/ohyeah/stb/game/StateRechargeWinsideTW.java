@@ -13,7 +13,7 @@ import cn.ohyeah.stb.ui.PopupText;
 import cn.ohyeah.stb.ui.TextView;
 
 /**
- * 掌世界天威电信充值界面
+ * 掌世界天威充值界面
  * @author Administrator
  *
  */

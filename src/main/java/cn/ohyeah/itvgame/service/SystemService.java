@@ -107,4 +107,31 @@ public final class SystemService extends AbstractHttpService{
 			close();
 		}
 	}
+	
+	/**
+	 * 掌世界，深圳天威向服务器发送心跳包
+	 * @param userId
+	 * @param productId
+	 */
+	public void sendHeartbeatPacket (String buyUrl, String userId, String productName){
+		try {
+			initHead(Constant.PROTOCOL_TAG_SYS_SERV, Constant.SYS_SERV_CMD_ONLINE);
+			openBufferDataOutputStream();
+			bufferDos.writeInt(headWrapper.getHead());
+			bufferDos.writeUTF(buyUrl);
+			bufferDos.writeUTF(userId);
+			bufferDos.writeUTF(productName);
+			byte[] data = bufferBaos.toByteArray();
+			closeBufferDataOutputStream();
+			
+			writeData(data);
+			checkHead();
+		    readResult();
+		} catch (IOException e) {
+			throw new ServiceException(e.getMessage());
+		}
+		finally {
+			close();
+		}
+	}
 }

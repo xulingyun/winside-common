@@ -22,6 +22,7 @@ public class Configurations {
 	public static final String TAG_TELCOMAH = "telcomah";			/*安徽电信*/
 	public static final String TAG_TELCOMFJ = "telcomfj";			/*福建电信*/
 	public static final String TAG_TELCOMHN = "telcomhn";			/*湖南电信*/
+	public static final String TAG_TIANWEISZ = "tianweisz";			/*深圳天威*/
 	public static final String TAG_TELCOMCOMMON = "telcomCommon";	/*其他电信*/
 
 	public static final String TAG_OHYEAH = "ohyeah";				/*欧耶平台*/
@@ -113,6 +114,10 @@ public class Configurations {
 	
 	public boolean isTelcomOperatorsCommon() {
 		return TAG_TELCOMCOMMON.equals(telcomOperators);
+	}
+	
+	public boolean isTelcomOperatorsTianweiSZ() {
+		return TAG_TIANWEISZ.equals(telcomOperators);
 	}
 	
 	public boolean isServiceProviderOhyeah() {

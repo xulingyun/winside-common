@@ -913,6 +913,27 @@ public final class ServiceWrapper {
 		}
 	}
 	
+	public void sendHeartbeatPacket(){
+		if (offline) {
+			result = -1;
+			message = OFFLINE_MSG;
+			return ;
+		}
+		try {
+			SystemService systemService = new SystemService(server);
+			systemService.sendHeartbeatPacket(paramManager.buyURL, paramManager.userId, paramManager.appName);
+			result = systemService.getResult();
+			if (result != 0) {
+				message = systemService.getMessage();
+			}
+		}
+		catch (Exception e) {
+			e.printStackTrace();
+			result = -1;
+			message = e.getMessage();
+		}
+	}
+	
 	public int getServiceResult() {
 		return result;
 	}
