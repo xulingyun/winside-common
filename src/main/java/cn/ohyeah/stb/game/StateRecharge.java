@@ -484,24 +484,21 @@ public class StateRecharge {
 	private void handleInputPwdSelectChar(KeyState key) {
 		if (key.containsAndRemove(KeyCode.BACK|KeyCode.UP)) {
 			subState = SUB_STATE_INPUT_PWD_VIEW;
-		}
-		if (key.containsAndRemove(KeyCode.LEFT)) {
+		}else if (key.containsAndRemove(KeyCode.LEFT)) {
 			if (pwdCharIndex > 0) {
 				pwdCharIndex--;
 			}
 			else {
 				pwdCharIndex = pwdChars.length-1;
 			}
-		}
-		if (key.containsAndRemove(KeyCode.RIGHT)) {
+		}else if (key.containsAndRemove(KeyCode.RIGHT)) {
 			if (pwdCharIndex < pwdChars.length-1) {
 				pwdCharIndex++;
 			}
 			else {
 				pwdCharIndex = 0;
 			}
-		}
-		if (key.containsAndRemove(KeyCode.OK)) {
+		}else if (key.containsAndRemove(KeyCode.OK)) {
 			//key.clear();
 			subState = SUB_STATE_INPUT_PWD_VIEW;
 			password += pwdChars[pwdCharIndex];
@@ -514,90 +511,71 @@ public class StateRecharge {
 			subState = SUB_STATE_INPUT_PWD_SELECT_CHAR;
 			pwdChars = inputChars[0];
 			pwdCharIndex = 0;
-		}
-		if (key.containsAndRemove(KeyCode.NUM1)) {
+		}else if (key.containsAndRemove(KeyCode.NUM1)) {
 			subState = SUB_STATE_INPUT_PWD_SELECT_CHAR;
 			pwdChars = inputChars[1];
 			pwdCharIndex = 0;
-		}
-		if (key.containsAndRemove(KeyCode.NUM2)) {
+		}else if (key.containsAndRemove(KeyCode.NUM2)) {
 			subState = SUB_STATE_INPUT_PWD_SELECT_CHAR;
 			pwdChars = inputChars[2];
 			pwdCharIndex = 0;
-		}
-		if (key.containsAndRemove(KeyCode.NUM3)) {
+		}else if (key.containsAndRemove(KeyCode.NUM3)) {
 			subState = SUB_STATE_INPUT_PWD_SELECT_CHAR;
 			pwdChars = inputChars[3];
 			pwdCharIndex = 0;
-		}
-		if (key.containsAndRemove(KeyCode.NUM4)) {
+		}else if (key.containsAndRemove(KeyCode.NUM4)) {
 			subState = SUB_STATE_INPUT_PWD_SELECT_CHAR;
 			pwdChars = inputChars[4];
 			pwdCharIndex = 0;
-		}
-		if (key.containsAndRemove(KeyCode.NUM5)) {
+		}else if (key.containsAndRemove(KeyCode.NUM5)) {
 			subState = SUB_STATE_INPUT_PWD_SELECT_CHAR;
 			pwdChars = inputChars[5];
 			pwdCharIndex = 0;
-		}
-		if (key.containsAndRemove(KeyCode.NUM6)) {
+		}else if (key.containsAndRemove(KeyCode.NUM6)) {
 			subState = SUB_STATE_INPUT_PWD_SELECT_CHAR;
 			pwdChars = inputChars[6];
 			pwdCharIndex = 0;
-		}
-		if (key.containsAndRemove(KeyCode.NUM7)) {
+		}else if (key.containsAndRemove(KeyCode.NUM7)) {
 			subState = SUB_STATE_INPUT_PWD_SELECT_CHAR;
 			pwdChars = inputChars[7];
 			pwdCharIndex = 0;
-		}
-		if (key.containsAndRemove(KeyCode.NUM8)) {
+		}else if (key.containsAndRemove(KeyCode.NUM8)) {
 			subState = SUB_STATE_INPUT_PWD_SELECT_CHAR;
 			pwdChars = inputChars[8];
 			pwdCharIndex = 0;
-		}
-		if (key.containsAndRemove(KeyCode.NUM9)) {
+		}else if (key.containsAndRemove(KeyCode.NUM9)) {
 			subState = SUB_STATE_INPUT_PWD_SELECT_CHAR;
 			pwdChars = inputChars[9];
 			pwdCharIndex = 0;
-		}
-		if (key.containsAndRemove(KeyCode.BACK)) {
+		}else if (key.containsAndRemove(KeyCode.BACK)) {
 			if (password.length()>1) {
 				password = password.substring(0, password.length()-1);
 			}
 			else {
 				password = "";
 			}
-		}
-		if (key.containsAndRemove(KeyCode.DOWN)) {
+		}else if (key.containsAndRemove(KeyCode.DOWN)) {
 			if (pwdGroupIndex == 0) {
 				pwdGroupIndex = 1;
 				pwdBtnIndex = 0;
 			}
-		}
-		
-		if (key.containsAndRemove(KeyCode.UP)) {
+		}else if (key.containsAndRemove(KeyCode.UP)) {
 			if (pwdGroupIndex == 1) {
 				pwdGroupIndex = 0;
 			}
-		}
-		
-		if (key.containsAndRemove(KeyCode.LEFT)) {
+		}else if (key.containsAndRemove(KeyCode.LEFT)) {
 			if (pwdGroupIndex == 1) {
 				if (pwdBtnIndex == 1) {
 					pwdBtnIndex = 0;
 				}
 			}
-		}
-		
-		if (key.containsAndRemove(KeyCode.RIGHT)) {
+		}else if (key.containsAndRemove(KeyCode.RIGHT)) {
 			if (pwdGroupIndex == 1) {
 				if (pwdBtnIndex == 0) {
 					pwdBtnIndex = 1;
 				}
 			}
-		}
-		
-		if (key.containsAndRemove(KeyCode.OK)) {
+		}else if (key.containsAndRemove(KeyCode.OK)) {
 			//key.clear();
 			if (pwdGroupIndex == 0) {
 				pwdGroupIndex = 1;
@@ -689,30 +667,22 @@ public class StateRecharge {
 		if (key.containsAndRemove(KeyCode.NUM1)) {
 			gotoStatePassword();
 			state = STATE_INPUT_PWD;
-		}
-		
-		if (key.containsAndRemove(KeyCode.LEFT)) {
+		}else if (key.containsAndRemove(KeyCode.LEFT)) {
 			if (confirmIndex == 1) {
 				confirmIndex = 0;
 			}
-		}
-		
-		if (key.containsAndRemove(KeyCode.RIGHT)) {
+		}else if (key.containsAndRemove(KeyCode.RIGHT)) {
 			if (confirmIndex == 0) {
 				confirmIndex = 1;
 			}
-		}
-		
-		if (key.containsAndRemove(KeyCode.NUM0|KeyCode.BACK)) {
+		}else if (key.containsAndRemove(KeyCode.NUM0|KeyCode.BACK)) {
 			//key.clear();
 			/*resource.freeImage(PIC_ID_RECHARGE_BG);
 			resource.freeImage(PIC_ID_OK0);
 			resource.freeImage(PIC_ID_CANCEL0);*/
 			clear();
 			state=STATE_SELECT_AMOUNT;
-		}
-		
-		if (key.containsAndRemove(KeyCode.OK)) {
+		}else if (key.containsAndRemove(KeyCode.OK)) {
 			//key.clear();
 			if (confirmIndex == 0) {
 				String resultMsg = "";
@@ -790,9 +760,7 @@ public class StateRecharge {
 			else if (groupIndex == 2){
 				groupIndex = 1;
 			}
-		}
-		
-		if (key.containsAndRemove(KeyCode.DOWN)) {
+		}else if (key.containsAndRemove(KeyCode.DOWN)) {
 			if (groupIndex == 0) {
 				groupIndex = 1;
 			}
@@ -804,9 +772,7 @@ public class StateRecharge {
 					groupIndex = 2;
 				}
 			}
-		}
-		
-		if (key.containsAndRemove(KeyCode.RIGHT)) {
+		}else if (key.containsAndRemove(KeyCode.RIGHT)) {
 			if (groupIndex == 0) {
 				if (payTypeCount > 1) {
 					payTypeIndex = (byte)((payTypeIndex+1)%payTypeCount);
@@ -815,9 +781,7 @@ public class StateRecharge {
 			else if (groupIndex == 1) {
 				groupIndex = 2;
 			}
-		}
-		
-		if (key.containsAndRemove(KeyCode.LEFT)) {
+		}else if (key.containsAndRemove(KeyCode.LEFT)) {
 			if (groupIndex == 0) {
 				if (payTypeCount > 1) {
 					payTypeIndex = (byte)((payTypeIndex+payTypeCount-1)%payTypeCount);
@@ -826,15 +790,11 @@ public class StateRecharge {
 			else if (groupIndex == 2) {
 				groupIndex = 1;
 			}
-		}
-		
-		if (key.containsAndRemove(KeyCode.NUM0|KeyCode.BACK)) {
+		}else if (key.containsAndRemove(KeyCode.NUM0|KeyCode.BACK)) {
 			//key.clear();
 			clear();
 			back = true;
-		}
-		
-		if (key.containsAndRemove(KeyCode.OK)) {
+		}else if (key.containsAndRemove(KeyCode.OK)) {
 			//key.clear();
 			if (groupIndex == 0) {
 				if (payTypeCount > 1) {
