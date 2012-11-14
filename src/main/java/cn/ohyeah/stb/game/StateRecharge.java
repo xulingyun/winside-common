@@ -91,6 +91,7 @@ public class StateRecharge {
 	private int pwdCharIndex;
 	private char[] pwdChars;
 	private int cursorFrame;
+	private boolean isRechrageSuccess;
 	
 	
 	public StateRecharge(IEngine engine) {
@@ -710,6 +711,7 @@ public class StateRecharge {
 					}
 					if (sw.isServiceSuccessful()) {
 						resultMsg = engineService.getRechargeCommand()+"成功";
+						isRechrageSuccess = true;
 					}
 					else {
 						resultMsg = engineService.getRechargeCommand()+"失败，原因："+sw.getServiceMessage();
@@ -728,7 +730,7 @@ public class StateRecharge {
 						state=STATE_SELECT_AMOUNT;
 					}
 					else {
-						if (isPasswordError(sw.getServiceMessage())) {
+						if (isPasswordError(sw.getServiceMessage()) && !isRechrageSuccess) {
 							gotoStatePassword();
 						}
 						else {
