@@ -777,6 +777,7 @@ public class StateRecharge {
 				groupIndex = 1;
 			}
 		}else if (key.containsAndRemove(KeyCode.NUM0|KeyCode.BACK)) {
+			run = false;
 		}else if (key.containsAndRemove(KeyCode.OK)) {
 			if (groupIndex == 0) {
 				if (payTypeCount > 1) {
@@ -796,7 +797,6 @@ public class StateRecharge {
 						}
 					}
 					if (canRecharge) {
-						//resource.freeImage(PIC_ID_RULE);
 						clear();
 						state = STATE_CONFIRM;
 						if (conf.isSubscribeFocusOk()) {
