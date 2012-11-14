@@ -327,6 +327,7 @@ abstract public class GameCanvasEngine extends GameCanvas implements Runnable, I
 		else if (subState == 2) {
 			if (timePass(3000)) {
 				state = STATE_USER_LOOP;
+				clearLoadingRes();
 			}
 		}
         else if (subState == 3) {
