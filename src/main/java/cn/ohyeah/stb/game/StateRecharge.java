@@ -84,7 +84,7 @@ public class StateRecharge {
 	private byte pwdGroupIndex;
 	private byte pwdBtnIndex;
 	private int rechargeAmount;
-	private boolean back;
+	//private boolean back;
 	private int[] amountList;
 	private ResourceManager resource;
 	private String password;
@@ -92,6 +92,7 @@ public class StateRecharge {
 	private char[] pwdChars;
 	private int cursorFrame;
 	private boolean isRechrageSuccess;
+	boolean run = true;
 	
 	
 	public StateRecharge(IEngine engine) {
@@ -113,7 +114,6 @@ public class StateRecharge {
 			payTypeCount = 1;
 		}
 		groupIndex = 1;
-		boolean run = true;
 		try {
 			while (run) {
 				handle(KeyState);
@@ -121,9 +121,6 @@ public class StateRecharge {
 				engine.flushGraphics();
 				execute();
 				
-				if (back) {
-					break;
-				}
 				engine.trySleep();
 			}
 		}
@@ -421,10 +418,6 @@ public class StateRecharge {
 			g.fillRect(sx, sy, sw, sh);
 			g.setColor(0XA2FFFF);
             DrawUtil.drawRect(g, sx, sy, sw, sh, 2);
-			//g.drawRect(sx, sy, sw, sh);
-			//Image rule = resource.loadImage(PIC_ID_RULE);
-			//g.drawImage(rule, sx, sy, 0);
-			
 			if (curPayType == 1) {
 				amount = amountList[i]*engineService.getCashToPointsRatio();
 				unit = engineService.getPointsUnit();
@@ -500,7 +493,6 @@ public class StateRecharge {
 				pwdCharIndex = 0;
 			}
 		}else if (key.containsAndRemove(KeyCode.OK)) {
-			//key.clear();
 			subState = SUB_STATE_INPUT_PWD_VIEW;
 			password += pwdChars[pwdCharIndex];
 		}
@@ -577,7 +569,6 @@ public class StateRecharge {
 				}
 			}
 		}else if (key.containsAndRemove(KeyCode.OK)) {
-			//key.clear();
 			if (pwdGroupIndex == 0) {
 				pwdGroupIndex = 1;
 				pwdBtnIndex = 0;
@@ -638,7 +629,6 @@ public class StateRecharge {
 				}
 				else {
 					clear();
-					//resource.freeImage(PIC_ID_PASSWORD_BG);
 					state = STATE_SELECT_AMOUNT;
 				}
 			}
@@ -679,14 +669,9 @@ public class StateRecharge {
 				confirmIndex = 1;
 			}
 		}else if (key.containsAndRemove(KeyCode.NUM0|KeyCode.BACK)) {
-			//key.clear();
-			/*resource.freeImage(PIC_ID_RECHARGE_BG);
-			resource.freeImage(PIC_ID_OK0);
-			resource.freeImage(PIC_ID_CANCEL0);*/
 			clear();
 			state=STATE_SELECT_AMOUNT;
 		}else if (key.containsAndRemove(KeyCode.OK)) {
-			//key.clear();
 			if (confirmIndex == 0) {
 				String resultMsg = "";
 				PopupText pt = UIResource.getInstance().buildDefaultPopupText();
@@ -725,7 +710,6 @@ public class StateRecharge {
 					if (sw.isServiceSuccessful()) {
 						pt.setText(resultMsg);
 						pt.popup();
-						//resource.freeImage(PIC_ID_CONFIRM_BG);
 						clear();
 						state=STATE_SELECT_AMOUNT;
 					}
@@ -736,7 +720,6 @@ public class StateRecharge {
 						else {
 							pt.setText(resultMsg);
 							pt.popup();
-							//resource.freeImage(PIC_ID_CONFIRM_BG);
 							clear();
 							state=STATE_SELECT_AMOUNT;
 						}
@@ -744,7 +727,6 @@ public class StateRecharge {
 				}
 			}
 			else {
-				//resource.freeImage(PIC_ID_CONFIRM_BG);
 				clear();
 				state=STATE_SELECT_AMOUNT;
 			}
@@ -795,11 +777,7 @@ public class StateRecharge {
 				groupIndex = 1;
 			}
 		}else if (key.containsAndRemove(KeyCode.NUM0|KeyCode.BACK)) {
-			//key.clear();
-			clear();
-			back = true;
 		}else if (key.containsAndRemove(KeyCode.OK)) {
-			//key.clear();
 			if (groupIndex == 0) {
 				if (payTypeCount > 1) {
 					curPayType = payTypeIndex;
@@ -836,9 +814,7 @@ public class StateRecharge {
 				}
 			}
 			else {
-				back = true;
-				clear();
-				//resource.freeImage(PIC_ID_RECHARGE_BG);
+				run = false;
 			}
 		}
 	}
