@@ -291,12 +291,12 @@ abstract public class GameCanvasEngine extends GameCanvas implements Runnable, I
 	}
 	
 	private void showLogo(String path, int bgColor) {
-		if (logoPic == null) {
-			logoPic = ResourceManager.loadImage(path);
-		}
 		g.setColor(bgColor);
 		g.fillRect(-Configurations.Abs_Coords_X, -Configurations.Abs_Coords_Y, screenWidth, screenHeight);
 		if(Configurations.getInstance().isTelcomOperatorsTelcomgd()){
+			if (logoPic == null) {
+				logoPic = ResourceManager.loadImage(path);
+			}
 			g.drawImage(logoPic, ((screenWidth-logoPic.getWidth())>>1)-Configurations.Abs_Coords_X,
 					((screenHeight-logoPic.getHeight())>>1)-Configurations.Abs_Coords_Y, 20);
 		}else{
