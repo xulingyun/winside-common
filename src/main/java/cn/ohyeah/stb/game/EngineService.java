@@ -26,6 +26,8 @@ public final class EngineService {
 	
 	private boolean loginSuccessful;
 	private String loginMessage;
+	public boolean isRechrageSuccess;   //有童锁功能，充值成功后下次就不需要输入密码
+	public String passWord;				//充值密码
 	
 	public EngineService(IEngine engine) {
 		this.engine = engine;

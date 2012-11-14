@@ -91,7 +91,6 @@ public class StateRecharge {
 	private int pwdCharIndex;
 	private char[] pwdChars;
 	private int cursorFrame;
-	private boolean isRechrageSuccess;
 	boolean run = true;
 	
 	
@@ -598,6 +597,8 @@ public class StateRecharge {
 						}
 						if (sw.isServiceSuccessful()) {
 							resultMsg = engineService.getRechargeCommand()+"成功";
+							engineService.isRechrageSuccess = true;
+							engineService.passWord = password;
 						}
 						else {
 							resultMsg = engineService.getRechargeCommand()+"失败，原因："+sw.getServiceMessage();
@@ -681,11 +682,19 @@ public class StateRecharge {
 				ServiceWrapper sw = engine.getServiceWrapper();
 				try {
 					if (curPayType == 0) {
-						sw.recharge(rechargeAmount, SubscribePayType.PAY_TYPE_BILL, 
+						if(!engineService.isRechrageSuccess){
+							sw.recharge(rechargeAmount, SubscribePayType.PAY_TYPE_BILL, 
 									engineService.getProductName()
 									+engineService.getRechargeCommand()
 									+rechargeAmount
 									+engineService.getSubscribeAmountUnit(), "");
+						}else{
+							sw.recharge(rechargeAmount, SubscribePayType.PAY_TYPE_BILL, 
+									engineService.getProductName()
+									+engineService.getRechargeCommand()
+									+rechargeAmount
+									+engineService.getSubscribeAmountUnit(), engineService.passWord);
+						}
 					}
 					else {
 						sw.recharge(rechargeAmount*engineService.getCashToPointsRatio(), SubscribePayType.PAY_TYPE_POINTS, 
@@ -696,7 +705,8 @@ public class StateRecharge {
 					}
 					if (sw.isServiceSuccessful()) {
 						resultMsg = engineService.getRechargeCommand()+"成功";
-						isRechrageSuccess = true;
+						engineService.isRechrageSuccess = true;
+						engineService.passWord = password;
 					}
 					else {
 						resultMsg = engineService.getRechargeCommand()+"失败，原因："+sw.getServiceMessage();
@@ -714,7 +724,7 @@ public class StateRecharge {
 						state=STATE_SELECT_AMOUNT;
 					}
 					else {
-						if (isPasswordError(sw.getServiceMessage()) && !isRechrageSuccess) {
+						if (isPasswordError(sw.getServiceMessage()) && !engineService.isRechrageSuccess) {
 							gotoStatePassword();
 						}
 						else {
