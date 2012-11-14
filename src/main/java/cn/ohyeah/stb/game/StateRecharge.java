@@ -632,10 +632,12 @@ public class StateRecharge {
 								state=STATE_SELECT_AMOUNT;
 							}
 						}
+						clear();
 					}
 				}
 				else {
-					resource.freeImage(PIC_ID_PASSWORD_BG);
+					clear();
+					//resource.freeImage(PIC_ID_PASSWORD_BG);
 					state = STATE_SELECT_AMOUNT;
 				}
 			}
