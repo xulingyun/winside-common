@@ -276,6 +276,62 @@ public final class SubscribeService extends AbstractHttpService{
 		}
 	}
 	
+	public int rechargeShiXian(String buyURL, int accountId, String accountName, String userToken, 
+			int productId, int amount, int ratio,  String remark, String checkKey, String feeaccount,
+			String returnurl, String dwjvl, String opcomkey, String paysubway, String gameid, String user_group_id, String password){
+		return rechargeShiXian(buyURL, accountId, accountName, userToken, productId, amount, ratio, 
+				SubscribePayType.PAY_TYPE_BILL, remark, checkKey, feeaccount, returnurl, dwjvl, opcomkey,
+				paysubway, gameid, user_group_id, password);
+	}
+	
+	public int rechargeShiXian(String buyURL, int accountId, String accountName, String userToken, 
+			int productId, int amount, int ratio, int payType, String remark, String checkKey, String feeaccount,
+			String returnurl, String dwjvl, String opcomkey, String paysubway, String gameid, String user_group_id, String password){
+		try {
+			int balance = -1;
+			initHead(Constant.PROTOCOL_TAG_SUBSCRIBE, Constant.SUBSCRIBE_CMD_RECHARGE_SHIXIAN);
+			openBufferDataOutputStream();
+			bufferDos.writeInt(headWrapper.getHead());
+			bufferDos.writeUTF(buyURL);
+			bufferDos.writeInt(accountId);
+			bufferDos.writeUTF(accountName);
+			bufferDos.writeUTF(userToken);
+			bufferDos.writeInt(productId);
+			bufferDos.writeInt(amount);
+			bufferDos.writeInt(ratio);
+			bufferDos.writeInt(payType);
+			bufferDos.writeUTF(remark);
+			bufferDos.writeUTF(checkKey);
+			bufferDos.writeUTF(feeaccount);
+			bufferDos.writeUTF(returnurl);
+			bufferDos.writeUTF(dwjvl);
+			bufferDos.writeUTF(opcomkey);
+			bufferDos.writeUTF(paysubway);
+			bufferDos.writeUTF(gameid);
+			bufferDos.writeUTF(user_group_id);
+			if (password == null) {
+				bufferDos.writeUTF("");
+			}
+			else {
+				bufferDos.writeUTF(password);
+			}
+			byte[] data = bufferBaos.toByteArray();
+			closeBufferDataOutputStream();
+			
+			writeData(data);
+			checkHead();
+			if (readResult() == 0) {
+				balance = connectionDis.readInt();
+			}
+			return balance;
+		} catch (IOException e) {
+			throw new ServiceException(e.getMessage());
+		}
+		finally {
+			close();
+		}
+	}
+	
 	public int rechargeShengYi(String buyURL, int accountId, String accountName, String userToken, 
 			int productId, int amount, int ratio, String remark, String checkKey, String shengyiCPID,
 			String shengyiCPPassWord, String shengyiUserIdType, String shengyiProductId){
