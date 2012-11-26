@@ -34,6 +34,13 @@ final class ParamManager {
 	String shengyiUserIdType;	/*盛翼特需参数*/
 	String shengyiProductId;	/*盛翼特需参数*/
 	
+	String feeaccount;			/*付费账号*/
+	String returnurl;			/*返回地址*/
+	String dwjvl;				/*平台加密验证*/
+	String opcomkey;			/*区域标识*/
+	String paysubway;			/*充值类型，主动/被动*/
+	String user_group_id;		/*运营商地区标识*/
+	
 	String spid;			/*供应商ID，中游和掌世界充值时需要*/
 	String gameid;			/*游戏ID，中游和掌世界充值时需要*/
 	String buyURL;			/*查询元宝和扣除元宝服务器地址*/
@@ -103,6 +110,8 @@ final class ParamManager {
 			parseDijoyPlatParam();
 		}else if(conf.isServiceProviderShengYi()){
 			parseShengYiPlatParam();
+		}else if(conf.isServiceProviderShiXian()){
+			parseShiXianPlatParam();
 		}
 		else {
 			parseSuccessful = false;
@@ -201,6 +210,23 @@ final class ParamManager {
 		shengyiProductId = getStringParam("shengyiProductID");
 		buyURL = "";
 		gameid = "";
+		spid = "";
+		checkKey = "";
+	}
+	
+	private void parseShiXianPlatParam() {
+		server = getStringParam("loginurl");
+		userId = getStringParam("numbercode");
+		userToken = getStringParam("USER_TOKEN");
+		appName = getStringParam("appName");
+		feeaccount = getStringParam("feeaccount");
+		returnurl = getStringParam("returnurl");
+		dwjvl = getStringParam("dwjvl");
+		opcomkey = getStringParam("opcomkey");
+		paysubway = getStringParam("paysubway");
+		user_group_id = getStringParam("USER_GROUP_ID");
+		buyURL = getStringParam("rechargeurl");
+		gameid = getStringParam("gameid");
 		spid = "";
 		checkKey = "";
 	}

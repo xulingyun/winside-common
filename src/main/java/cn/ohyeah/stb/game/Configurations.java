@@ -23,6 +23,7 @@ public class Configurations {
 	public static final String TAG_TELCOMFJ = "telcomfj";			/*福建电信*/
 	public static final String TAG_TELCOMHN = "telcomhn";			/*湖南电信*/
 	public static final String TAG_TIANWEISZ = "tianweisz";			/*深圳天威*/
+	public static final String TAG_TELCOMGS = "telcomgs";			/*甘肃电信*/
 	public static final String TAG_TELCOMCOMMON = "telcomCommon";	/*其他电信*/
 
 	public static final String TAG_OHYEAH = "ohyeah";				/*欧耶平台*/
@@ -30,6 +31,7 @@ public class Configurations {
 	public static final String TAG_THE9 = "the9";					/*九城平台*/
 	public static final String TAG_DIJOY = "dijoy";					/*鼎亿平台*/
 	public static final String TAG_SHENGYI = "shengyi";				/*盛翼平台*/
+	public static final String TAG_SHIXIAN = "shixian";				/*视线平台*/
 	
 	public static final short Abs_Coords_X = 0, Abs_Coords_Y = 0;
 	
@@ -119,6 +121,9 @@ public class Configurations {
 	public boolean isTelcomOperatorsTianweiSZ() {
 		return TAG_TIANWEISZ.equals(telcomOperators);
 	}
+	public boolean isTelcomOperatorsTelcomgs() {
+		return TAG_TELCOMGS.equals(telcomOperators);
+	}
 	
 	public boolean isServiceProviderOhyeah() {
 		return TAG_OHYEAH.equals(serviceProvider);
@@ -138,6 +143,10 @@ public class Configurations {
 	
 	public boolean isServiceProviderShengYi() {
 		return TAG_SHENGYI.equals(serviceProvider);
+	}
+	
+	public boolean isServiceProviderShiXian() {
+		return TAG_SHIXIAN.equals(serviceProvider);
 	}
 	
 	public String getFavorWay() {
