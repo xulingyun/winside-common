@@ -279,7 +279,7 @@ public class StateRecharge {
 			g.drawString("iTV体验期内订购需正常付费", confirmX+70, confirmY+138, 20);
 		}
 		
-		String productName = "游戏"+engineService.getExpendAmountUnit()/*"<<"+engineService.getProductName()+">>"+engineService.getRechargeCommand()*/;
+		String productName = "<<"+engineService.getProductName()+">>"+engineService.getRechargeCommand();
 		Font font = g.getFont();
 		int textDelta = (25-font.getHeight())>>1;
 		int sx = confirmX+170;
@@ -297,20 +297,24 @@ public class StateRecharge {
 		sy = confirmY+216+textDelta;
 		g.drawString(ss, sx, sy, 20);
 		
-		
-		Image confirmBtn = resource.loadImage(PIC_ID_OK0);
-		sx = confirmX+121;
-		sy = confirmY+253;
-		g.drawImage(confirmBtn, sx, sy, 20);
-		if (confirmIndex == 0) {
-			DrawUtil.drawRect(g, sx, sy, confirmBtn.getWidth(), confirmBtn.getHeight(), 3, 0XFF0000);
-		}
-		
-		Image backBtn = resource.loadImage(PIC_ID_CANCEL0);
-		sx = confirmX+253;
-		g.drawImage(backBtn, sx, sy, 20);
-		if (confirmIndex == 1) {
-			DrawUtil.drawRect(g, sx, sy, confirmBtn.getWidth(), confirmBtn.getHeight(), 3, 0XFF0000);
+		if(Configurations.getInstance().isServiceProviderWinside()
+				&& Configurations.getInstance().isTelcomOperatorsTelcomhn()){	/*掌世界湖南地区需验证码*/
+			
+		}else{
+			Image confirmBtn = resource.loadImage(PIC_ID_OK0);
+			sx = confirmX+121;
+			sy = confirmY+253;
+			g.drawImage(confirmBtn, sx, sy, 20);
+			if (confirmIndex == 0) {
+				DrawUtil.drawRect(g, sx, sy, confirmBtn.getWidth(), confirmBtn.getHeight(), 3, 0XFF0000);
+			}
+			
+			Image backBtn = resource.loadImage(PIC_ID_CANCEL0);
+			sx = confirmX+253;
+			g.drawImage(backBtn, sx, sy, 20);
+			if (confirmIndex == 1) {
+				DrawUtil.drawRect(g, sx, sy, confirmBtn.getWidth(), confirmBtn.getHeight(), 3, 0XFF0000);
+			}
 		}
 	}
 

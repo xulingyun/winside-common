@@ -217,16 +217,16 @@ final class ParamManager {
 	private void parseShiXianPlatParam() {
 		server = getStringParam("loginurl");
 		userId = getStringParam("tvplat#numbercode");
-		userToken = getStringParam("USER_TOKEN");
+		userToken = ""/*getStringParam("USER_TOKEN")*/;
 		appName = getStringParam("appname");
 		feeaccount = getStringParam("tvplat#feeaccount");
 		returnurl = getStringParam("tvplat#returnurl");
 		dwjvl = getStringParam("tvplat#dwjvl");
 		opcomkey = getStringParam("tvplat#opcomkey");
 		paysubway = getStringParam("tvplat#paysubway");
-		user_group_id = getStringParam("USER_GROUP_ID");
-		buyURL = getStringParam("rechargeurl");
-		gameid = getStringParam("tvplat#gameid");
+		user_group_id = ""/*getStringParam("USER_GROUP_ID")*/;
+		buyURL = ""/*getStringParam("rechargeurl")*/;
+		gameid = ""/*getStringParam("tvplat#gameid")*/;
 		spid = "";
 		checkKey = "";
 		accountName = userId;
