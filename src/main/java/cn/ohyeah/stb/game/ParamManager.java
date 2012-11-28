@@ -220,7 +220,7 @@ final class ParamManager {
 		userToken = ""/*getStringParam("USER_TOKEN")*/;
 		appName = getStringParam("appname");
 		feeaccount = getStringParam("tvplat#feeaccount");
-		returnurl = getStringParam("tvplat#returnurl");
+		returnurl = ""/*getStringParam("tvplat#returnurl")*/;
 		dwjvl = getStringParam("tvplat#dwjvl");
 		opcomkey = getStringParam("tvplat#opcomkey");
 		paysubway = getStringParam("tvplat#paysubway");
