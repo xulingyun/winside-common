@@ -3,7 +3,7 @@ package cn.ohyeah.stb.game;
 import cn.ohyeah.stb.game.ServiceWrapper;
 
 /**
- * 向服务器发送心跳包类，是线程类
+ * 向服务器发送心跳包类，是线程类(掌世界天威地区有该功能)
  * @author xiaochen
  *
  */
