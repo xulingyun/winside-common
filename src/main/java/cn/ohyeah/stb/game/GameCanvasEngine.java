@@ -59,6 +59,7 @@ abstract public class GameCanvasEngine extends GameCanvas implements Runnable, I
 	private Image progressPic2;
 	private Image loadingTextPic;
 	private String errorMessage;
+	private OnlineThread onlineThread;
 	
 	private long recordTime;
 	private boolean timePass(int millisSeconds) {
@@ -92,6 +93,7 @@ abstract public class GameCanvasEngine extends GameCanvas implements Runnable, I
 		stateStack = new byte[16];
 		debugModule = new DebugModule(this);
 		UIResource.registerEngine(this);
+		onlineThread = new OnlineThread(this);
 	}
 	
 	private void pushState(byte state) {
@@ -328,6 +330,11 @@ abstract public class GameCanvasEngine extends GameCanvas implements Runnable, I
 			if (timePass(3000)) {
 				state = STATE_USER_LOOP;
 				clearLoadingRes();
+				
+				if(Configurations.getInstance().isTelcomOperatorsTianweiSZ()){
+					onlineThread.t1 = System.currentTimeMillis()/1000;
+					new Thread(onlineThread).start();
+				}
 			}
 		}
         else if (subState == 3) {
