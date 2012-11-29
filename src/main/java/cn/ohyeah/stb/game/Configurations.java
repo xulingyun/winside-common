@@ -54,7 +54,7 @@ public class Configurations {
 	public static Configurations loadConfigurations(String path) {
 		try {
 			Properties props = new Properties();
-			props.parseFile(path, "GB2312");
+			props.parseFile(path, "UTF-8");
 			instance.setProperties(props);
 			success = true;
 		}
