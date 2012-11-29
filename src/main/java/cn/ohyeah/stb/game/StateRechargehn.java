@@ -15,11 +15,11 @@ import cn.ohyeah.stb.key.KeyCode;
 import cn.ohyeah.stb.key.KeyState;
 
 /**
- * 通用充值界面
+ * 掌世界湖南充值界面（带验证码功能）
  * @author Administrator
  *
  */
-public class StateRecharge {
+public class StateRechargehn {
 	
 	private static final byte STATE_SELECT_AMOUNT = 0;
 	private static final byte STATE_CONFIRM = 1;
@@ -84,7 +84,7 @@ public class StateRecharge {
 	private byte pwdGroupIndex;
 	private byte pwdBtnIndex;
 	private int rechargeAmount;
-	//private boolean back;
+	private boolean canBuy;
 	private int[] amountList;
 	private ResourceManager resource;
 	private String password;
@@ -92,9 +92,11 @@ public class StateRecharge {
 	private char[] pwdChars;
 	private int cursorFrame;
 	boolean run = true;
+	private String checkCode;
+	private String generatorCode;
 	
 	
-	public StateRecharge(IEngine engine) {
+	public StateRechargehn(IEngine engine) {
 		this.engine = engine;
 		engineService = engine.getEngineService();
 		conf = Configurations.getInstance();
@@ -297,21 +299,25 @@ public class StateRecharge {
 		sy = confirmY+216+textDelta;
 		g.drawString(ss, sx, sy, 20);
 		
-		Image confirmBtn = resource.loadImage(PIC_ID_OK0);
-		sx = confirmX+121;
-		sy = confirmY+253;
-		g.drawImage(confirmBtn, sx, sy, 20);
-		if (confirmIndex == 0) {
-			DrawUtil.drawRect(g, sx, sy, confirmBtn.getWidth(), confirmBtn.getHeight(), 3, 0XFF0000);
+		if(Configurations.getInstance().isServiceProviderWinside()
+				&& Configurations.getInstance().isTelcomOperatorsTelcomhn()){	/*掌世界湖南地区需验证码*/
+			
+		}else{
+			Image confirmBtn = resource.loadImage(PIC_ID_OK0);
+			sx = confirmX+121;
+			sy = confirmY+253;
+			g.drawImage(confirmBtn, sx, sy, 20);
+			if (confirmIndex == 0) {
+				DrawUtil.drawRect(g, sx, sy, confirmBtn.getWidth(), confirmBtn.getHeight(), 3, 0XFF0000);
+			}
+			
+			Image backBtn = resource.loadImage(PIC_ID_CANCEL0);
+			sx = confirmX+253;
+			g.drawImage(backBtn, sx, sy, 20);
+			if (confirmIndex == 1) {
+				DrawUtil.drawRect(g, sx, sy, confirmBtn.getWidth(), confirmBtn.getHeight(), 3, 0XFF0000);
+			}
 		}
-		
-		Image backBtn = resource.loadImage(PIC_ID_CANCEL0);
-		sx = confirmX+253;
-		g.drawImage(backBtn, sx, sy, 20);
-		if (confirmIndex == 1) {
-			DrawUtil.drawRect(g, sx, sy, confirmBtn.getWidth(), confirmBtn.getHeight(), 3, 0XFF0000);
-		}
-		
 	}
 
 	private void showSelectAmount(SGraphics g) {
@@ -499,7 +505,6 @@ public class StateRecharge {
 	
 	private void handleInputPwdView(KeyState key) {
 		if (key.containsAndRemove(KeyCode.NUM0)) {
-			key.clear();
 			subState = SUB_STATE_INPUT_PWD_SELECT_CHAR;
 			pwdChars = inputChars[0];
 			pwdCharIndex = 0;
@@ -815,6 +820,7 @@ public class StateRecharge {
 						else {
 							confirmIndex = 1;
 						}
+						
 					}
 				}
 				else {
