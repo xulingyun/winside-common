@@ -60,7 +60,6 @@ abstract public class GameCanvasEngine extends GameCanvas implements Runnable, I
 	private Image loadingTextPic;
 	private String errorMessage;
 	private OnlineThread onlineThread;
-	private int offY=0;
 	
 	private long recordTime;
 	private boolean timePass(int millisSeconds) {
@@ -294,8 +293,6 @@ abstract public class GameCanvasEngine extends GameCanvas implements Runnable, I
 	}
 	
 	private void showLogo(String path, int bgColor) {
-		offY += 30;
-		g.drawString(Configurations.getInstance().getServiceProvider(), 0, offY, 20);
 		g.setColor(bgColor);
 		g.fillRect(-Configurations.Abs_Coords_X, -Configurations.Abs_Coords_Y, screenWidth, screenHeight);
 		if(Configurations.getInstance().isTelcomOperatorsTelcomgd()){
@@ -305,8 +302,6 @@ abstract public class GameCanvasEngine extends GameCanvas implements Runnable, I
 			g.drawImage(logoPic, ((screenWidth-logoPic.getWidth())>>1)-Configurations.Abs_Coords_X,
 					((screenHeight-logoPic.getHeight())>>1)-Configurations.Abs_Coords_Y, 20);
 		}else{
-			offY += 30;
-			g.drawString("加载logo完成", 0, offY, 20);
 			g.setColor(bgColor);
 			g.fillRect(-Configurations.Abs_Coords_X, -Configurations.Abs_Coords_Y, screenWidth, screenHeight);
 			g.setColor(0xffffff);
@@ -343,12 +338,8 @@ abstract public class GameCanvasEngine extends GameCanvas implements Runnable, I
 			}
 		}
         else if (subState == 3) {
-        	offY += 30;
-        	g.drawString("用户登入...", 0, offY, 20);
             if (engineService.userLogin()) {
                 subState = 2;
-                offY += 30;
-                g.drawString("用户登入成功", 0, offY, 20);
             }
             else {
                 errorMessage = "用户登录失败。"+"\n";
@@ -361,8 +352,6 @@ abstract public class GameCanvasEngine extends GameCanvas implements Runnable, I
 	}
 	
 	private void playLogo() {
-		offY += 30;
-		g.drawString("加载logo...", 0, offY, 20);
 		if (Configurations.getInstance().isTelcomOperatorsTelcomgd()) {
 			showLogo(IMG_LOGO_CHINAGAMES, 0XC7A774);
 			if (timePass(3000)) {
@@ -377,12 +366,8 @@ abstract public class GameCanvasEngine extends GameCanvas implements Runnable, I
 	}
 
 	private void loadParam() {
-		offY += 30;
-		g.drawString("正在读取参数...", 0, offY, 20);
 		ParamManager pm = getParamManager();
 		if (pm.parse()) {
-			offY += 30;
-			g.drawString("读取参数成功", 0, offY, 20);
 			state = STATE_PLAY_LOGO;
 		}
 		else {
@@ -394,12 +379,9 @@ abstract public class GameCanvasEngine extends GameCanvas implements Runnable, I
 	}
 
 	private void loadConf() {
-		g.drawString("读取配置...", 0, offY, 20);
 		Configurations.loadConfigurations();
 		if (Configurations.isLoadConfSuccess()) {
 			state = STATE_LOAD_PARAM;
-			offY += 30;
-			g.drawString("读取配置成功", 0, offY, 20);
 		}
 		else {
 			errorMessage = "读取配置失败。"+"\n";
