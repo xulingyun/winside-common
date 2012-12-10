@@ -438,7 +438,7 @@ abstract public class GameCanvasEngine extends GameCanvas implements Runnable, I
 		initLoadingRes();
 		g.setColor(0);
 		g.fillRect(-Configurations.Abs_Coords_X, -Configurations.Abs_Coords_Y, screenWidth, screenHeight);
-		g.drawImage(logoPic, 4, 4, 20);
+		//g.drawImage(logoPic, 4, 4, 20);  ¹«Ë¾logo
 		
 		int progress1W = progressPic1.getWidth();
 		int progress1H = progressPic1.getHeight();

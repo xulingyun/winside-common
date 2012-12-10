@@ -724,7 +724,7 @@ public class StateRecharge {
 						state=STATE_SELECT_AMOUNT;
 					}
 					else {
-						if (isPasswordError(sw.getServiceMessage()) && !engineService.isRechrageSuccess) {
+						if (isPasswordError(sw.getServiceMessage()) /*&& !engineService.isRechrageSuccess*/) {
 							gotoStatePassword();
 						}
 						else {
