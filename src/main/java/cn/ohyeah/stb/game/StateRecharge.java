@@ -279,7 +279,7 @@ public class StateRecharge {
 			g.drawString("iTV体验期内订购需正常付费", confirmX+70, confirmY+138, 20);
 		}
 		
-		String productName = "<<"+engineService.getProductName()+">>"+engineService.getRechargeCommand();
+		String productName = /*"<<"+engineService.getProductName()+">>"*/"灰太狼来了"+engineService.getRechargeCommand();
 		Font font = g.getFont();
 		int textDelta = (25-font.getHeight())>>1;
 		int sx = confirmX+170;
@@ -597,7 +597,7 @@ public class StateRecharge {
 						}
 						if (sw.isServiceSuccessful()) {
 							resultMsg = engineService.getRechargeCommand()+"成功";
-							engineService.isRechrageSuccess = true;
+							//engineService.isRechrageSuccess = true;
 							engineService.passWord = password;
 						}
 						else {
@@ -682,19 +682,19 @@ public class StateRecharge {
 				ServiceWrapper sw = engine.getServiceWrapper();
 				try {
 					if (curPayType == 0) {
-						if(!engineService.isRechrageSuccess){
+						//if(!engineService.isRechrageSuccess){
 							sw.recharge(rechargeAmount, SubscribePayType.PAY_TYPE_BILL, 
 									engineService.getProductName()
 									+engineService.getRechargeCommand()
 									+rechargeAmount
 									+engineService.getSubscribeAmountUnit(), "");
-						}else{
+						/*}else{
 							sw.recharge(rechargeAmount, SubscribePayType.PAY_TYPE_BILL, 
 									engineService.getProductName()
 									+engineService.getRechargeCommand()
 									+rechargeAmount
 									+engineService.getSubscribeAmountUnit(), engineService.passWord);
-						}
+						}*/
 					}
 					else {
 						sw.recharge(rechargeAmount*engineService.getCashToPointsRatio(), SubscribePayType.PAY_TYPE_POINTS, 
@@ -705,7 +705,7 @@ public class StateRecharge {
 					}
 					if (sw.isServiceSuccessful()) {
 						resultMsg = engineService.getRechargeCommand()+"成功";
-						engineService.isRechrageSuccess = true;
+						//engineService.isRechrageSuccess = true;
 						engineService.passWord = password;
 					}
 					else {

@@ -16,6 +16,9 @@ public class Recharge {
 	public int recharge(){
 		if(Configurations.getInstance().isTelcomOperatorsTianweiSZ()){
 			return new StateRechargeWinsideTW(engine).recharge();
+		}if(Configurations.getInstance().isTelcomOperatorsTelcomhn()
+				&& Configurations.getInstance().isServiceProviderWinside()){
+			return new StateRechargehn(engine).recharge();
 		}else{
 			return new StateRecharge(engine).recharge();
 		}

@@ -15,7 +15,7 @@ import cn.ohyeah.stb.key.KeyCode;
 import cn.ohyeah.stb.key.KeyState;
 
 /**
- * 掌世界湖南充值界面（带验证码功能）
+ * 通用充值界面
  * @author Administrator
  *
  */
@@ -41,6 +41,7 @@ public class StateRechargehn {
 	private static final short PIC_ID_RECHARGE0 = NUM_PICS++;
 	private static final short PIC_ID_EXCHANGE0 = NUM_PICS++;
 	private static final short PIC_ID_PASSWORD_BG = NUM_PICS++;
+	private static final short PIC_ID_CHECKCODE = NUM_PICS++;
 	
 	private static final String[] imagePaths = {
 		"/business/recharge-bg.jpg",
@@ -55,6 +56,7 @@ public class StateRechargehn {
 		"/business/recharge0.png",
 		"/business/exchange0.png",
 		"/business/password-bg.png",
+		"/business/checkcode.jpg",
 	};
 	
 	private static char[][] inputChars = {
@@ -84,7 +86,6 @@ public class StateRechargehn {
 	private byte pwdGroupIndex;
 	private byte pwdBtnIndex;
 	private int rechargeAmount;
-	private boolean canBuy;
 	private int[] amountList;
 	private ResourceManager resource;
 	private String password;
@@ -92,8 +93,6 @@ public class StateRechargehn {
 	private char[] pwdChars;
 	private int cursorFrame;
 	boolean run = true;
-	private String checkCode;
-	private String generatorCode;
 	
 	
 	public StateRechargehn(IEngine engine) {
@@ -268,6 +267,7 @@ public class StateRechargehn {
 
 	private void showConfirm(SGraphics g) {
 		Image bgImg = resource.loadImage(PIC_ID_CONFIRM_BG);
+		Image checkcode = resource.loadImage(PIC_ID_CHECKCODE);
 		int confirmX = (engine.getScreenWidth()-bgImg.getWidth())>>1;
 		int confirmY = (engine.getScreenHeight()-bgImg.getHeight())>>1;
 		
@@ -281,7 +281,7 @@ public class StateRechargehn {
 			g.drawString("iTV体验期内订购需正常付费", confirmX+70, confirmY+138, 20);
 		}
 		
-		String productName = "<<"+engineService.getProductName()+">>"+engineService.getRechargeCommand();
+		String productName = /*"<<"+engineService.getProductName()+">>"*/"灰太狼来了"+engineService.getRechargeCommand();
 		Font font = g.getFont();
 		int textDelta = (25-font.getHeight())>>1;
 		int sx = confirmX+170;
@@ -299,25 +299,24 @@ public class StateRechargehn {
 		sy = confirmY+216+textDelta;
 		g.drawString(ss, sx, sy, 20);
 		
-		if(Configurations.getInstance().isServiceProviderWinside()
-				&& Configurations.getInstance().isTelcomOperatorsTelcomhn()){	/*掌世界湖南地区需验证码*/
-			
-		}else{
-			Image confirmBtn = resource.loadImage(PIC_ID_OK0);
-			sx = confirmX+121;
-			sy = confirmY+253;
-			g.drawImage(confirmBtn, sx, sy, 20);
-			if (confirmIndex == 0) {
-				DrawUtil.drawRect(g, sx, sy, confirmBtn.getWidth(), confirmBtn.getHeight(), 3, 0XFF0000);
-			}
-			
-			Image backBtn = resource.loadImage(PIC_ID_CANCEL0);
-			sx = confirmX+253;
-			g.drawImage(backBtn, sx, sy, 20);
-			if (confirmIndex == 1) {
-				DrawUtil.drawRect(g, sx, sy, confirmBtn.getWidth(), confirmBtn.getHeight(), 3, 0XFF0000);
-			}
+		sy = confirmY+250;
+		g.drawImage(checkcode, 190, sy, 20);
+		
+		Image confirmBtn = resource.loadImage(PIC_ID_OK0);
+		sx = confirmX+121;
+		sy = confirmY+284;
+		g.drawImage(confirmBtn, sx, sy, 20);
+		if (confirmIndex == 0) {
+			DrawUtil.drawRect(g, sx, sy, confirmBtn.getWidth(), confirmBtn.getHeight(), 3, 0XFF0000);
 		}
+		
+		Image backBtn = resource.loadImage(PIC_ID_CANCEL0);
+		sx = confirmX+253;
+		g.drawImage(backBtn, sx, sy, 20);
+		if (confirmIndex == 1) {
+			DrawUtil.drawRect(g, sx, sy, confirmBtn.getWidth(), confirmBtn.getHeight(), 3, 0XFF0000);
+		}
+		
 	}
 
 	private void showSelectAmount(SGraphics g) {
@@ -505,6 +504,7 @@ public class StateRechargehn {
 	
 	private void handleInputPwdView(KeyState key) {
 		if (key.containsAndRemove(KeyCode.NUM0)) {
+			key.clear();
 			subState = SUB_STATE_INPUT_PWD_SELECT_CHAR;
 			pwdChars = inputChars[0];
 			pwdCharIndex = 0;
@@ -602,7 +602,7 @@ public class StateRechargehn {
 						}
 						if (sw.isServiceSuccessful()) {
 							resultMsg = engineService.getRechargeCommand()+"成功";
-							engineService.isRechrageSuccess = true;
+							//engineService.isRechrageSuccess = true;
 							engineService.passWord = password;
 						}
 						else {
@@ -687,19 +687,19 @@ public class StateRechargehn {
 				ServiceWrapper sw = engine.getServiceWrapper();
 				try {
 					if (curPayType == 0) {
-						if(!engineService.isRechrageSuccess){
+						//if(!engineService.isRechrageSuccess){
 							sw.recharge(rechargeAmount, SubscribePayType.PAY_TYPE_BILL, 
 									engineService.getProductName()
 									+engineService.getRechargeCommand()
 									+rechargeAmount
 									+engineService.getSubscribeAmountUnit(), "");
-						}else{
+						/*}else{
 							sw.recharge(rechargeAmount, SubscribePayType.PAY_TYPE_BILL, 
 									engineService.getProductName()
 									+engineService.getRechargeCommand()
 									+rechargeAmount
 									+engineService.getSubscribeAmountUnit(), engineService.passWord);
-						}
+						}*/
 					}
 					else {
 						sw.recharge(rechargeAmount*engineService.getCashToPointsRatio(), SubscribePayType.PAY_TYPE_POINTS, 
@@ -710,7 +710,7 @@ public class StateRechargehn {
 					}
 					if (sw.isServiceSuccessful()) {
 						resultMsg = engineService.getRechargeCommand()+"成功";
-						engineService.isRechrageSuccess = true;
+						//engineService.isRechrageSuccess = true;
 						engineService.passWord = password;
 					}
 					else {
@@ -729,7 +729,7 @@ public class StateRechargehn {
 						state=STATE_SELECT_AMOUNT;
 					}
 					else {
-						if (isPasswordError(sw.getServiceMessage()) && !engineService.isRechrageSuccess) {
+						if (isPasswordError(sw.getServiceMessage()) /*&& !engineService.isRechrageSuccess*/) {
 							gotoStatePassword();
 						}
 						else {
@@ -820,7 +820,6 @@ public class StateRechargehn {
 						else {
 							confirmIndex = 1;
 						}
-						
 					}
 				}
 				else {
