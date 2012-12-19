@@ -11,6 +11,7 @@ import cn.ohyeah.stb.res.ResourceManager;
 import cn.ohyeah.stb.res.UIResource;
 import cn.ohyeah.stb.ui.DrawUtil;
 import cn.ohyeah.stb.ui.PopupText;
+import cn.ohyeah.stb.util.RandomValue;
 import cn.ohyeah.stb.key.KeyCode;
 import cn.ohyeah.stb.key.KeyState;
 
@@ -92,6 +93,12 @@ public class StateRechargehn {
 	private int pwdCharIndex;
 	private char[] pwdChars;
 	private int cursorFrame;
+	
+	private int confirmGroupIndex;
+	private String checkCode;
+	private String checkCodes;
+	private int checkCodeIndex;
+	private int checkCodeLenght = 4;
 	boolean run = true;
 	
 	
@@ -141,7 +148,9 @@ public class StateRechargehn {
 	private void execute() {
 		switch(state) {
 		case STATE_SELECT_AMOUNT: break;
-		case STATE_CONFIRM: break;
+		case STATE_CONFIRM: 
+			cursorFrame = (cursorFrame+1)%8;
+			break;
 		case STATE_INPUT_PWD: 
 			cursorFrame = (cursorFrame+1)%8;
 			break;
@@ -300,20 +309,35 @@ public class StateRechargehn {
 		g.drawString(ss, sx, sy, 20);
 		
 		sy = confirmY+250;
-		g.drawImage(checkcode, 190, sy, 20);
+		g.drawImage(checkcode, 192, sy, 20);
+		sy += 5;
+		DrawUtil.drawRect(0x000000, g, sx, sy, 65, 20);
+		g.drawString(checkCode, sx, sy, 20);
+		if (confirmGroupIndex==0) {
+			if (cursorFrame < 4) {
+				sx += checkCodeIndex*8;
+				g.drawLine(sx, sy, sx, sy+20);
+			}
+		}
+		
+		sx = confirmX+250;
+		DrawUtil.drawRect(0xffffff, g, sx, sy, 45, 20);
+		g.setColor(0x000000);
+		sx = confirmX+255;
+		g.drawString(checkCodes, sx, sy, 20);
 		
 		Image confirmBtn = resource.loadImage(PIC_ID_OK0);
 		sx = confirmX+121;
-		sy = confirmY+284;
+		sy = confirmY+289;
 		g.drawImage(confirmBtn, sx, sy, 20);
-		if (confirmIndex == 0) {
+		if (confirmGroupIndex==1 && confirmIndex == 0) {
 			DrawUtil.drawRect(g, sx, sy, confirmBtn.getWidth(), confirmBtn.getHeight(), 3, 0XFF0000);
 		}
 		
 		Image backBtn = resource.loadImage(PIC_ID_CANCEL0);
 		sx = confirmX+253;
 		g.drawImage(backBtn, sx, sy, 20);
-		if (confirmIndex == 1) {
+		if (confirmGroupIndex==1 && confirmIndex == 1) {
 			DrawUtil.drawRect(g, sx, sy, confirmBtn.getWidth(), confirmBtn.getHeight(), 3, 0XFF0000);
 		}
 		
@@ -663,22 +687,87 @@ public class StateRechargehn {
 
 	private void handleConfirm(KeyState key) {
 		
-		if (key.containsAndRemove(KeyCode.NUM1)) {
-			gotoStatePassword();
-			state = STATE_INPUT_PWD;
+		if (key.containsAndRemove(KeyCode.NUM0)) {
+			//gotoStatePassword();
+			//state = STATE_INPUT_PWD;
+			if(checkCodeIndex<checkCodeLenght){
+				checkCode += 0;
+				checkCodeIndex += 1;
+			}
+		}else if (key.containsAndRemove(KeyCode.NUM1)) {
+			if(checkCodeIndex<checkCodeLenght){
+				checkCode += 1;
+				checkCodeIndex += 1;
+			}
+		}else if (key.containsAndRemove(KeyCode.NUM2)) {
+			if(checkCodeIndex<checkCodeLenght){
+				checkCode += 2;
+				checkCodeIndex += 1;
+			};
+		}else if (key.containsAndRemove(KeyCode.NUM3)) {
+			if(checkCodeIndex<checkCodeLenght){
+				checkCode += 3;
+				checkCodeIndex += 1;
+			}
+		}else if (key.containsAndRemove(KeyCode.NUM4)) {
+			if(checkCodeIndex<checkCodeLenght){
+				checkCode += 4;
+				checkCodeIndex += 1;
+			}
+		}else if (key.containsAndRemove(KeyCode.NUM5)) {
+			if(checkCodeIndex<checkCodeLenght){
+				checkCode += 5;
+				checkCodeIndex += 1;
+			}
+		}else if (key.containsAndRemove(KeyCode.NUM6)) {
+			if(checkCodeIndex<checkCodeLenght){
+				checkCode += 6;
+				checkCodeIndex += 1;
+			}
+		}else if (key.containsAndRemove(KeyCode.NUM7)) {
+			if(checkCodeIndex<checkCodeLenght){
+				checkCode += 7;
+				checkCodeIndex += 1;
+			}
+		}else if (key.containsAndRemove(KeyCode.NUM8)) {
+			if(checkCodeIndex<checkCodeLenght){
+				checkCode += 8;
+				checkCodeIndex += 1;
+			}
+		}else if (key.containsAndRemove(KeyCode.NUM9)) {
+			if(checkCodeIndex<checkCodeLenght){
+				checkCode += 9;
+				checkCodeIndex += 1;
+			}
+		}else if (key.containsAndRemove(KeyCode.DOWN)) {
+			confirmGroupIndex = 1;
+
+		}else if (key.containsAndRemove(KeyCode.UP)) {
+			confirmGroupIndex = 0;
+
 		}else if (key.containsAndRemove(KeyCode.LEFT)) {
-			if (confirmIndex == 1) {
+			if (confirmGroupIndex == 1) {
 				confirmIndex = 0;
 			}
 		}else if (key.containsAndRemove(KeyCode.RIGHT)) {
-			if (confirmIndex == 0) {
+			if (confirmGroupIndex == 1) {
 				confirmIndex = 1;
 			}
 		}else if (key.containsAndRemove(KeyCode.NUM0|KeyCode.BACK)) {
-			clear();
+			clear();     
 			state=STATE_SELECT_AMOUNT;
-		}else if (key.containsAndRemove(KeyCode.OK)) {
+		}else if (confirmGroupIndex == 1 && key.containsAndRemove(KeyCode.OK)) {
 			if (confirmIndex == 0) {
+				if(!checkCode.equalsIgnoreCase(checkCodes)){
+					PopupText pt = UIResource.getInstance().buildDefaultPopupText();
+					pt.setText("验证码不正确,请重新输入!");
+					pt.popup();
+					checkCode = "";
+					checkCodeIndex = 0;
+					confirmGroupIndex = 0;
+					return;
+				}
+				
 				String resultMsg = "";
 				PopupText pt = UIResource.getInstance().buildDefaultPopupText();
 				pt.setText("正在"+engineService.getRechargeCommand()+"，请稍后...");
@@ -814,6 +903,7 @@ public class StateRechargehn {
 					if (canRecharge) {
 						clear();
 						state = STATE_CONFIRM;
+						makeCheckCode();
 						if (conf.isSubscribeFocusOk()) {
 							confirmIndex = 0;
 						}
@@ -831,6 +921,16 @@ public class StateRechargehn {
 			else {
 				run = false;
 			}
+		}
+	}
+	
+	private void makeCheckCode(){
+		checkCode = "";
+		checkCodes = "";
+		checkCodeIndex = 0;
+		confirmGroupIndex = 0;
+		for(int i=0;i<checkCodeLenght;i++){
+			checkCodes += RandomValue.getRandInt(10);
 		}
 	}
 }

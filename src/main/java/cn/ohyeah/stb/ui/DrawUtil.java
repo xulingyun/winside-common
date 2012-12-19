@@ -207,7 +207,6 @@ public class DrawUtil {
 	 * @param y
 	 * @param w
 	 * @param h
-	 * @param lineW
 	 */
 	public static void drawRect(SGraphics g, int x, int y, int w, int h) {
 		int sx = x-1, sy = y-1, sw = w+1, sh = h+1;
@@ -219,5 +218,29 @@ public class DrawUtil {
 			sh-=2;
 			g.drawRect(sx, sy, sw, sh);
 		}
+	}
+	
+	/**
+	 * »æÖÆ´¿É«±³¾°
+	 * @param col
+	 * @param g
+	 * @param x
+	 * @param y
+	 * @param w
+	 * @param h
+	 */
+	public static void drawRect(int col, SGraphics g, int x, int y, int w, int h) {
+		int sx = x-1, sy = y-1, sw = w+1, sh = h+1;
+		int color = g.getColor();
+		g.setColor(col);
+		g.drawRect(sx, sy, sw, sh);
+		for (int i = 1; i < h/2+1; ++i) {
+			++sx;
+			++sy;
+			sw-=2;
+			sh-=2;
+			g.drawRect(sx, sy, sw, sh);
+		}
+		g.setColor(color);
 	}
 }
