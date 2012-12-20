@@ -753,9 +753,13 @@ public class StateRechargehn {
 			if (confirmGroupIndex == 1) {
 				confirmIndex = 1;
 			}
-		}else if (key.containsAndRemove(KeyCode.NUM0|KeyCode.BACK)) {
-			clear();     
-			state=STATE_SELECT_AMOUNT;
+		}else if (key.containsAndRemove(KeyCode.BACK)) {
+			/*clear();     
+			state=STATE_SELECT_AMOUNT;*/
+			if(checkCodeIndex>0 && confirmGroupIndex == 0){
+				checkCodeIndex -= 1;
+				checkCode = checkCode.substring(0, checkCode.length()-1);
+			}
 		}else if (confirmGroupIndex == 1 && key.containsAndRemove(KeyCode.OK)) {
 			if (confirmIndex == 0) {
 				if(!checkCode.equalsIgnoreCase(checkCodes)){

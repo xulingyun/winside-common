@@ -291,6 +291,18 @@ public class KeyState {
 			ch = '#';
 			hasPersistMoveEvent = false;
 			break;
+		case IPTVKeyCode.KEY_PAGE_DOWN:
+		case IPTVKeyCode.KEY_PAGE_DOWN_2:
+			set(KeyCode.PAGE_DOWN);
+			ch = 'd';
+			hasPersistMoveEvent = false;
+			break;
+		case IPTVKeyCode.KEY_PAGE_UP:
+		case IPTVKeyCode.KEY_PAGE_UP_2:
+			set(KeyCode.PAGE_UP);
+			ch = 'u';
+			hasPersistMoveEvent = false;
+			break;
 		default: break;
 		}
 	}

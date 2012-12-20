@@ -39,6 +39,9 @@ public interface IPTVKeyCode {
 	//UT define JVM key
 	public static final int KEY_PAGE_UP			= -20;		//Page Up Key
 	public static final int KEY_PAGE_DOWN		= -21;		//Page Down Key
+	
+	public static final int KEY_PAGE_UP_2		= 0x0021;	//
+	public static final int KEY_PAGE_DOWN_2		= 0x0022;	//
 
 	public static final int KEY_INVALID        = 0;
 }
