@@ -65,14 +65,14 @@ public class StateRechargehn {
 	private static char[][] inputChars = {
 		{'0'},
 		{'1'},
-		{'2', 'a', 'A', 'b', 'B', 'c', 'C'},
-		{'3', 'd', 'D', 'e', 'E', 'f', 'F'},
-		{'4', 'g', 'G', 'h', 'H', 'i', 'I'},
-		{'5', 'j', 'J', 'k', 'K', 'l', 'L'},
-		{'6', 'm', 'M', 'n', 'N', 'o', 'O'},
-		{'7', 'p', 'P', 'q', 'Q', 'r', 'R', 's', 'S'},
-		{'8', 't', 'T', 'u', 'U', 'v', 'V'},
-		{'9', 'w', 'W', 'x', 'X', 'y', 'Y', 'z', 'Z'}
+		{'2'/*, 'a', 'A', 'b', 'B', 'c', 'C'*/},
+		{'3'/*, 'd', 'D', 'e', 'E', 'f', 'F'*/},
+		{'4'/*, 'g', 'G', 'h', 'H', 'i', 'I'*/},
+		{'5'/*, 'j', 'J', 'k', 'K', 'l', 'L'*/},
+		{'6'/*, 'm', 'M', 'n', 'N', 'o', 'O'*/},
+		{'7'/*, 'p', 'P', 'q', 'Q', 'r', 'R', 's', 'S'*/},
+		{'8'/*, 't', 'T', 'u', 'U', 'v', 'V'*/},
+		{'9'/*, 'w', 'W', 'x', 'X', 'y', 'Y', 'z', 'Z'*/}
 	};
 	
 	private IEngine engine;
@@ -293,7 +293,8 @@ public class StateRechargehn {
 			g.drawString("iTV体验期内订购需正常付费", confirmX+70, confirmY+138, 20);
 		}
 		
-		String productName = /*"<<"+engineService.getProductName()+">>"*/"灰太狼来了"+engineService.getRechargeCommand();
+		String productName = engineService.getRechargeCommand()+rechargeAmount*engineService.getExpendCashToAmountRatio()+engineService.getExpendAmountUnit();
+		/*"<<"+engineService.getProductName()+">>""灰太狼来了"+engineService.getRechargeCommand();*/
 		Font font = g.getFont();
 		int textDelta = (25-font.getHeight())>>1;
 		int sx = confirmX+170;
@@ -316,7 +317,7 @@ public class StateRechargehn {
 		sy += 8;
 		sx += 85;
 		//g.drawString(checkCode, sx, sy, 20);
-		if(checkCode!="" && checkCode!=null){
+		if(!checkCode.equals("") && checkCode!=null){
 			drawNum(g, Integer.parseInt(checkCode), sx, sy);
 		}
 		if (confirmGroupIndex==0) {
@@ -756,23 +757,24 @@ public class StateRechargehn {
 		}else if (key.containsAndRemove(KeyCode.LEFT)) {
 			if (confirmGroupIndex == 1) {
 				confirmIndex = 0;
+			}else{
+				if(checkCodeIndex>0){
+					checkCodeIndex -= 1;
+					checkCode = checkCode.substring(0, checkCode.length()-1);
+				}
 			}
 		}else if (key.containsAndRemove(KeyCode.RIGHT)) {
 			if (confirmGroupIndex == 1) {
 				confirmIndex = 1;
 			}
 		}else if (key.containsAndRemove(KeyCode.BACK)) {
-			/*clear();     
-			state=STATE_SELECT_AMOUNT;*/
-			if(checkCodeIndex>0 && confirmGroupIndex == 0){
-				checkCodeIndex -= 1;
-				checkCode = checkCode.substring(0, checkCode.length()-1);
-			}
+			clear();     
+			state=STATE_SELECT_AMOUNT;
 		}else if (confirmGroupIndex == 1 && key.containsAndRemove(KeyCode.OK)) {
 			if (confirmIndex == 0) {
 				if(!checkCode.equalsIgnoreCase(checkCodes)){
 					PopupText pt = UIResource.getInstance().buildDefaultPopupText();
-					pt.setText("答案不正确,请重新输入!");
+					pt.setText("验证码错误,请重新输入!");
 					pt.popup();
 					makeCheckCode();
 					return;
@@ -914,6 +916,7 @@ public class StateRechargehn {
 						clear();
 						state = STATE_CONFIRM;
 						makeCheckCode();
+						confirmGroupIndex = 1;
 						if (conf.isSubscribeFocusOk()) {
 							confirmIndex = 0;
 						}
