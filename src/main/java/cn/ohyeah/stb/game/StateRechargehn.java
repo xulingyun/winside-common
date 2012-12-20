@@ -43,6 +43,7 @@ public class StateRechargehn {
 	private static final short PIC_ID_EXCHANGE0 = NUM_PICS++;
 	private static final short PIC_ID_PASSWORD_BG = NUM_PICS++;
 	private static final short PIC_ID_CHECKCODE = NUM_PICS++;
+	private static final short PIC_ID_NUMBER = NUM_PICS++;
 	
 	private static final String[] imagePaths = {
 		"/business/recharge-bg.jpg",
@@ -57,7 +58,8 @@ public class StateRechargehn {
 		"/business/recharge0.png",
 		"/business/exchange0.png",
 		"/business/password-bg.png",
-		"/business/checkcode.jpg",
+		"/business/checkcode.png",
+		"/business/number.png",
 	};
 	
 	private static char[][] inputChars = {
@@ -97,8 +99,9 @@ public class StateRechargehn {
 	private int confirmGroupIndex;
 	private String checkCode;
 	private String checkCodes;
+	private int num_1, num_2;
 	private int checkCodeIndex;
-	private int checkCodeLenght = 4;
+	private int checkCodeLenght = 2;
 	boolean run = true;
 	
 	
@@ -310,21 +313,26 @@ public class StateRechargehn {
 		
 		sy = confirmY+250;
 		g.drawImage(checkcode, 192, sy, 20);
-		sy += 5;
-		DrawUtil.drawRect(0x000000, g, sx, sy, 65, 20);
-		g.drawString(checkCode, sx, sy, 20);
+		sy += 8;
+		sx += 85;
+		//g.drawString(checkCode, sx, sy, 20);
+		if(checkCode!="" && checkCode!=null){
+			drawNum(g, Integer.parseInt(checkCode), sx, sy);
+		}
 		if (confirmGroupIndex==0) {
 			if (cursorFrame < 4) {
-				sx += checkCodeIndex*8;
-				g.drawLine(sx, sy, sx, sy+20);
+				sx += checkCodeIndex*10;
+				g.drawLine(sx, sy-3, sx, sy+15);
 			}
 		}
 		
-		sx = confirmX+250;
-		DrawUtil.drawRect(0xffffff, g, sx, sy, 45, 20);
 		g.setColor(0x000000);
 		sx = confirmX+255;
-		g.drawString(checkCodes, sx, sy, 20);
+		drawNum(g, num_1, 274, sy);
+		drawNum(g, num_2, 314, sy);
+		//g.drawString(String.valueOf(num_1), 274, sy, 20);
+		//g.drawString(String.valueOf(num_2), 314, sy, 20);
+		
 		
 		Image confirmBtn = resource.loadImage(PIC_ID_OK0);
 		sx = confirmX+121;
@@ -764,11 +772,9 @@ public class StateRechargehn {
 			if (confirmIndex == 0) {
 				if(!checkCode.equalsIgnoreCase(checkCodes)){
 					PopupText pt = UIResource.getInstance().buildDefaultPopupText();
-					pt.setText("验证码不正确,请重新输入!");
+					pt.setText("答案不正确,请重新输入!");
 					pt.popup();
-					checkCode = "";
-					checkCodeIndex = 0;
-					confirmGroupIndex = 0;
+					makeCheckCode();
 					return;
 				}
 				
@@ -930,11 +936,19 @@ public class StateRechargehn {
 	
 	private void makeCheckCode(){
 		checkCode = "";
-		checkCodes = "";
 		checkCodeIndex = 0;
 		confirmGroupIndex = 0;
-		for(int i=0;i<checkCodeLenght;i++){
-			checkCodes += RandomValue.getRandInt(10);
+		num_1 = RandomValue.getRandInt(10);
+		num_2 = RandomValue.getRandInt(10);
+		checkCodes = String.valueOf(num_1*num_2);
+	}
+	
+	private void drawNum(SGraphics g, int num, int x, int y) {
+		Image imgNumeber = resource.loadImage(PIC_ID_NUMBER);
+		String number = String.valueOf(num);
+		for (byte i = 0; i < number.length(); i++) {
+			g.drawRegion(imgNumeber, (number.charAt(i) - '0') * imgNumeber.getWidth()/10, 0, 
+					imgNumeber.getWidth()/10, imgNumeber.getHeight(), 0, x + i * (imgNumeber.getWidth()/10 + 1), y, 0);
 		}
 	}
 }
