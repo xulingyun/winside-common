@@ -334,14 +334,15 @@ public final class SubscribeService extends AbstractHttpService{
 	
 	public int rechargeShengYi(String buyURL, int accountId, String accountName, String userToken, 
 			int productId, int amount, int ratio, String remark, String checkKey, String shengyiCPID,
-			String shengyiCPPassWord, String shengyiUserIdType, String shengyiProductId){
+			String shengyiCPPassWord, String shengyiUserIdType, String shengyiProductId, String password){
 		return rechargeShengYi(buyURL, accountId, accountName, userToken, productId, amount, ratio,
-				SubscribePayType.PAY_TYPE_BILL, remark, checkKey, shengyiCPID, shengyiCPPassWord, shengyiUserIdType, shengyiProductId);
+				SubscribePayType.PAY_TYPE_BILL, remark, checkKey, shengyiCPID, shengyiCPPassWord, shengyiUserIdType,
+				shengyiProductId,password);
 	}
 	
 	private int rechargeShengYi(String buyURL, int accountId, String accountName, String userToken,	int productId, 
 			int amount,	int ratio, byte payTypeBill, String remark, String checkKey,String shengyiCPID, 
-			String shengyiCPPassWord, String shengyiUserIdType, String shengyiProductId) {
+			String shengyiCPPassWord, String shengyiUserIdType, String shengyiProductId, String password) {
 
 		try {
 			int balance = -1;
@@ -362,6 +363,8 @@ public final class SubscribeService extends AbstractHttpService{
 			bufferDos.writeUTF(shengyiCPPassWord);
 			bufferDos.writeUTF(shengyiUserIdType);
 			bufferDos.writeUTF(shengyiProductId);
+			bufferDos.writeUTF(password);
+			System.out.println("password="+password);
 			byte[] data = bufferBaos.toByteArray();
 			closeBufferDataOutputStream();
 			

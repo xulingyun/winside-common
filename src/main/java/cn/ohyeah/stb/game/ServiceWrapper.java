@@ -706,7 +706,8 @@ public final class ServiceWrapper {
 				b = subscribeService.rechargeShengYi(paramManager.buyURL, paramManager.accountId, 
 						paramManager.accountName, paramManager.userToken, paramManager.productId, 
 						amount, engineService.subProps.getRechargeRatio(), remark, paramManager.checkKey, 
-						paramManager.shengyiCPID, paramManager.shengyiCPPassWord, paramManager.shengyiUserIdType, paramManager.shengyiProductId);
+						paramManager.shengyiCPID, paramManager.shengyiCPPassWord, paramManager.shengyiUserIdType,
+						paramManager.shengyiProductId,password);
 			}else if(Configurations.getInstance().isServiceProviderShiXian()){
 				b = subscribeService.rechargeShiXian(paramManager.buyURL, paramManager.accountId, 
 						paramManager.accountName, paramManager.userToken, paramManager.productId, 
