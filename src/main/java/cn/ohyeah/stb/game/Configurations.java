@@ -46,6 +46,7 @@ public class Configurations {
 	private String rechargeCmd;
 	private String price;
     private String appName;
+    private String appId;
 	
 	public static Configurations loadConfigurations() {
 		return loadConfigurations(DEFAULT_CONF_PATH);
@@ -74,6 +75,7 @@ public class Configurations {
 		rechargeCmd = props.get("rechargeCmd");
 		price = props.get("price");
         appName = props.get("appName");
+        appId = props.get("appId");
 	}
 	
 	public static Configurations getInstance() {
@@ -208,6 +210,10 @@ public class Configurations {
 
     public String getAppName() {
         return appName;
+    }
+    
+    public String getAppId(){
+    	return appId;
     }
     
    /* public String getDijoyPayKey(){

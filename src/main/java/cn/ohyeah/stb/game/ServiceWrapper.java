@@ -713,7 +713,7 @@ public final class ServiceWrapper {
 						paramManager.accountName, paramManager.userToken, paramManager.productId, 
 						amount, engineService.subProps.getRechargeRatio(), remark, paramManager.checkKey,
 						paramManager.feeaccount, paramManager.returnurl, paramManager.dwjvl, paramManager.opcomkey, 
-						paramManager.paysubway, paramManager.gameid, paramManager.user_group_id,password);
+						paramManager.paysubway, paramManager.gameid, paramManager.user_group_id,password, paramManager.appId);
 			}
 			else {
 				b = subscribeService.recharge(paramManager.buyURL, paramManager.accountId, paramManager.accountName, 

@@ -40,6 +40,7 @@ final class ParamManager {
 	String opcomkey;			/*区域标识*/
 	String paysubway;			/*充值类型，主动/被动*/
 	String user_group_id;		/*运营商地区标识*/
+	String appId;				/*appId, 视线使用参数*/
 	
 	String spid;			/*供应商ID，中游和掌世界充值时需要*/
 	String gameid;			/*游戏ID，中游和掌世界充值时需要*/
@@ -225,11 +226,12 @@ final class ParamManager {
 		opcomkey = getStringParam("tvplat#opcomkey");
 		paysubway = getStringParam("tvplat#paysubway");
 		user_group_id = ""/*getStringParam("USER_GROUP_ID")*/;
-		buyURL = ""/*getStringParam("rechargeurl")*/;
+		buyURL = getStringParam("buyURL");
 		gameid = ""/*getStringParam("tvplat#gameid")*/;
 		spid = "";
 		checkKey = "";
 		accountName = userId;
+		appId = Configurations.getInstance().getAppId();
 	}
 	
 	private void parseWinsidegdPlatParam() {
