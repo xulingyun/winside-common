@@ -687,7 +687,7 @@ public class StateRechargeShengyihn {
 		boolean pwdError = false;
 		if (msg.indexOf("密码")>=0) {
 			if (msg.indexOf("错误") > 0
-				|| msg.indexOf("校验失败")>0) {
+				|| msg.indexOf("验证失败")>0) {
 				pwdError = true;
 			}
 		}
@@ -780,10 +780,10 @@ public class StateRechargeShengyihn {
 					return;
 				}
 				
-				gotoStatePassword();
-				state = STATE_INPUT_PWD;
+				//gotoStatePassword();
+				//state = STATE_INPUT_PWD;
 				
-				/*String resultMsg = "";
+				String resultMsg = "";
 				PopupText pt = UIResource.getInstance().buildDefaultPopupText();
 				pt.setText("正在"+engineService.getRechargeCommand()+"，请稍后...");
 				pt.show(engine.getSGraphics());
@@ -791,12 +791,12 @@ public class StateRechargeShengyihn {
 				ServiceWrapper sw = engine.getServiceWrapper();
 				try {
 					if (curPayType == 0) {
-						//if(!engineService.isRechrageSuccess){
+						if(!engineService.isRechrageSuccess){
 							sw.recharge(rechargeAmount, SubscribePayType.PAY_TYPE_BILL, 
 									engineService.getProductName()
 									+engineService.getRechargeCommand()
 									+rechargeAmount
-									+engineService.getSubscribeAmountUnit(), "");
+									+engineService.getSubscribeAmountUnit(), "null");
 						}else{
 							sw.recharge(rechargeAmount, SubscribePayType.PAY_TYPE_BILL, 
 									engineService.getProductName()
@@ -833,7 +833,7 @@ public class StateRechargeShengyihn {
 						state=STATE_SELECT_AMOUNT;
 					}
 					else {
-						if (isPasswordError(sw.getServiceMessage()) && !engineService.isRechrageSuccess) {
+						if (isPasswordError(sw.getServiceMessage())/* && !engineService.isRechrageSuccess*/) {
 							gotoStatePassword();
 						}
 						else {
@@ -843,7 +843,7 @@ public class StateRechargeShengyihn {
 							state=STATE_SELECT_AMOUNT;
 						}
 					}
-				}*/
+				}
 			}
 			else {
 				clear();
