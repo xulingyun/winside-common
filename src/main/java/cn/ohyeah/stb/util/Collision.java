@@ -48,7 +48,7 @@ public class Collision {
 	public static boolean checkCircularCollision(int x1,int y1,int w1,int h1, int x2,int y2,int w2,int h2){
 		int r1 = w1/2, cX1 = x1+r1, cY1 = y1+h1/2;
 		int r2 = w2/2, cX2 = x2+r2, cY2 = y2+h2/2;
-		if(Math.sqrt((cX2-cX1)*(cX2-cX1)+(cY2-cY1)*(cY2-cY1)) <= (r1+r2))
+		if(((cX2-cX1)*(cX2-cX1)+(cY2-cY1)*(cY2-cY1)) <= (r1+r2)*(r1+r2))
 		{
 			return true;
 		}
@@ -92,7 +92,7 @@ public class Collision {
 		}
 		int cX1 = x1+r1, cY1 = y1+h1/2;
 		int r2 = w2/2, cX2 = x2+r2, cY2 = y2+h2/2;
-		if(Math.sqrt((cX2-cX1)*(cX2-cX1)+(cY2-cY1)*(cY2-cY1)) <= (r1+r2))
+		if(((cX2-cX1)*(cX2-cX1)+(cY2-cY1)*(cY2-cY1)) <= (r1+r2)*(r1+r2))
 		{
 			return true;
 		}
