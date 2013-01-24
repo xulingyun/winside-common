@@ -279,7 +279,7 @@ public class StateRechargehn {
 
 	private void showConfirm(SGraphics g) {
 		Image bgImg = resource.loadImage(PIC_ID_CONFIRM_BG);
-		Image checkcode = resource.loadImage(PIC_ID_CHECKCODE);
+		//Image checkcode = resource.loadImage(PIC_ID_CHECKCODE);
 		int confirmX = (engine.getScreenWidth()-bgImg.getWidth())>>1;
 		int confirmY = (engine.getScreenHeight()-bgImg.getHeight())>>1;
 		
@@ -313,11 +313,10 @@ public class StateRechargehn {
 		g.drawString(ss, sx, sy, 20);
 		
 		sy = confirmY+250;
-		g.drawImage(checkcode, 192, sy, 20);
+		//g.drawImage(checkcode, 192, sy, 20);
 		sy += 8;
 		sx += 85;
-		//g.drawString(checkCode, sx, sy, 20);
-		if(!checkCode.equals("") && checkCode!=null){
+		/*if(!checkCode.equals("") && checkCode!=null){
 			drawNum(g, Integer.parseInt(checkCode), sx, sy);
 		}
 		if (confirmGroupIndex==0) {
@@ -325,14 +324,12 @@ public class StateRechargehn {
 				sx += checkCodeIndex*10;
 				g.drawLine(sx, sy-3, sx, sy+15);
 			}
-		}
+		}*/
 		
 		g.setColor(0x000000);
 		sx = confirmX+255;
-		drawNum(g, num_1, 274, sy);
-		drawNum(g, num_2, 314, sy);
-		//g.drawString(String.valueOf(num_1), 274, sy, 20);
-		//g.drawString(String.valueOf(num_2), 314, sy, 20);
+		//drawNum(g, num_1, 274, sy);
+		//drawNum(g, num_2, 314, sy);
 		
 		
 		Image confirmBtn = resource.loadImage(PIC_ID_OK0);
@@ -752,7 +749,7 @@ public class StateRechargehn {
 			confirmGroupIndex = 1;
 
 		}else if (key.containsAndRemove(KeyCode.UP)) {
-			confirmGroupIndex = 0;
+			//confirmGroupIndex = 0;
 
 		}else if (key.containsAndRemove(KeyCode.LEFT)) {
 			if (confirmGroupIndex == 1) {
@@ -772,13 +769,13 @@ public class StateRechargehn {
 			state=STATE_SELECT_AMOUNT;
 		}else if (confirmGroupIndex == 1 && key.containsAndRemove(KeyCode.OK)) {
 			if (confirmIndex == 0) {
-				if(!checkCode.equalsIgnoreCase(checkCodes)){
+				/*if(!checkCode.equalsIgnoreCase(checkCodes)){
 					PopupText pt = UIResource.getInstance().buildDefaultPopupText();
 					pt.setText("验证码错误,请重新输入!");
 					pt.popup();
 					makeCheckCode();
 					return;
-				}
+				}*/
 				
 				String resultMsg = "";
 				PopupText pt = UIResource.getInstance().buildDefaultPopupText();
