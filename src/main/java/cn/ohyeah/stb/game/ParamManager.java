@@ -201,9 +201,9 @@ final class ParamManager {
 	
 	private void parseShengYiPlatParam(){
 		server = getStringParam("server");
-		userId = getStringParam("userId");
+		userId = getStringParam("adAccount");
 		accountName = getStringParam("accountName");
-		userToken = getStringParam("userToken");
+		userToken = getStringParam("UserToken");
 		appName = getStringParam("appName");
 		shengyiCPID = getStringParam("cpId");
 		shengyiCPPassWord = getStringParam("cpPassWord");
@@ -248,7 +248,7 @@ final class ParamManager {
 		enterURL = getStringParam("enterURL");
 		myDXScore = getStringParam("myDXScore");
 		hosturl = getStringParam("hosturl");
-		code = getStringParam("code");
+		code = getStringParam("gameCode");
 		timeStmp = getStringParam("timeStmp");
 		userToken = zyUserToken;
 	}
