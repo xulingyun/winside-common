@@ -28,7 +28,7 @@ abstract public class GameCanvasEngine extends GameCanvas implements Runnable, I
 	private static final byte STATE_USER_LOGIN = 7;
 	
 	private static final String IMG_LOGO_OHYEAH = "/common/ohyeah.jpg";
-	private static final String IMG_LOGO_CHINAGAMES = "/common/chinagames.png";
+	private static final String IMG_LOGO_CHINAGAMES = "/common/chinagames.jpg";
 	private static final String IMG_PROGRESS1 = "/common/progress1.png";
 	private static final String IMG_PROGRESS2 = "/common/progress2.png";
 	private static final String IMG_LOADING_TEXT = "/common/loadingText.png";
@@ -299,8 +299,9 @@ abstract public class GameCanvasEngine extends GameCanvas implements Runnable, I
 			if (logoPic == null) {
 				logoPic = ResourceManager.loadImage(path);
 			}
-			g.drawImage(logoPic, ((screenWidth-logoPic.getWidth())>>1)-Configurations.Abs_Coords_X,
-					((screenHeight-logoPic.getHeight())>>1)-Configurations.Abs_Coords_Y, 20);
+			/*g.drawImage(logoPic, ((screenWidth-logoPic.getWidth())>>1)-Configurations.Abs_Coords_X,
+					((screenHeight-logoPic.getHeight())>>1)-Configurations.Abs_Coords_Y, 20);*/
+			g.drawImage(logoPic, 0, 0, 20);
 		}else{
 			g.setColor(bgColor);
 			g.fillRect(-Configurations.Abs_Coords_X, -Configurations.Abs_Coords_Y, screenWidth, screenHeight);
