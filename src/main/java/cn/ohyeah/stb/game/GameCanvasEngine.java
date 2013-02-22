@@ -27,11 +27,11 @@ abstract public class GameCanvasEngine extends GameCanvas implements Runnable, I
 	private static final byte STATE_PLAY_LOGO = 6;
 	private static final byte STATE_USER_LOGIN = 7;
 	
-	private static final String IMG_LOGO_OHYEAH = "/common/ohyeah.jpg";
+	//private static final String IMG_LOGO_OHYEAH = "/common/ohyeah.jpg";
 	private static final String IMG_LOGO_CHINAGAMES = "/common/chinagames.jpg";
-	private static final String IMG_PROGRESS1 = "/common/progress1.png";
-	private static final String IMG_PROGRESS2 = "/common/progress2.png";
-	private static final String IMG_LOADING_TEXT = "/common/loadingText.png";
+	//private static final String IMG_PROGRESS1 = "/common/progress1.png";
+	//private static final String IMG_PROGRESS2 = "/common/progress2.png";
+	//private static final String IMG_LOADING_TEXT = "/common/loadingText.png";
 	
 	private static boolean __RELEASE = true;
 	private static final int __INIT_LOOP_CIRCLE = 175;
@@ -55,9 +55,9 @@ abstract public class GameCanvasEngine extends GameCanvas implements Runnable, I
 	protected int loadingProgress;
 	protected String loadingMessage;
 	private Image logoPic;
-	private Image progressPic1;
+	/*private Image progressPic1;
 	private Image progressPic2;
-	private Image loadingTextPic;
+	private Image loadingTextPic;*/
 	private String errorMessage;
 	private OnlineThread onlineThread;
 	
@@ -414,7 +414,7 @@ abstract public class GameCanvasEngine extends GameCanvas implements Runnable, I
 	}
 	
 	private void initLoadingRes() {
-		if (logoPic == null) {
+		/*if (logoPic == null) {
 			logoPic = ResourceManager.loadImage(IMG_LOGO_OHYEAH);
 		}
 		if (progressPic1 == null) {
@@ -425,19 +425,19 @@ abstract public class GameCanvasEngine extends GameCanvas implements Runnable, I
 		}
 		if (loadingTextPic == null) {
 			loadingTextPic = ResourceManager.loadImage(IMG_LOADING_TEXT);
-		}
+		}*/
 	}
 	
 	private void clearLoadingRes() {
 		logoPic = null;
-		progressPic1 = null;
+		/*progressPic1 = null;
 		progressPic2 = null;
-		loadingTextPic = null;
+		loadingTextPic = null;*/
 	}
 	
 	protected void drawLoading(int progress, String message) {
 		initLoadingRes();
-		g.setColor(0);
+		/*g.setColor(0);
 		g.fillRect(-Configurations.Abs_Coords_X, -Configurations.Abs_Coords_Y, screenWidth, screenHeight);
 		//g.drawImage(logoPic, 4, 4, 20);  ¹«Ë¾logo
 		
@@ -455,7 +455,7 @@ abstract public class GameCanvasEngine extends GameCanvas implements Runnable, I
 		sy += loadingTextH+15;
 		g.drawImage(progressPic1, sx, sy, 20);
 		int len = progress2W*progress/100;
-		g.drawRegion(progressPic2, 0, 0, len, progress2H, 0, sx+deltaX, sy+deltaY, 20);
+		g.drawRegion(progressPic2, 0, 0, len, progress2H, 0, sx+deltaX, sy+deltaY, 20);*/
 	}
 	
 	protected int loading(int progress) {
