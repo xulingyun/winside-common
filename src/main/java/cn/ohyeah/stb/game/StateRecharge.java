@@ -279,7 +279,8 @@ public class StateRecharge {
 			g.drawString("iTV体验期内订购需正常付费", confirmX+70, confirmY+138, 20);
 		}
 		
-		String productName = "<<"+engineService.getProductName()+">>"+engineService.getRechargeCommand();
+		String productName = engineService.getRechargeCommand()+rechargeAmount*engineService.getExpendCashToAmountRatio()+engineService.getExpendAmountUnit();
+		//String productName = "<<"+engineService.getProductName()+">>"+engineService.getRechargeCommand();
 		Font font = g.getFont();
 		int textDelta = (25-font.getHeight())>>1;
 		int sx = confirmX+170;
