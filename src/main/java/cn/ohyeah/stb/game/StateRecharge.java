@@ -812,9 +812,11 @@ public class StateRecharge {
 						state = STATE_CONFIRM;
 						if (conf.isSubscribeFocusOk()) {
 							confirmIndex = 0;
+							pwdBtnIndex = 0;
 						}
 						else {
 							confirmIndex = 1;
+							pwdBtnIndex = 1;
 						}
 					}
 				}
