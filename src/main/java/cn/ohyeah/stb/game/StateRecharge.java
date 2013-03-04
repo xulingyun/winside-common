@@ -598,7 +598,7 @@ public class StateRecharge {
 						}
 						if (sw.isServiceSuccessful()) {
 							resultMsg = engineService.getRechargeCommand()+"成功";
-							//engineService.isRechrageSuccess = true;
+							engineService.isRechrageSuccess = true;
 							engineService.passWord = password;
 						}
 						else {
@@ -683,34 +683,43 @@ public class StateRecharge {
 				ServiceWrapper sw = engine.getServiceWrapper();
 				try {
 					if (curPayType == 0) {
-						//if(!engineService.isRechrageSuccess){
-							sw.recharge(rechargeAmount, SubscribePayType.PAY_TYPE_BILL, 
-									engineService.getProductName()
-									+engineService.getRechargeCommand()
-									+rechargeAmount
-									+engineService.getSubscribeAmountUnit(), "");
-						/*}else{
+						if(engineService.isRechrageSuccess && !Configurations.getInstance().isTelcomOperatorsTelcomah()){
 							sw.recharge(rechargeAmount, SubscribePayType.PAY_TYPE_BILL, 
 									engineService.getProductName()
 									+engineService.getRechargeCommand()
 									+rechargeAmount
 									+engineService.getSubscribeAmountUnit(), engineService.passWord);
-						}*/
+						}else{
+							sw.recharge(rechargeAmount, SubscribePayType.PAY_TYPE_BILL, 
+									engineService.getProductName()
+									+engineService.getRechargeCommand()
+									+rechargeAmount
+									+engineService.getSubscribeAmountUnit(), "");
+						}
 					}
 					else {
-						sw.recharge(rechargeAmount*engineService.getCashToPointsRatio(), SubscribePayType.PAY_TYPE_POINTS, 
+						if(engineService.isRechrageSuccess && !Configurations.getInstance().isTelcomOperatorsTelcomah()){
+							sw.recharge(rechargeAmount*engineService.getCashToPointsRatio(), SubscribePayType.PAY_TYPE_POINTS, 
+									engineService.getProductName()
+									+engineService.getRechargeCommand()
+									+rechargeAmount*engineService.getCashToPointsRatio()
+									+engineService.getPointsUnit(), engineService.passWord);
+						}else{
+							sw.recharge(rechargeAmount*engineService.getCashToPointsRatio(), SubscribePayType.PAY_TYPE_POINTS, 
 									engineService.getProductName()
 									+engineService.getRechargeCommand()
 									+rechargeAmount*engineService.getCashToPointsRatio()
 									+engineService.getPointsUnit(), "");
+						}
 					}
 					if (sw.isServiceSuccessful()) {
 						resultMsg = engineService.getRechargeCommand()+"成功";
-						//engineService.isRechrageSuccess = true;
+						engineService.isRechrageSuccess = true;
 						engineService.passWord = password;
 					}
 					else {
 						resultMsg = engineService.getRechargeCommand()+"失败，原因："+sw.getServiceMessage();
+						engineService.isRechrageSuccess = false;
 					}
 				}
 				catch (Exception e) {
@@ -725,7 +734,7 @@ public class StateRecharge {
 						state=STATE_SELECT_AMOUNT;
 					}
 					else {
-						if (isPasswordError(sw.getServiceMessage()) /*&& !engineService.isRechrageSuccess*/) {
+						if (isPasswordError(sw.getServiceMessage()) && !engineService.isRechrageSuccess) {
 							gotoStatePassword();
 						}
 						else {

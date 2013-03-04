@@ -118,6 +118,10 @@ public class Configurations {
 		return TAG_TELCOMCOMMON.equals(telcomOperators);
 	}
 	
+	public boolean isTelcomOperatorsTelcomah() {
+		return TAG_TELCOMAH.equals(telcomOperators);
+	}
+	
 	public boolean isTelcomOperatorsTianweiSZ() {
 		return TAG_TIANWEISZ.equals(telcomOperators);
 	}
