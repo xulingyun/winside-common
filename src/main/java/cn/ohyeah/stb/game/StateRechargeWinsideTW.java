@@ -254,7 +254,7 @@ public class StateRechargeWinsideTW {
 			DrawUtil.drawRect(g, 415, 375, ok.getWidth(), ok.getHeight(), 2);
 		}
 		g.setColor(0x000000);
-		engine.setFont(30, true);
+		engine.setFont(23, true);
 		String str = "≥‰÷µ"+amount+engineService.getSubscribeAmountUnit()+","
 					 +info4+"("+engineService.getUserId()+")"+info5;
 		TextView.showMultiLineText(g, str, 2, 107, 210, 425, 90);
@@ -300,10 +300,12 @@ public class StateRechargeWinsideTW {
 		
 		g.setColor(0x000000);
 		TextView.showMultiLineText(g, info, 2, 107, 240, 425, 56);
-		g.drawString(info3, 190, 335, 20);
+		//g.drawString(info3, 190, 335, 20);
+		TextView.showSingleLineText(g, info3, 107, 335, 425, 25, 1);
 		
-		engine.setFont(30, true);
-		g.drawString(info2, 140, 305, 20);
+		engine.setFont(23, true);
+		//g.drawString(info2, 140, 305, 20);
+		TextView.showSingleLineText(g, info2, 107, 305, 425, 30, 1);
 		engine.setDefaultFont();
 		g.setColor(0xffffff);
 		
