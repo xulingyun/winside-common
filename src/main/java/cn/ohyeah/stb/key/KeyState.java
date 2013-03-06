@@ -227,6 +227,7 @@ public class KeyState {
 			break;
 		case IPTVKeyCode.KEY_BACK:
 		case IPTVKeyCode.KEY_BACK_COSHIP:
+		case IPTVKeyCode.KEY_BACK_TW:
 			set(KeyCode.BACK);
 			ch = 'B';
 			hasPersistMoveEvent = false;
@@ -340,6 +341,7 @@ public class KeyState {
 			break;
 		case IPTVKeyCode.KEY_BACK:
 		case IPTVKeyCode.KEY_BACK_COSHIP:
+		case IPTVKeyCode.KEY_BACK_TW:
 			remove(KeyCode.BACK);
 			break;
 		case IPTVKeyCode.KEY_NUM0:

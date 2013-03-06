@@ -34,6 +34,7 @@ public interface IPTVKeyCode {
 	public static final int KEY_MENU   		= -6; 		// Menu Key
 	public static final int KEY_BACK		= -7;   	// Back Key
 	public static final int KEY_BACK_COSHIP	= -31;		// 同洲返回键
+	public static final int KEY_BACK_TW	= 0x0280;		// 天威返回键
     
 	
 	//UT define JVM key
