@@ -299,6 +299,7 @@ public class StateRechargeWinsideTW {
 		}
 		
 		g.setColor(0x000000);
+		engine.setFont(12, true);
 		TextView.showMultiLineText(g, info, 2, 107, 240, 425, 56);
 		//g.drawString(info3, 190, 335, 20);
 		TextView.showSingleLineText(g, info3, 107, 335, 425, 25, 1);
