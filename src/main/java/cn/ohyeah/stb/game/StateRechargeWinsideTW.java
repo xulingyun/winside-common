@@ -135,10 +135,10 @@ public class StateRechargeWinsideTW {
 					sw.recharge(amount*engineService.getCashToPointsRatio(), SubscribePayType.PAY_TYPE_POINTS, 
 								engineService.getProductName()
 								+engineService.getRechargeCommand()
-								+amount*engineService.getCashToPointsRatio()
+								+amount*engineService.getCashToPointsRatio()    
 								+engineService.getPointsUnit(), "");
 					if (sw.isServiceSuccessful()) {
-						resultMsg = "成功充值"+amount+"元，获得"+amount*engineService.getSubscribeCashToAmountRatio()*10+
+						resultMsg = "成功充值"+amount+"元，获得"+amount*engineService.getSubscribeCashToAmountRatio()+
 						"个"+engineService.getExpendAmountUnit()+",获得"+engineService.getExpendAmountUnit()
 						+"稍后将进入你的账号内，请注意查收";
 					}
