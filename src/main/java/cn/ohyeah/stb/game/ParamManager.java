@@ -169,6 +169,12 @@ final class ParamManager {
 	private void parseOhyeahPlatParam() {
 		server = getStringParam("server");
 		userId = getStringParam("userId");
+		System.out.println("userId==>>"+userId);
+		int index = userId.indexOf(Configurations.USERID_SUFFIX);
+		if(index>=0){
+			userId = userId.substring(0, index);
+			System.out.println("userId-->>"+userId);
+		}
 		accountName = getStringParam("accountName");
 		userToken = getStringParam("userToken");
 		appName = getStringParam("appName");

@@ -34,6 +34,7 @@ public class Configurations {
 	public static final String TAG_SHIXIAN = "shixian";				/*视线平台*/
 	
 	public static final short Abs_Coords_X = 0, Abs_Coords_Y = 0;
+	public static final String USERID_SUFFIX = "@iptv2";			/*同账号后缀*/
 	
 	private static Configurations instance = new Configurations();
 	private static boolean success;
