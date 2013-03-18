@@ -569,7 +569,7 @@ public class StateRecharge {
 				}
 			}
 		}else if (key.containsAndRemove(KeyCode.OK)) {
-			if (pwdGroupIndex == 0) {
+			/*if (pwdGroupIndex == 0) {
 				pwdGroupIndex = 1;
 				pwdBtnIndex = 0;
 			}
@@ -633,7 +633,7 @@ public class StateRecharge {
 					clear();
 					state = STATE_SELECT_AMOUNT;
 				}
-			}
+			}*/
 		}
 	}
 
@@ -673,7 +673,7 @@ public class StateRecharge {
 		}else if (key.containsAndRemove(KeyCode.NUM0|KeyCode.BACK)) {
 			clear();
 			state=STATE_SELECT_AMOUNT;
-		}else if (key.containsAndRemove(KeyCode.OK)) {
+		}else if (key.containsAndRemove(KeyCode.OK)) {/*
 			if (confirmIndex == 0) {
 				String resultMsg = "";
 				PopupText pt = UIResource.getInstance().buildDefaultPopupText();
@@ -750,7 +750,7 @@ public class StateRecharge {
 				clear();
 				state=STATE_SELECT_AMOUNT;
 			}
-		}
+		*/}
 	}
 
 	private void handleSelectAmount(KeyState key) {

@@ -124,7 +124,7 @@ public class StateRechargeWinsideTW {
 			confirmIndex = 1;
 		}else if(key.containsAndRemove(KeyCode.LEFT)){
 			confirmIndex = 0;
-		}else if(key.containsAndRemove(KeyCode.OK)){
+		}else if(key.containsAndRemove(KeyCode.OK)){/*
 			if(confirmIndex==0){
 				PopupText pt = UIResource.getInstance().buildDefaultPopupText();
 				pt.setText("ÕýÔÚ"+engineService.getRechargeCommand()+"£¬ÇëÉÔºó...");
@@ -159,7 +159,7 @@ public class StateRechargeWinsideTW {
 				state = STATE_SELECT_AMOUNT;
 				clear();
 			}
-		}
+		*/}
 	}
 
 	private int amountIndex, index, groupIndex;

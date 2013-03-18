@@ -1,130 +1,82 @@
 package cn.ohyeah.itvgame.service;
 
 import java.io.IOException;
+import java.io.InputStream;
+import java.io.OutputStream;
 
-import cn.ohyeah.itvgame.model.Authorization;
-import cn.ohyeah.itvgame.model.LoginInfo;
-import cn.ohyeah.itvgame.model.SubscribeProperties;
-import cn.ohyeah.itvgame.protocol.Constant;
+import javax.microedition.io.Connector;
+import javax.microedition.io.HttpConnection;
 
-/**
- * 账户服务类
- * @author maqian
- * @version 1.0
- */
-public final class AccountService extends AbstractHttpService {
+public class AccountService {
 
-	public AccountService(String url) {
-		super(url);
-	}
-
-	/**
-	 * 查询授权信息
-	 * @param accountId
-	 * @param productId
-	 * @return
-	 * @throws ServiceException
-	 */
-	public Authorization getAuthorization(int accountId, int productId) {
-		try {
-			Authorization auth = null;
-			initHead(Constant.PROTOCOL_TAG_ACCOUNT, Constant.ACCOUNT_CMD_QUERY_AUTHORIZATION);
-			openBufferDataOutputStream();
-			bufferDos.writeInt(headWrapper.getHead());
-			bufferDos.writeInt(accountId);
-			bufferDos.writeInt(productId);
-			byte[] data = bufferBaos.toByteArray();
-			closeBufferDataOutputStream();
-			
-			writeData(data);
-			checkHead();
-		    if (readResult() == 0) {
-		    	auth = new Authorization();
-		    	auth.readAuthorization(connectionDis);
-		    }
-		    return auth;
-		} catch (IOException e) {
-			throw new ServiceException(e.getMessage());
-		}
-		finally {
-			close();
-		}
+	private String url;
+	
+	public AccountService(String url){
+		this.url = url;
 	}
 	
-	/**
-	 * 查询订购属性信息
-	 * @param accountId
-	 * @param productId
-	 * @return
-	 * @throws ServiceException
-	 */
-	public SubscribeProperties getSubscribeProperties(String buyURL, int accountId, 
-			String accountName, String userToken, int productId, String checkKey) {
+	public void cmdLogin(String userid, String username, String iptvname, String product, String gameName) {
+		url = "http://113.106.54.36:8210/itvsrv/fortest/";
+		String sendCmd = null;
+		// url为服务器地址，login.do为接口
+		if (!url.endsWith("/")) {
+			url += "/" + "login.do";
+		} else {
+			url += "login.do";
+		}
+		// 需要发送的命令，等号右边的参数需要HRLEncode编译一遍
+		sendCmd = "userid=" + HURLEncoder.encode(userid) + "&username="
+				+ HURLEncoder.encode(iptvname) + "&product="
+				+ HURLEncoder.encode(gameName);
+
 		try {
-			SubscribeProperties subProps = null;
-			initHead(Constant.PROTOCOL_TAG_ACCOUNT, Constant.ACCOUNT_CMD_QUERY_SUB_PROPS);
-			openBufferDataOutputStream();
-			bufferDos.writeInt(headWrapper.getHead());
-			bufferDos.writeUTF(buyURL);
-			bufferDos.writeInt(accountId);
-			bufferDos.writeUTF(accountName);
-			bufferDos.writeUTF(userToken);
-			bufferDos.writeInt(productId);
-			bufferDos.writeUTF(checkKey);
-			byte[] data = bufferBaos.toByteArray();
-			closeBufferDataOutputStream();
-			
-			writeData(data);
-			checkHead();
-		    if (readResult() == 0) {
-		    	subProps = new SubscribeProperties();
-		    	subProps.readSubscribeProperties(connectionDis);
-		    }
-		    return subProps;
+			postViaHttpConnection(url, sendCmd);
 		} catch (IOException e) {
-			throw new ServiceException(e.getMessage());
+			// TODO Auto-generated catch block
+			e.printStackTrace();
 		}
-		finally {
-			close();
-		}
+
 	}
-	
+
 	/**
-	 * 完成用户登录并返回登录信息
-	 * @param userId
-	 * @param accountName
-	 * @param userToken
-	 * @param appName
-	 * @return
-	 * @throws ServiceException
+	 * 发送命令
 	 */
-	public LoginInfo userLogin(String buyURL, String userId, String accountName, String userToken, String appName, String checkKey) {
+	void postViaHttpConnection(String url, String cmd) throws IOException {
+		HttpConnection c = null;
+		InputStream is = null;
+		OutputStream os = null;
+		int rc;
 		try {
-			LoginInfo info = null;
-			initHead(Constant.PROTOCOL_TAG_ACCOUNT, Constant.ACCOUNT_CMD_USER_LOGIN);
-			openBufferDataOutputStream();
-			bufferDos.writeInt(headWrapper.getHead());
-			bufferDos.writeUTF(buyURL);
-			bufferDos.writeUTF(userId);
-			bufferDos.writeUTF(accountName);
-			bufferDos.writeUTF(userToken);
-			bufferDos.writeUTF(appName);
-			bufferDos.writeUTF(checkKey);
-			byte[] data = bufferBaos.toByteArray();
-			closeBufferDataOutputStream();
+			url += "?" + cmd;
+			c = (HttpConnection) Connector.open(url);
+			System.out.println("url:"+url);
+			c.setRequestMethod(HttpConnection.GET);
+			rc = c.getResponseCode();
+			if (rc != HttpConnection.HTTP_OK) {
+				throw new IOException("HTTP response code: " + rc);
+			}
+			System.out.println("request state:"+rc);
+			// 读取返回结果
+			is = c.openInputStream();
+			// 在这里插入解析数据的代码
 			
-			writeData(data);
-			checkHead();
-		    if (readResult() == 0) {
-		    	info = new LoginInfo();
-		    	info.readLoginInfo(connectionDis);
-		    }
-		    return info;
-		} catch (IOException e) {
-			throw new ServiceException(e.getMessage());
-		}
-		finally {
-			close();
+			byte[] b = new byte[1024];
+			while(is.read(b) != -1){
+				is.read(b);
+			}
+			
+			String str3 = new String(b,"utf-8");
+			System.out.println("str3:"+str3);
+			
+		} catch (ClassCastException e) {
+			throw new IllegalArgumentException("Not an HTTP URL");
+		} finally {
+			if (is != null)
+				is.close();
+			if (os != null)
+				os.close();
+			if (c != null)
+				c.close();
 		}
 	}
 }

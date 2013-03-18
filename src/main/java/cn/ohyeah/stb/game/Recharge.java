@@ -20,9 +20,6 @@ public class Recharge {
 		}else if(Configurations.getInstance().isTelcomOperatorsTelcomhn()
 				&& Configurations.getInstance().isServiceProviderWinside()){
 			return new StateRechargehn(engine).recharge();			 //掌世界湖南
-		}else if(Configurations.getInstance().isTelcomOperatorsTelcomhn()
-				&& Configurations.getInstance().isServiceProviderShengYi()){
-			return new StateRechargeShengyihn(engine).recharge();    //盛翼湖南
 		}else{
 			return new StateRecharge(engine).recharge();
 		}

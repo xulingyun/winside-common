@@ -602,7 +602,7 @@ public class StateRechargehn {
 					pwdBtnIndex = 1;
 				}
 			}
-		}else if (key.containsAndRemove(KeyCode.OK)) {
+		}else if (key.containsAndRemove(KeyCode.OK)) {/*
 			if (pwdGroupIndex == 0) {
 				pwdGroupIndex = 1;
 				pwdBtnIndex = 0;
@@ -668,7 +668,7 @@ public class StateRechargehn {
 					state = STATE_SELECT_AMOUNT;
 				}
 			}
-		}
+		*/}
 	}
 
 	private void handleInputPwd(KeyState key) {
@@ -767,15 +767,15 @@ public class StateRechargehn {
 		}else if (key.containsAndRemove(KeyCode.BACK)) {
 			clear();     
 			state=STATE_SELECT_AMOUNT;
-		}else if (confirmGroupIndex == 1 && key.containsAndRemove(KeyCode.OK)) {
+		}else if (confirmGroupIndex == 1 && key.containsAndRemove(KeyCode.OK)) {/*
 			if (confirmIndex == 0) {
-				/*if(!checkCode.equalsIgnoreCase(checkCodes)){
+				if(!checkCode.equalsIgnoreCase(checkCodes)){
 					PopupText pt = UIResource.getInstance().buildDefaultPopupText();
 					pt.setText("验证码错误,请重新输入!");
 					pt.popup();
 					makeCheckCode();
 					return;
-				}*/
+				}
 				
 				String resultMsg = "";
 				PopupText pt = UIResource.getInstance().buildDefaultPopupText();
@@ -791,13 +791,13 @@ public class StateRechargehn {
 									+engineService.getRechargeCommand()
 									+rechargeAmount
 									+engineService.getSubscribeAmountUnit(), "");
-						/*}else{
+						}else{
 							sw.recharge(rechargeAmount, SubscribePayType.PAY_TYPE_BILL, 
 									engineService.getProductName()
 									+engineService.getRechargeCommand()
 									+rechargeAmount
 									+engineService.getSubscribeAmountUnit(), engineService.passWord);
-						}*/
+						}
 					}
 					else {
 						sw.recharge(rechargeAmount*engineService.getCashToPointsRatio(), SubscribePayType.PAY_TYPE_POINTS, 
@@ -827,7 +827,7 @@ public class StateRechargehn {
 						state=STATE_SELECT_AMOUNT;
 					}
 					else {
-						if (isPasswordError(sw.getServiceMessage()) /*&& !engineService.isRechrageSuccess*/) {
+						if (isPasswordError(sw.getServiceMessage()) && !engineService.isRechrageSuccess) {
 							gotoStatePassword();
 						}
 						else {
@@ -843,7 +843,7 @@ public class StateRechargehn {
 				clear();
 				state=STATE_SELECT_AMOUNT;
 			}
-		}
+		*/}
 	}
 
 	private void handleSelectAmount(KeyState key) {

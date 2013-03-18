@@ -129,7 +129,7 @@ public final class EngineService {
 	}
 	
 	public boolean userLogin() {
-		if (!pm.offline) {
+		/*if (!pm.offline) {
 			if (!isLoginSuccessful()) {
 				try {
 					ServiceWrapper sw = engine.getServiceWrapper();
@@ -157,7 +157,8 @@ public final class EngineService {
 			setLoginSuccessful();
 			printParams();
 			return isLoginSuccessful();
-		}
+		}*/
+		return false;
 	}
 	
 	public boolean isOffline() {

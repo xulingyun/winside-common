@@ -22,18 +22,6 @@ final class ParamManager {
 	String code;			/*中游特需参数*/
 	String timeStmp;		/*中游特需参数*/
 	
-	String dijoyAppID;			/*鼎亿特需参数*/
-	String dijoyRechargeUrl;	/*鼎亿特需参数, 充值页面URL地址*/
-	String dijoyPlatformExt;	/*鼎亿特需参数, 网页平台传递给应用的扩展信息*/
-	String dijoyReturnUrl;		/*鼎亿特需参数*/
-	String dijoyHomeUrl;		/*鼎亿特需参数*/
-	//String dijoyAppExt;		/*鼎亿特需参数*/
-	
-	String shengyiCPID;			/*盛翼特需参数*/
-	String shengyiCPPassWord;	/*盛翼特需参数*/
-	String shengyiUserIdType;	/*盛翼特需参数*/
-	String shengyiProductId;	/*盛翼特需参数*/
-	
 	String feeaccount;			/*付费账号*/
 	String returnurl;			/*返回地址*/
 	String dwjvl;				/*平台加密验证*/
@@ -107,12 +95,6 @@ final class ParamManager {
 		else if (conf.isServiceProviderThe9()
 				|| conf.isServiceProviderOhyeah()) {
 			parseOhyeahPlatParam();
-		}else if(conf.isServiceProviderDijoy()){
-			parseDijoyPlatParam();
-		}else if(conf.isServiceProviderShengYi()){
-			parseShengYiPlatParam();
-		}else if(conf.isServiceProviderShiXian()){
-			parseShiXianPlatParam();
 		}
 		else {
 			parseSuccessful = false;
@@ -184,61 +166,6 @@ final class ParamManager {
 		checkKey = "";
 	}
 	
-	private void parseDijoyPlatParam() {
-		userId = getStringParam("UserID");
-		dijoyHomeUrl = getStringParam("HomeUrl");
-		server = getStringParam("loginUrl");
-		accountName = getStringParam("LoginID");
-        appName = Configurations.getInstance().getAppName();
-        if (appName == null || "".equals(appName)) {
-		    appName = getStringParam("appName");
-        }
-		dijoyAppID = getStringParam("AppID");
-		dijoyReturnUrl = getStringParam("ReturnUrl");
-		dijoyPlatformExt = getStringParamDijoy("PlatformExt"); //该参数可能为空
-		buyURL = getStringParam("BuyService");
-		userToken = "";
-		spid = "";
-		//checkKey = Configurations.getInstance().getDijoyPayKey();
-        //if (checkKey == null || "".equals(checkKey)) {
-    	checkKey = getStringParam("payKey");
-        //}
-	}
-	
-	private void parseShengYiPlatParam(){
-		server = getStringParam("server");
-		userId = getStringParam("adAccount");
-		accountName = getStringParam("accountName");
-		userToken = getStringParam("UserToken");
-		appName = getStringParam("appName");
-		shengyiCPID = getStringParam("cpId");
-		shengyiCPPassWord = getStringParam("cpPassWord");
-		shengyiUserIdType = getStringParam("userIdType");
-		shengyiProductId = getStringParam("shengyiProductID");
-		buyURL = "";
-		gameid = "";
-		spid = "";
-		checkKey = "";
-	}
-	
-	private void parseShiXianPlatParam() {
-		server = getStringParam("loginurl");
-		userId = getStringParam("tvplat#numbercode");
-		userToken = ""/*getStringParam("USER_TOKEN")*/;
-		appName = getStringParam("appname");
-		feeaccount = getStringParam("tvplat#feeaccount");
-		returnurl = ""/*getStringParam("tvplat#returnurl")*/;
-		dwjvl = getStringParam("tvplat#dwjvl");
-		opcomkey = getStringParam("tvplat#opcomkey");
-		paysubway = getStringParam("tvplat#paysubway");
-		user_group_id = ""/*getStringParam("USER_GROUP_ID")*/;
-		buyURL = getStringParam("buyURL");
-		gameid = ""/*getStringParam("tvplat#gameid")*/;
-		spid = "";
-		checkKey = "";
-		accountName = userId;
-		appId = Configurations.getInstance().getAppId();
-	}
 	
 	private void parseWinsidegdPlatParam() {
 		server = getStringParam("w_server");
@@ -288,19 +215,6 @@ final class ParamManager {
 		return paramValue;
 	}
 	
-	private String getStringParamDijoy(String paramName) {
-		String paramValue = null;
-		try {
-			paramValue = engine.getAppProperty(paramName).trim();
-		}
-		catch (Exception e) {
-			e.printStackTrace();
-			parseSuccessful = false;
-			errorMessage += "[信息] ==> "+"获取参数"+"\""+paramName+"\""+"失败"+"\n";
-		}
-		return paramValue;
-	}
-
 	public String getErrorMessage() {
 		return errorMessage;
 	}
