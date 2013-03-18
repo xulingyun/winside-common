@@ -1,5 +1,7 @@
 package cn.ohyeah.stb.game;
 
+import cn.ohyeah.itvgame.service.AccountService;
+
 /**
  * 服务包装类，对服务类做了简单的包装，
  * 为了保证线程安全，请先创建新的对象再调用
@@ -12,7 +14,7 @@ public final class ServiceWrapper {
 	
 	private String server;
 	private IEngine engine;
-	private ParamManager paramManager;
+	private ParamManager pm;
 	private EngineService engineService;
 	
 	private int result;
@@ -21,10 +23,17 @@ public final class ServiceWrapper {
 	public ServiceWrapper(IEngine engine, String server) {
 		this.engine = engine;
 		this.engineService = engine.getEngineService();
-		this.paramManager = engineService.getParamManager();
+		this.pm = engineService.getParamManager();
 		this.server = server;
-		offline = paramManager.offline;
+		offline = pm.offline;
 	}
 	
+	
+	public boolean userLogin(){
+		AccountService as = new AccountService(server);
+		as.cmdLogin(pm.userId, pm.accountName, pm.appName);
+		message = as.getMessage();
+		return as.isSuccess();
+	}
 	
 }

@@ -123,35 +123,8 @@ public final class EngineService {
 	}
 	
 	public boolean userLogin() {
-		/*if (!pm.offline) {
-			if (!isLoginSuccessful()) {
-				try {
-					ServiceWrapper sw = engine.getServiceWrapper();
-					LoginInfo info = sw.userLogin();
-					if (sw.isServiceSuccessful()) {
-						setLoginSuccessful();
-						assignLoginInfo(info);
-						System.out.println("用户登录成功:");
-						printParams();
-					}
-					else {
-						loginMessage = sw.getServiceMessage();
-					}
-				}
-				catch (Exception e) {
-					loginMessage = e.getMessage();
-					System.out.println(e.getMessage());
-					e.printStackTrace();
-				}
-			}
-			return isLoginSuccessful();
-		}
-		else {
-			setupOfflineParam();
-			setLoginSuccessful();
-			printParams();
-			return isLoginSuccessful();
-		}*/
+		ServiceWrapper sw = engine.getServiceWrapper();
+		sw.userLogin();
 		return false;
 	}
 	
