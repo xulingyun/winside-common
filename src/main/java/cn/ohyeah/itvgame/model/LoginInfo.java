@@ -15,7 +15,6 @@ public class LoginInfo {
 	private String productName;
 	private String appName;
 	private java.util.Date systemTime;
-	private Authorization auth;
 	private SubscribeProperties subProps;
 	
 	public int getAccountId() {
@@ -54,12 +53,6 @@ public class LoginInfo {
 	public void setSystemTime(java.util.Date systemTime) {
 		this.systemTime = systemTime;
 	}
-	public Authorization getAuth() {
-		return auth;
-	}
-	public void setAuth(Authorization auth) {
-		this.auth = auth;
-	}
 	public SubscribeProperties getSubProps() {
 		return subProps;
 	}
@@ -74,8 +67,6 @@ public class LoginInfo {
 		productName = dis.readUTF();
 		appName = dis.readUTF();
 		systemTime = new java.util.Date(dis.readLong());
-		auth = new Authorization();
-		auth.readAuthorization(dis);
 		subProps = new SubscribeProperties();
 		subProps.readSubscribeProperties(dis);
 	}

@@ -27,11 +27,7 @@ abstract public class GameCanvasEngine extends GameCanvas implements Runnable, I
 	private static final byte STATE_PLAY_LOGO = 6;
 	private static final byte STATE_USER_LOGIN = 7;
 	
-	//private static final String IMG_LOGO_OHYEAH = "/common/ohyeah.jpg";
 	private static final String IMG_LOGO_CHINAGAMES = "/common/chinagames.jpg";
-	//private static final String IMG_PROGRESS1 = "/common/progress1.png";
-	//private static final String IMG_PROGRESS2 = "/common/progress2.png";
-	//private static final String IMG_LOADING_TEXT = "/common/loadingText.png";
 	
 	private static boolean __RELEASE = true;
 	private static final int __INIT_LOOP_CIRCLE = 175;
@@ -55,9 +51,6 @@ abstract public class GameCanvasEngine extends GameCanvas implements Runnable, I
 	protected int loadingProgress;
 	protected String loadingMessage;
 	private Image logoPic;
-	/*private Image progressPic1;
-	private Image progressPic2;
-	private Image loadingTextPic;*/
 	private String errorMessage;
 	private OnlineThread onlineThread;
 	
@@ -299,8 +292,6 @@ abstract public class GameCanvasEngine extends GameCanvas implements Runnable, I
 			if (logoPic == null) {
 				logoPic = ResourceManager.loadImage(path);
 			}
-			/*g.drawImage(logoPic, ((screenWidth-logoPic.getWidth())>>1)-Configurations.Abs_Coords_X,
-					((screenHeight-logoPic.getHeight())>>1)-Configurations.Abs_Coords_Y, 20);*/
 			g.drawImage(logoPic, 0, 0, 20);
 		}else{
 			g.setColor(bgColor);
@@ -311,12 +302,11 @@ abstract public class GameCanvasEngine extends GameCanvas implements Runnable, I
 	}
 	
 	private void userLogin() {
+		//TODO --login
 		if (subState == 0) {
 			recordTime = System.currentTimeMillis();
-			//showLogo(IMG_LOGO_OHYEAH, 0);
             subState = 3;
-		}
-		else if (subState == 1) {
+		} else if (subState == 1) {
 			if (keyState.containsAndRemove(KeyCode.OK)) {
 				subState = 0;
 				errorMessage = "";
@@ -326,8 +316,7 @@ abstract public class GameCanvasEngine extends GameCanvas implements Runnable, I
 					setExit();
 				}
 			}
-		}
-		else if (subState == 2) {
+		} else if (subState == 2) {
 			if (timePass(3000)) {
 				state = STATE_USER_LOOP;
 				clearLoadingRes();
@@ -337,12 +326,10 @@ abstract public class GameCanvasEngine extends GameCanvas implements Runnable, I
 					new Thread(onlineThread).start();
 				}
 			}
-		}
-        else if (subState == 3) {
+		} else if (subState == 3) {
             if (engineService.userLogin()) {
                 subState = 2;
-            }
-            else {
+            } else {
                 errorMessage = "用户登录失败。"+"\n";
                 errorMessage += "原因： "+engineService.getLoginMessage()+"\n\n";
                 errorMessage += "#R请按#Y确认\\OK键#R重试，请按#Y其他键#R退出";
@@ -414,48 +401,14 @@ abstract public class GameCanvasEngine extends GameCanvas implements Runnable, I
 	}
 	
 	private void initLoadingRes() {
-		/*if (logoPic == null) {
-			logoPic = ResourceManager.loadImage(IMG_LOGO_OHYEAH);
-		}
-		if (progressPic1 == null) {
-			progressPic1 = ResourceManager.loadImage(IMG_PROGRESS1);
-		}
-		if (progressPic2 == null) {
-			progressPic2 = ResourceManager.loadImage(IMG_PROGRESS2);
-		}
-		if (loadingTextPic == null) {
-			loadingTextPic = ResourceManager.loadImage(IMG_LOADING_TEXT);
-		}*/
 	}
 	
 	private void clearLoadingRes() {
 		logoPic = null;
-		/*progressPic1 = null;
-		progressPic2 = null;
-		loadingTextPic = null;*/
 	}
 	
 	protected void drawLoading(int progress, String message) {
 		initLoadingRes();
-		/*g.setColor(0);
-		g.fillRect(-Configurations.Abs_Coords_X, -Configurations.Abs_Coords_Y, screenWidth, screenHeight);
-		//g.drawImage(logoPic, 4, 4, 20);  公司logo
-		
-		int progress1W = progressPic1.getWidth();
-		int progress1H = progressPic1.getHeight();
-		int progress2W = progressPic2.getWidth();
-		int progress2H = progressPic2.getHeight();
-		int loadingTextH = loadingTextPic.getHeight();
-		
-		int deltaX = (progress1W-progress2W)>>1;
-		int deltaY = (progress1H-progress2H)>>1;
-		int sx = (screenWidth-progress1W)>>1;
-		int sy = (screenHeight>>1)+(((screenHeight>>1)-progress1H-loadingTextH-15)>>1);
-		g.drawImage(loadingTextPic, sx, sy, 20);
-		sy += loadingTextH+15;
-		g.drawImage(progressPic1, sx, sy, 20);
-		int len = progress2W*progress/100;
-		g.drawRegion(progressPic2, 0, 0, len, progress2H, 0, sx+deltaX, sy+deltaY, 20);*/
 	}
 	
 	protected int loading(int progress) {
@@ -481,7 +434,6 @@ abstract public class GameCanvasEngine extends GameCanvas implements Runnable, I
 	}
 	
 	private void debug() {
-		// TODO Auto-generated method stub
 		throw new RuntimeException("暂不支持");
 	}
 	

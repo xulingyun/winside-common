@@ -1,6 +1,5 @@
 package cn.ohyeah.stb.game;
 
-import cn.ohyeah.itvgame.model.Authorization;
 import cn.ohyeah.itvgame.model.LoginInfo;
 import cn.ohyeah.itvgame.model.SubscribeProperties;
 import cn.ohyeah.stb.util.DateUtil;
@@ -16,7 +15,6 @@ public final class EngineService {
 	java.util.Date loginTime;	/*用户登录时间*/
 	long loginTimeMillis;		/*登录成功时的机顶盒时间*/
 
-	Authorization auth;
 	SubscribeProperties subProps;
 	int availablePoints;		/*可用的积分*/
 	int balance;				/*当前余额*/
@@ -48,7 +46,6 @@ public final class EngineService {
 		System.out.println("checkKey: "+pm.checkKey);
 		
 		subProps.print();
-		auth.print();
 	}
 	
 	public String toString() {
@@ -74,7 +71,6 @@ public final class EngineService {
 		loginTimeMillis = System.currentTimeMillis();
 		assignSubProps(info.getSubProps());
 		
-		auth = info.getAuth();
 	}
 	
 	private void assignSubProps(SubscribeProperties subProps) {
@@ -97,8 +93,6 @@ public final class EngineService {
 	public void setupOfflineParam() {
 		loginTime = new java.util.Date();
 		loginTimeMillis = System.currentTimeMillis();
-		auth = new Authorization();
-		auth.setAuthorizationType(Authorization.AUTHORIZATION_FREE);
 
 		subProps = new SubscribeProperties();
 		subProps.setSupportSubscribe(true);
@@ -246,10 +240,6 @@ public final class EngineService {
 			long pastMillis = System.currentTimeMillis() - loginTimeMillis;
 			return new java.util.Date(loginTime.getTime()+pastMillis);
 		}
-	}
-	
-	public Authorization getAuthorization() {
-		return auth;
 	}
 	
 	public int[] getRechargeAmounts() {

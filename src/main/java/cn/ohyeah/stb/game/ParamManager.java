@@ -6,8 +6,6 @@ package cn.ohyeah.stb.game;
  * @version 1.0
  */
 final class ParamManager {
-	public static final String ENTRANCE_OHYEAH = "ohyeah";
-	public static final String ENTRANCE_THE9 = "the9";
 	public static final String ENTRANCE_WINSIDE = "winside";
 	public static final String ENTRANCE_WINSIDEGD = "winsidegd";
 	
@@ -21,14 +19,6 @@ final class ParamManager {
 	String hosturl;			/*中游特需参数, 收藏参数*/
 	String code;			/*中游特需参数*/
 	String timeStmp;		/*中游特需参数*/
-	
-	String feeaccount;			/*付费账号*/
-	String returnurl;			/*返回地址*/
-	String dwjvl;				/*平台加密验证*/
-	String opcomkey;			/*区域标识*/
-	String paysubway;			/*充值类型，主动/被动*/
-	String user_group_id;		/*运营商地区标识*/
-	String appId;				/*appId, 视线使用参数*/
 	
 	String spid;			/*供应商ID，中游和掌世界充值时需要*/
 	String gameid;			/*游戏ID，中游和掌世界充值时需要*/
@@ -92,10 +82,6 @@ final class ParamManager {
 				parseWinsidePlatParam();
 			}
 		}
-		else if (conf.isServiceProviderThe9()
-				|| conf.isServiceProviderOhyeah()) {
-			parseOhyeahPlatParam();
-		}
 		else {
 			parseSuccessful = false;
 			errorMessage += "[错误] ==> "+"未知的入口参数"+conf.getServiceProvider()+"\n";
@@ -147,25 +133,6 @@ final class ParamManager {
 			errorMessage += "[错误] ==> "+"参数"+"\""+"price"+"\""+"格式错误"+"\n";
 		}
 	}
-	
-	private void parseOhyeahPlatParam() {
-		server = getStringParam("server");
-		userId = getStringParam("userId");
-		System.out.println("userId==>>"+userId);
-		int index = userId.indexOf(Configurations.USERID_SUFFIX);
-		if(index>=0){
-			userId = userId.substring(0, index);
-			System.out.println("userId-->>"+userId);
-		}
-		accountName = getStringParam("accountName");
-		userToken = getStringParam("userToken");
-		appName = getStringParam("appName");
-		buyURL = "";
-		gameid = "";
-		spid = "";
-		checkKey = "";
-	}
-	
 	
 	private void parseWinsidegdPlatParam() {
 		server = getStringParam("w_server");
