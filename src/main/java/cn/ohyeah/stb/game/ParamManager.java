@@ -26,15 +26,10 @@ final class ParamManager {
 	String checkKey;		/*MD5加密字符串*/
 	
 	String server;			/*游戏服务器地址*/
-	int accountId;			/*用户账号*/
 	String userId;			/*机顶盒ID*/
 	String accountName;		/*用户昵称*/
 	String userToken;		
-	int productId;			/*产品ID*/
-	String productName;		/*产品中文名称*/
-	String appName;			/*产品英文名称*/
-	
-	boolean offline;
+	String product;		/*产品名称*/
 	
 	private String errorMessage;
 	private boolean parseSuccessful;
@@ -61,16 +56,6 @@ final class ParamManager {
 	}
 	
 	private void parseParam() {
-		String off = engine.getAppProperty("offline");
-		if (off != null && ("yes".equals(off)||"on".equals(off)||"true".equals(off))) {
-			offline = true;
-			System.out.println("[警告] ==> "+"离线模式开启，此模式只用于测试，期间将不连接服务器");
-			System.out.println("[帮助] ==> "+"如需关闭离线模式，请将jad文件中配置参数offline的值设置为\"false\"");
-		}
-		else {
-			offline = false;
-		}
-		
 		Configurations conf = Configurations.getInstance();
 		System.out.println("telcomOperators:"+conf.getTelcomOperators());
 		System.out.println("serviceProvider:"+conf.getServiceProvider());
@@ -140,7 +125,7 @@ final class ParamManager {
 		accountName = getStringParam("iptvname");
 		spid = getStringParam("spid");
 		gameid = getStringParam("gameid");
-		appName = getStringParam("product");
+		product = getStringParam("product");
 		checkKey = getStringParam("checkKey");
 		buyURL = getStringParam("buyURL");
 		zyUserToken = getStringParam("zyUserToken");
@@ -160,7 +145,7 @@ final class ParamManager {
 		userToken = getStringParam("userToken");
 		gameid = getStringParam("gameid");
 		spid = getStringParam("spid");
-		appName = getStringParam("product");
+		product = getStringParam("product");
 		checkKey = getStringParam("checkKey");
 		buyURL = getStringParam("buyURL");
 	}

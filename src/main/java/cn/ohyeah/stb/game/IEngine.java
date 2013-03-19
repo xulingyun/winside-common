@@ -35,7 +35,6 @@ public interface IEngine {
 	abstract public void setFont(int size, boolean isBold);
 	abstract public void setDefaultFont();
 	
-	abstract public boolean isOffline();
 	abstract public boolean isDebugMode();
 	abstract public void addDebugUserMessage(String msg);
 

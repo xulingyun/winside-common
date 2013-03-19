@@ -1,10 +1,6 @@
 package cn.ohyeah.itvgame.service;
 
 import java.io.IOException;
-
-import javax.microedition.io.Connector;
-import javax.microedition.io.HttpConnection;
-
 import cn.ohyeah.stb.util.ConvertUtil;
 
 public class AccountService extends AbstractHttpService{
@@ -13,63 +9,224 @@ public class AccountService extends AbstractHttpService{
 		super(url);
 	}
 	
-	public void cmdLogin(String userid, String username, String product) {
-		String sendCmd = null;
-		serviceLocation += "login.do";
-		
-		// 需要发送的命令，等号右边的参数需要HRLEncode编译一遍
-		sendCmd = "userid=" + HURLEncoder.encode(userid) + "&username="
-				+ HURLEncoder.encode(username) + "&product="
-				+ HURLEncoder.encode(product);
-
-		try {
-			postViaHttpConnection(serviceLocation, sendCmd);
-		} catch (IOException e) {
-			e.printStackTrace();
-		}
-
-	}
-
 	/**
-	 * 发送命令
+	 * 登入游戏
+	 * @param userid
+	 * @param username
+	 * @param product
 	 */
-	private void postViaHttpConnection(String url, String cmd) throws IOException {
-		int rc;
+	public void cmdLogin(String userid, String username, String product, boolean isLogin) {
+		String sendCmd = null;
+		if(isLogin){
+			serviceLocation += addr_login;
+		}else{
+			serviceLocation += addr_quit;
+		}
+		
+		sendCmd = "userid=" + HURLEncoder.encode(userid) + 
+				  "&username="+ HURLEncoder.encode(username) + 
+				  "&product="+ HURLEncoder.encode(product);
+
 		try {
-			url += "?" + cmd;
-			httpConnection = (HttpConnection) Connector.open(url);
-			System.out.println("url:"+url);
-			httpConnection.setRequestMethod(HttpConnection.GET);
-			rc = httpConnection.getResponseCode();
-			if (rc != HttpConnection.HTTP_OK) {
-				result = -1;
-				throw new IOException("HTTP response code: " + rc);
-			}
-			System.out.println("request state:"+rc);
-			// 读取返回结果
-			inputStream = httpConnection.openInputStream();
-			// 在这里插入解析数据的代码
-			
-			byte[] b = new byte[1024];
-			while(inputStream.read(b) != -1){
-				inputStream.read(b);
-			}
-			
-			String str3 = new String(b,"utf-8");
-			System.out.println("str3:"+str3);
-			String info[] = ConvertUtil.split(str3, "#");
+			String str = postViaHttpConnection(serviceLocation, sendCmd);
+			String info[] = ConvertUtil.split(str, "#");
 			if(info[1].equals("0")){
 				result = 0;
 			}else{
 				result = -1;
 				message = info[2];
 			}
-			
-		} catch (ClassCastException e) {
+		} catch (IOException e) {
 			result = -1;
-			throw new IllegalArgumentException("Not an HTTP URL");
-		} finally {
-			close();
+			message = e.getMessage();
+		}
+	}
+
+	/**
+	 * 和游戏相关的全局数据，在服务器上只有一个备份
+	 * @param userid
+	 * @param username
+	 * @param product
+	 * @param data 游戏数据的内容(65535字节)
+	 */
+	public void saveGobalData(String userid, String username, String product, String data){
+		String sendCmd = null;
+		serviceLocation += addr_saveGlobalData;
+		
+		sendCmd = "userid=" + HURLEncoder.encode(userid) + 
+				  "&username="+ HURLEncoder.encode(username) + 
+				  "&product="+ HURLEncoder.encode(product) +
+				  "&datas="+ HURLEncoder.encode(data);
+
+		try {
+			String str = postViaHttpConnection(serviceLocation, sendCmd);
+			String info[] = ConvertUtil.split(str, "#");
+			if(info[1].equals("0")){
+				result = 0;
+			}else{
+				result = -1;
+				message = info[2];
+			}
+		} catch (IOException e) {
+			result = -1;
+			message = e.getMessage();
+		}
+	}
+	
+	/**
+	 * 读取全局数据
+	 * @param userid
+	 * @param username
+	 * @param product
+	 * @param data
+	 */
+	public String loadGobalData(String userid, String username, String product){
+		String sendCmd = null;
+		serviceLocation += addr_loadGlobalData;
+		
+		sendCmd = "userid=" + HURLEncoder.encode(userid) + 
+				  "&username="+ HURLEncoder.encode(username) + 
+				  "&product="+ HURLEncoder.encode(product);
+
+		try {
+			String str = postViaHttpConnection(serviceLocation, sendCmd);
+			String info[] = ConvertUtil.split(str, "#");
+			if(info[1].equals("0")){
+				result = 0;
+				return info[2];
+			}else{
+				result = -1;
+				message = info[2];
+				return null;
+			}
+		} catch (IOException e) {
+			result = -1;
+			message = e.getMessage();
+			return null;
+		}
+	}
+	
+	/**
+	 * 购买道具时，向服务器写购买日志
+	 * @param userid
+	 * @param username
+	 * @param product
+	 * @param contentStr 字符串值（如：购买的物品名）
+	 * @param contentVal 整数值（如：花费的元宝）
+	 * @param memo 备注(65535字节)
+	 */
+	public void writePurchaseLog(String userid, String username, String product,
+			String contentStr, int contentVal, String memo){
+		String sendCmd = null;
+		serviceLocation += addr_log;
+		
+		sendCmd = "userid=" + HURLEncoder.encode(userid) + 
+				  "&username="+ HURLEncoder.encode(username) + 
+				  "&product="+ HURLEncoder.encode(product) +
+				  "&contentStr="+ HURLEncoder.encode(contentStr) +
+				  "&contentVal="+ HURLEncoder.encode(String.valueOf(contentVal)) +
+				  "&memo="+ HURLEncoder.encode(memo);
+
+		try {
+			String str = postViaHttpConnection(serviceLocation, sendCmd);
+			String info[] = ConvertUtil.split(str, "#");
+			if(info[1].equals("0")){
+				result = 0;
+			}else{
+				result = -1;
+				message = info[2];
+			}
+		} catch (IOException e) {
+			result = -1;
+			message = e.getMessage();
+		}
+	}
+	
+	/**
+	 * 心跳命令,间隔为10分钟
+	 * @param userid
+	 * @param username
+	 * @param product
+	 */
+	public void sendHeartBeat(String userid, String username, String product){
+		String sendCmd = null;
+		serviceLocation += addr_heartBeat;
+		
+		sendCmd = "userid=" + HURLEncoder.encode(userid) + 
+				  "&username="+ HURLEncoder.encode(username) + 
+				  "&product="+ HURLEncoder.encode(product);
+		
+		try {
+			String str = postViaHttpConnection(serviceLocation, sendCmd);
+			String info[] = ConvertUtil.split(str, "#");
+			if(info[1].equals("0")){
+				result = 0;
+				message = info[2];
+			}else{
+				result = -1;
+				message = info[2];
+			}
+		} catch (IOException e) {
+			result = -1;
+			message = e.getMessage();
+		}
+	}
+	
+	/**
+	 *  查询系统时间
+	 * @param userid
+	 * @param username
+	 * @param product
+	 * @param format 时间的格式（当前只支持0）
+	 */
+	public void querySystemTime(String userid, String username, String product, int format){
+		String sendCmd = null;
+		serviceLocation += addr_queryTime;
+		
+		sendCmd = "userid=" + HURLEncoder.encode(userid) + 
+				  "&username="+ HURLEncoder.encode(username) + 
+				  "&product="+ HURLEncoder.encode(product) +
+				  "&format="+ HURLEncoder.encode(String.valueOf(format));
+		
+		try {
+			String str = postViaHttpConnection(serviceLocation, sendCmd);
+			String info[] = ConvertUtil.split(str, "#");
+			if(info[1].equals("0")){
+				result = 0;
+				message = info[2];
+			}else{
+				result = -1;
+				message = info[2];
+			}
+		} catch (IOException e) {
+			result = -1;
+			message = e.getMessage();
+		}
+	}
+	
+	/**
+	 * 查询公告(success#返回的公告数量#开始时间1, 结果时间1,公告标题1,公告内容1\n开始时间2, 结果时间2, 公告标题2,公告内容2
+	 * @param product
+	 */
+	public void queryNews(String product){
+		String sendCmd = null;
+		serviceLocation += addr_news;
+		
+		sendCmd = "&product="+ HURLEncoder.encode(product);
+		
+		try {
+			String str = postViaHttpConnection(serviceLocation, sendCmd);
+			String info[] = ConvertUtil.split(str, "#");
+			if(info[1].equals("0")){
+				result = 0;
+				message = info[2];
+			}else{
+				result = -1;
+				message = info[2];
+			}
+		} catch (IOException e) {
+			result = -1;
+			message = e.getMessage();
 		}
 	}
 }

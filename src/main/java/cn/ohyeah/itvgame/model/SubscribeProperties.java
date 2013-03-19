@@ -97,20 +97,6 @@ public class SubscribeProperties {
 	public void setExpendCashToAmountRatio(int expendCashToAmountUnit) {
 		this.expendCashToAmountRatio = expendCashToAmountUnit;
 	}
-	public void readSubscribeProperties(DataInputStream dis) throws IOException {
-		supportSubscribe = dis.readBoolean();
-		subscribeAmountUnit = dis.readUTF();
-		subscribeCashToAmountRatio = dis.readInt();
-		supportSubscribeByPoints = dis.readBoolean();
-		pointsUnit = dis.readUTF();
-		availablePoints = dis.readInt();
-		cashToPointsRatio = dis.readInt();
-		supportRecharge = dis.readBoolean();
-		expendAmountUnit = dis.readUTF();
-		expendCashToAmountRatio = dis.readInt();
-		balance = dis.readInt();
-		rechargeRatio = dis.readInt();
-	}
 
 	public void print() {
 		System.out.println("supportSubscribe: "+supportSubscribe);

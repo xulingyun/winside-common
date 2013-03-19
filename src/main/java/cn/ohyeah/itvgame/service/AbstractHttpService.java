@@ -4,6 +4,7 @@ import java.io.IOException;
 import java.io.InputStream;
 import java.io.OutputStream;
 
+import javax.microedition.io.Connector;
 import javax.microedition.io.HttpConnection;
 
 /**
@@ -14,6 +15,19 @@ import javax.microedition.io.HttpConnection;
 public abstract class AbstractHttpService {
 	
 	public String addr_login = "login.do";
+	public String addr_quit = "quit.do";
+	public String addr_queryTime = "query_time.do";
+	public String addr_saveGlobalData = "save_global_data.do";
+	public String addr_loadGlobalData = "load_global_data.do";
+	public String addr_saveRecord = "save_record.do";
+	public String addr_loadRecord = "load_record.do";
+	public String addr_saveScore = "save_score.do";
+	public String addr_queryRank = "query_rank.do";
+	public String addr_saveItem = "save_shop_item.do";
+	public String addr_loadItem = "load_shop_item.do";
+	public String addr_log = "log.do";
+	public String addr_heartBeat = "heart_beat.do";
+	public String addr_news = "news.do";
 	
 	protected String serviceLocation;
 	protected HttpConnection httpConnection;
@@ -46,14 +60,53 @@ public abstract class AbstractHttpService {
 	}
 	
 	/**
-	 * 返回错误信息
+	 * 返回信息
 	 * @return
 	 */
 	public String getMessage() {
 		return message;
 	}
 	
-	public void close(){
+	/**
+	 * 发送命令
+	 */
+	public String postViaHttpConnection(String url, String cmd) throws IOException {
+		int rc;
+		try {
+			url += "?" + cmd;
+			System.out.println("url:"+url);
+			httpConnection = (HttpConnection) Connector.open(url);
+			httpConnection.setRequestMethod(HttpConnection.GET);
+			rc = httpConnection.getResponseCode();
+			if (rc != HttpConnection.HTTP_OK) {
+				result = -1;
+				throw new IOException("HTTP response code: " + rc);
+			}
+			System.out.println("request state:"+rc);
+			inputStream = httpConnection.openInputStream();
+			
+			int count = 0;
+			while (count == 0) {
+				count = inputStream.available();
+			}
+			byte[] bytes = new byte[count];
+			int readCount = 0; // 已经成功读取的字节的个数
+			while (readCount < count) {
+				readCount += inputStream.read(bytes, readCount, count - readCount);
+			}
+			
+			String str = new String(bytes,"utf-8");
+			System.out.println("return message:"+str);
+			return str;
+		} catch (ClassCastException e) {
+			result = -1;
+			throw new IllegalArgumentException("Not an HTTP URL");
+		} finally {
+			close();
+		}
+	}
+	
+	private void close(){
 		if (inputStream != null){
 			try {
 				inputStream.close();

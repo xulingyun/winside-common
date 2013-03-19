@@ -1,6 +1,5 @@
 package cn.ohyeah.stb.game;
 
-import cn.ohyeah.itvgame.model.LoginInfo;
 import cn.ohyeah.itvgame.model.SubscribeProperties;
 import cn.ohyeah.stb.util.DateUtil;
 
@@ -22,7 +21,7 @@ public final class EngineService {
 	private IEngine engine;
 	private ParamManager pm;
 	
-	private boolean loginSuccessful;
+	private boolean loginResult;
 	private String loginMessage;
 	public boolean isRechrageSuccess;   //有童锁功能，充值成功后下次就不需要输入密码
 	public String passWord;				//充值密码
@@ -36,13 +35,10 @@ public final class EngineService {
 		System.out.println("loginTime: "+DateUtil.formatTimeStr(loginTime));
 		System.out.println("server: "+pm.server);
 		System.out.println("buyURL: "+pm.buyURL);
-		System.out.println("accountId: "+pm.accountId);
 		System.out.println("userId: "+pm.userId);
 		System.out.println("accountName: "+pm.accountName);
 		System.out.println("userToken: "+pm.userToken);
-		System.out.println("productId: "+pm.productId);
-		System.out.println("productName: "+pm.productName);
-		System.out.println("appName: "+pm.appName);
+		System.out.println("productName: "+pm.product);
 		System.out.println("checkKey: "+pm.checkKey);
 		
 		subProps.print();
@@ -52,24 +48,19 @@ public final class EngineService {
 		String msg = "loginTime"+" ==> "+DateUtil.formatTimeStr(loginTime)+"\n";
 		msg += "server"+" ==> "+pm.server+"\n";
 		msg += "buyURL"+" ==> "+pm.buyURL+"\n";
-		msg += "accountId"+" ==> "+pm.accountId+"\n";
 		msg += "userId"+" ==> "+pm.userId+"\n";
 		msg += "accountName"+" ==> "+pm.accountName+"\n";
 		msg += "userToken"+" ==> "+pm.userToken+"\n";
-		msg += "productId"+" ==> "+pm.productId+"\n";
-		msg += "productName"+" ==> "+pm.productName+"\n";
-		msg += "appName"+" ==> "+pm.appName+"\n";
+		msg += "productName"+" ==> "+pm.product+"\n";
 		msg += "checkKey"+" ==> "+pm.checkKey;
 		return msg;
 	}
 	
-	private void assignLoginInfo(LoginInfo info) {
-		pm.accountId = info.getAccountId();
-		pm.productId = info.getProductId();
-		pm.productName = info.getProductName();
+	private void assignLoginInfo() {
+		/*pm.product = info.getProductName();
 		loginTime = info.getSystemTime();
 		loginTimeMillis = System.currentTimeMillis();
-		assignSubProps(info.getSubProps());
+		assignSubProps(info.getSubProps());*/
 		
 	}
 	
@@ -110,26 +101,25 @@ public final class EngineService {
 	}
 	
 	
-	public boolean isLoginSuccessful() {
-		return loginSuccessful;
+	public boolean isLoginSuccess() {
+		return loginResult;
 	}
 	
 	public String getLoginMessage() {
 		return loginMessage;
 	}
 	
-	private void setLoginSuccessful() {
-		loginSuccessful = true;
-	}
-	
 	public boolean userLogin() {
 		ServiceWrapper sw = engine.getServiceWrapper();
 		sw.userLogin();
-		return false;
-	}
-	
-	public boolean isOffline() {
-		return pm.offline;
+		if(sw.isServiceSuccessful()){
+			
+		}else{
+			
+		}
+		loginMessage = sw.getMessage();
+		loginResult = sw.isServiceSuccessful();
+		return loginResult;
 	}
 	
 	public String getRechargeCommand() {
@@ -144,8 +134,8 @@ public final class EngineService {
 		return pm.accountName;
 	}
 	
-	public String getProductName() {
-		return pm.productName;
+	public String getProduct() {
+		return pm.product;
 	}
 	
 	public boolean isSupportRecharge() {
@@ -197,22 +187,12 @@ public final class EngineService {
 	}
 	
 	public java.util.Date getLoginTime() {
-		if (pm.offline) {
-			return new java.util.Date();
-		}
-		else {
-			return loginTime;
-		}
+		return loginTime;
 	}
 	
 	public java.util.Date getCurrentTime() {
-		if (pm.offline) {
-			return new java.util.Date();
-		}
-		else {
-			long pastMillis = System.currentTimeMillis() - loginTimeMillis;
-			return new java.util.Date(loginTime.getTime()+pastMillis);
-		}
+		long pastMillis = System.currentTimeMillis() - loginTimeMillis;
+		return new java.util.Date(loginTime.getTime()+pastMillis);
 	}
 	
 	public int[] getRechargeAmounts() {

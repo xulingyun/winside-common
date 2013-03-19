@@ -114,6 +114,8 @@ abstract public class GameCanvasEngine extends GameCanvas implements Runnable, I
 	}
 	
 	public void setExit() {
+		ServiceWrapper sw = getServiceWrapper();
+		sw.userQuit();
 		exit = true;
 	}
 	
@@ -331,7 +333,7 @@ abstract public class GameCanvasEngine extends GameCanvas implements Runnable, I
                 subState = 2;
             } else {
                 errorMessage = "用户登录失败。"+"\n";
-                errorMessage += "原因： "+engineService.getLoginMessage()+"\n\n";
+                errorMessage += "原因： "+engineService.getLoginMessage()+"\n";
                 errorMessage += "#R请按#Y确认\\OK键#R重试，请按#Y其他键#R退出";
                 showError();
                 subState = 1;
@@ -476,10 +478,6 @@ abstract public class GameCanvasEngine extends GameCanvas implements Runnable, I
 	
 	public ServiceWrapper getServiceWrapper(String server) {
 		return engineService.getServiceWrapper(server);
-	}
-
-	public boolean isOffline() {
-		return engineService.isOffline();
 	}
 
 	public long getAppStartMillis() {
