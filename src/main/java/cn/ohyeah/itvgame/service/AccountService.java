@@ -1,8 +1,15 @@
 package cn.ohyeah.itvgame.service;
 
 import java.io.IOException;
+import java.util.Date;
+
 import cn.ohyeah.stb.util.ConvertUtil;
 
+/**
+ * 用户服务接口
+ * @author Administrator
+ *
+ */
 public class AccountService extends AbstractHttpService{
 
 	public AccountService(String url){
@@ -39,6 +46,7 @@ public class AccountService extends AbstractHttpService{
 		} catch (IOException e) {
 			result = -1;
 			message = e.getMessage();
+			e.printStackTrace();
 		}
 	}
 
@@ -70,6 +78,7 @@ public class AccountService extends AbstractHttpService{
 		} catch (IOException e) {
 			result = -1;
 			message = e.getMessage();
+			e.printStackTrace();
 		}
 	}
 	
@@ -102,6 +111,7 @@ public class AccountService extends AbstractHttpService{
 		} catch (IOException e) {
 			result = -1;
 			message = e.getMessage();
+			e.printStackTrace();
 			return null;
 		}
 	}
@@ -139,6 +149,7 @@ public class AccountService extends AbstractHttpService{
 		} catch (IOException e) {
 			result = -1;
 			message = e.getMessage();
+			e.printStackTrace();
 		}
 	}
 	
@@ -169,6 +180,7 @@ public class AccountService extends AbstractHttpService{
 		} catch (IOException e) {
 			result = -1;
 			message = e.getMessage();
+			e.printStackTrace();
 		}
 	}
 	
@@ -179,7 +191,7 @@ public class AccountService extends AbstractHttpService{
 	 * @param product
 	 * @param format 时间的格式（当前只支持0）
 	 */
-	public void querySystemTime(String userid, String username, String product, int format){
+	public Date querySystemTime(String userid, String username, String product, int format){
 		String sendCmd = null;
 		serviceLocation += addr_queryTime;
 		
@@ -193,14 +205,17 @@ public class AccountService extends AbstractHttpService{
 			String info[] = ConvertUtil.split(str, "#");
 			if(info[1].equals("0")){
 				result = 0;
-				message = info[2];
+				return new Date(Long.parseLong(info[2]));
 			}else{
 				result = -1;
 				message = info[2];
+				return null;
 			}
 		} catch (IOException e) {
 			result = -1;
 			message = e.getMessage();
+			e.printStackTrace();
+			return null;
 		}
 	}
 	
@@ -208,7 +223,7 @@ public class AccountService extends AbstractHttpService{
 	 * 查询公告(success#返回的公告数量#开始时间1, 结果时间1,公告标题1,公告内容1\n开始时间2, 结果时间2, 公告标题2,公告内容2
 	 * @param product
 	 */
-	public void queryNews(String product){
+	public String queryNews(String product){
 		String sendCmd = null;
 		serviceLocation += addr_news;
 		
@@ -219,14 +234,17 @@ public class AccountService extends AbstractHttpService{
 			String info[] = ConvertUtil.split(str, "#");
 			if(info[1].equals("0")){
 				result = 0;
-				message = info[2];
+				return info[2];
 			}else{
 				result = -1;
 				message = info[2];
+				return null;
 			}
 		} catch (IOException e) {
 			result = -1;
 			message = e.getMessage();
+			e.printStackTrace();
+			return null;
 		}
 	}
 }

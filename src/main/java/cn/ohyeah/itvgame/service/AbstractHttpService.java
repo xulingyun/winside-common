@@ -14,20 +14,24 @@ import javax.microedition.io.HttpConnection;
  */
 public abstract class AbstractHttpService {
 	
-	public String addr_login = "login.do";
-	public String addr_quit = "quit.do";
-	public String addr_queryTime = "query_time.do";
-	public String addr_saveGlobalData = "save_global_data.do";
-	public String addr_loadGlobalData = "load_global_data.do";
-	public String addr_saveRecord = "save_record.do";
-	public String addr_loadRecord = "load_record.do";
-	public String addr_saveScore = "save_score.do";
-	public String addr_queryRank = "query_rank.do";
-	public String addr_saveItem = "save_shop_item.do";
-	public String addr_loadItem = "load_shop_item.do";
-	public String addr_log = "log.do";
-	public String addr_heartBeat = "heart_beat.do";
-	public String addr_news = "news.do";
+	public String addr_login = "login.do";							/*登入地址*/
+	public String addr_quit = "quit.do";							/*退出地址*/
+	public String addr_queryTime = "query_time.do";					/*查询系统时间地址*/
+	public String addr_saveGlobalData = "save_global_data.do";		/*保存全局数据地址*/
+	public String addr_loadGlobalData = "load_global_data.do";		/*加载全局数据地址*/
+	public String addr_saveRecord = "save_record.do";				/*存档地址*/
+	public String addr_loadRecord = "load_record.do";				/*读档地址*/
+	public String addr_saveScore = "save_score.do";					/*保存积分地址*/
+	public String addr_queryRank = "query_rank.do";					/*查询排行地址*/
+	public String addr_saveItem = "save_shop_item.do";				/*保存增值道具地址*/
+	public String addr_loadItem = "load_shop_item.do";				/*读取增值道具地址*/
+	public String addr_log = "log.do";								/*向服务器写购买日志地址*/
+	public String addr_heartBeat = "heart_beat.do";					/*心跳命令地址*/
+	public String addr_news = "news.do";							/*查询公告地址*/
+	
+	public String addr_query_coins = "query_coins";					/*元宝查询地址*/
+	public String addr_consume_coins = "consume_coins";				/*元宝扣除地址*/
+	public String addr_order_coins = "order_coins";					/*元宝充值地址*/
 	
 	protected String serviceLocation;
 	protected HttpConnection httpConnection;

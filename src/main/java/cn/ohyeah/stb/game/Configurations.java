@@ -19,10 +19,10 @@ public class Configurations {
 	public static final String TAG_TELCOMGD = "telcomgd";			/*广东电信*/
 	public static final String TAG_TELCOMJS = "telcomjs";			/*江苏电信*/
 	public static final String TAG_TELCOMAH = "telcomah";			/*安徽电信*/
-	public static final String TAG_TELCOMFJ = "telcomfj";			/*福建电信*/
+	public static final String TAG_TELCOMFJ = "telcomfj";			/*海南电信*/
 	public static final String TAG_TELCOMHN = "telcomhn";			/*湖南电信*/
 	public static final String TAG_TIANWEISZ = "tianweisz";			/*深圳天威*/
-	public static final String TAG_TELCOMCOMMON = "telcomCommon";	/*其他电信*/
+	public static final String TAG_TELCOMCOMMON = "telcomCommon";	/*其他电信(新疆，福建)*/
 
 	public static final String TAG_WINSIDE = "winside";				/*掌世界平台*/
 	

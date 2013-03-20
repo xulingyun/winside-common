@@ -9,7 +9,7 @@ import cn.ohyeah.stb.util.DateUtil;
  * @version 1.0
  */
 
-public final class EngineService {
+public final class EngineService implements Constant{
 	
 	java.util.Date loginTime;	/*用户登录时间*/
 	long loginTimeMillis;		/*登录成功时的机顶盒时间*/
@@ -57,15 +57,13 @@ public final class EngineService {
 	}
 	
 	private void assignLoginInfo() {
-		/*pm.product = info.getProductName();
-		loginTime = info.getSystemTime();
+		loginTime = getServiceWrapper().querySystemTime();
 		loginTimeMillis = System.currentTimeMillis();
-		assignSubProps(info.getSubProps());*/
-		
+		assignSubProps();
 	}
 	
-	private void assignSubProps(SubscribeProperties subProps) {
-		this.subProps = subProps;
+	private void assignSubProps() {
+		subProps = new SubscribeProperties();
 		if (Configurations.getInstance().isTelcomOperatorsTelcomgd()) {
 			try {
 				availablePoints = Integer.parseInt(pm.myDXScore);
@@ -76,30 +74,42 @@ public final class EngineService {
 			}
 		}
 		else {
-			availablePoints = subProps.getAvailablePoints();
+			availablePoints = 0;
 		}
-		balance = subProps.getBalance();
+		balance = getServiceWrapper().queryCoin();
+		
+		subProps.setSubscribeAmountUnit(subscribeAmountUnit);
+		subProps.setSubscribeCashToAmountRatio(subscribeCashToAmountRatio);
+		subProps.setPointsUnit(pointsUnit);
+		subProps.setAvailablePoints(availablePoints);
+		subProps.setCashToPointsRatio(cashToPointsRatio);
+		subProps.setExpendCashToAmountRatio(expendCashToAmountRatio);
+		subProps.setBalance(balance);
+		subProps.setRechargeRatio(rechargeRatio);
+		
+		/*海南不支持充值和订购*/
+		if(Configurations.getInstance().isTelcomOperatorsTelcomhn()){
+			subProps.setSupportRecharge(isSupportRecharge_hn);
+			subProps.setSupportSubscribe(isSupportSubscribe_hn);
+		}else{
+			subProps.setSupportRecharge(isSupportRecharge);
+			subProps.setSupportSubscribe(isSupportSubscribe);
+		}
+		
+		/*广东支持积分订购*/
+		if(Configurations.getInstance().isTelcomOperatorsTelcomgd()){
+			subProps.setSupportSubscribeByPoints(supportSubscribeByPoints_gd);
+		}else{
+			subProps.setSupportSubscribeByPoints(supportSubscribeByPoints);
+		}
+		
+		/*天威游戏单位*/
+		if(Configurations.getInstance().isTelcomOperatorsTelcomgd()){
+			subProps.setExpendAmountUnit(expendAmountUnit_tw);
+		}else{
+			subProps.setExpendAmountUnit(expendAmountUnit);
+		}
 	}
-	
-	public void setupOfflineParam() {
-		loginTime = new java.util.Date();
-		loginTimeMillis = System.currentTimeMillis();
-
-		subProps = new SubscribeProperties();
-		subProps.setSupportSubscribe(true);
-		subProps.setSubscribeAmountUnit("元");
-		subProps.setSubscribeCashToAmountRatio(1);
-		subProps.setSupportSubscribeByPoints(true);
-		subProps.setPointsUnit("积分");
-		subProps.setAvailablePoints(0);
-		subProps.setCashToPointsRatio(100);
-		subProps.setSupportRecharge(true);
-		subProps.setExpendAmountUnit("元宝");
-		subProps.setExpendCashToAmountRatio(10);
-		subProps.setBalance(0);
-		subProps.setRechargeRatio(10);
-	}
-	
 	
 	public boolean isLoginSuccess() {
 		return loginResult;
@@ -113,9 +123,8 @@ public final class EngineService {
 		ServiceWrapper sw = engine.getServiceWrapper();
 		sw.userLogin();
 		if(sw.isServiceSuccessful()){
-			
-		}else{
-			
+			assignLoginInfo();
+			printParams();
 		}
 		loginMessage = sw.getMessage();
 		loginResult = sw.isServiceSuccessful();

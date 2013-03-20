@@ -482,4 +482,5 @@ public class ConvertUtil {
 		// 返回生成的数组
 		return str;
 	}
+	
 }

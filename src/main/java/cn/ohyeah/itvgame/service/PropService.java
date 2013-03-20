@@ -38,6 +38,7 @@ public class PropService extends AbstractHttpService {
 		} catch (IOException e) {
 			result = -1;
 			message = e.getMessage();
+			e.printStackTrace();
 		}
 	}
 	
@@ -70,6 +71,7 @@ public class PropService extends AbstractHttpService {
 		} catch (IOException e) {
 			result = -1;
 			message = e.getMessage();
+			e.printStackTrace();
 			return null;
 		}
 	}

@@ -23,7 +23,8 @@ public class OnlineThread implements Runnable {
 				System.out.println("向服务器发送心跳包");
 				t1 = System.currentTimeMillis()/1000;
 				ServiceWrapper sw = engine.getServiceWrapper();
-				//sw.sendHeartbeatPacket();
+				sw.sendHeartBeat();
+				System.out.println("发送是否成功："+sw.isServiceSuccessful());
 			}
 		}
 	}

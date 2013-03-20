@@ -1,6 +1,9 @@
 package cn.ohyeah.stb.game;
 
+import java.util.Date;
+
 import cn.ohyeah.itvgame.service.AccountService;
+import cn.ohyeah.itvgame.service.ConsumeService;
 import cn.ohyeah.itvgame.service.PropService;
 import cn.ohyeah.itvgame.service.RecordService;
 
@@ -19,8 +22,8 @@ public final class ServiceWrapper {
 	private int result;
 	private String message;
 	
-	public ServiceWrapper(IEngine engine, String server) {
-		this.engine = engine;
+	public ServiceWrapper(IEngine e, String server) {
+		this.engine = e;
 		this.engineService = engine.getEngineService();
 		this.pm = engineService.getParamManager();
 		this.server = server;
@@ -43,11 +46,12 @@ public final class ServiceWrapper {
 	}
 	
 	/*查询系统时间*/
-	public void querySystemTime(){
+	public Date querySystemTime(){
 		AccountService as = new AccountService(server);
-		as.querySystemTime(pm.userId, pm.accountName, pm.product, 0);
+		Date date = as.querySystemTime(pm.userId, pm.accountName, pm.product, 0);
 		message = as.getMessage();
 		result = as.getResult();
+		return date;
 	}
 	
 	/*保存游戏全局数据*/
@@ -118,11 +122,48 @@ public final class ServiceWrapper {
 	}
 	
 	/*查询公告*/
-	public void queryNews(){
+	public String queryNews(){
 		AccountService as = new AccountService(server);
-		as.queryNews(pm.product);
+		String str = as.queryNews(pm.product);
 		message = as.getMessage();
 		result = as.getResult();
+		return str;
+	}
+	
+	/*查询用户余额*/
+	public int queryCoin(){
+		ConsumeService cs = new ConsumeService(pm.buyURL);
+		int money = cs.queryCoin(pm.userId);
+		message = cs.getMessage();
+		result = cs.getResult();
+		return money;
+	}
+	
+	/*用户消费*/
+	public int consume(int amount, int coins){
+		ConsumeService cs = new ConsumeService(pm.buyURL);
+		int money = cs.consumeCoin(pm.userId, pm.accountName, pm.checkKey, pm.product, "consumes", amount, coins);
+		message = cs.getMessage();
+		result = cs.getResult();
+		return money;
+	}
+	
+	/*用户通用充值*/
+	public int recharge(int coins, String password){
+		ConsumeService cs = new ConsumeService(pm.buyURL);
+		int money = cs.recharge(pm.userId, pm.accountName, coins, pm.spid, pm.product, pm.userToken, pm.checkKey, password);
+		message = cs.getMessage();
+		result = cs.getResult();
+		return money;
+	}
+	
+	/*用户广东充值*/
+	public int rechargeGd(int coins, String payType){
+		ConsumeService cs = new ConsumeService(pm.buyURL);
+		int money = cs.rechargeGd(pm.userId, pm.accountName, pm.spid, pm.stbType, pm.product, coins, pm.gameid, pm.enterURL, pm.zyUserToken, pm.checkKey, payType);
+		message = cs.getMessage();
+		result = cs.getResult();
+		return money;
 	}
 	
 	public String getMessage(){

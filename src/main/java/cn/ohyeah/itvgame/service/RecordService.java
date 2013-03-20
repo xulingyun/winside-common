@@ -40,6 +40,7 @@ public class RecordService extends AbstractHttpService {
 		} catch (IOException e) {
 			result = -1;
 			message = e.getMessage();
+			e.printStackTrace();
 		}
 	}
 	
@@ -71,6 +72,7 @@ public class RecordService extends AbstractHttpService {
 		} catch (IOException e) {
 			result = -1;
 			message = e.getMessage();
+			e.printStackTrace();
 		}
 	}
 	
@@ -105,6 +107,7 @@ public class RecordService extends AbstractHttpService {
 		} catch (IOException e) {
 			result = -1;
 			message = e.getMessage();
+			e.printStackTrace();
 			return null;
 		}
 	}
@@ -140,6 +143,7 @@ public class RecordService extends AbstractHttpService {
 		} catch (IOException e) {
 			result = -1;
 			message = e.getMessage();
+			e.printStackTrace();
 			return null;
 		}
 	}

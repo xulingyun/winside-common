@@ -1,8 +1,5 @@
 package cn.ohyeah.itvgame.model;
 
-import java.io.DataInputStream;
-import java.io.IOException;
-
 /**
  * 订购相关属性类
  * @author maqian

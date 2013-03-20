@@ -569,7 +569,7 @@ public class StateRecharge {
 				}
 			}
 		}else if (key.containsAndRemove(KeyCode.OK)) {
-			/*if (pwdGroupIndex == 0) {
+			if (pwdGroupIndex == 0) {
 				pwdGroupIndex = 1;
 				pwdBtnIndex = 0;
 			}
@@ -583,18 +583,14 @@ public class StateRecharge {
 					ServiceWrapper sw = engine.getServiceWrapper();
 					try {
 						if (curPayType == 0) {
-							sw.recharge(rechargeAmount, SubscribePayType.PAY_TYPE_BILL, 
-										engineService.getProductName()
-										+engineService.getRechargeCommand()
-										+rechargeAmount
-										+engineService.getSubscribeAmountUnit(), password);
+							//sw.recharge();
 						}
 						else {
-							sw.recharge(rechargeAmount*engineService.getCashToPointsRatio(), SubscribePayType.PAY_TYPE_POINTS, 
-										engineService.getProductName()
+							/*sw.recharge(rechargeAmount*engineService.getCashToPointsRatio(), SubscribePayType.PAY_TYPE_POINTS, 
+										engineService.getProduct()
 										+engineService.getRechargeCommand()
 										+rechargeAmount*engineService.getCashToPointsRatio()
-										+engineService.getPointsUnit(), password);
+										+engineService.getPointsUnit(), password);*/
 						}
 						if (sw.isServiceSuccessful()) {
 							resultMsg = engineService.getRechargeCommand()+"成功";
@@ -602,7 +598,7 @@ public class StateRecharge {
 							engineService.passWord = password;
 						}
 						else {
-							resultMsg = engineService.getRechargeCommand()+"失败，原因："+sw.getServiceMessage();
+							resultMsg = engineService.getRechargeCommand()+"失败，原因："+sw.getMessage();
 						}
 					}
 					catch (Exception e) {
@@ -617,7 +613,7 @@ public class StateRecharge {
 							state=STATE_SELECT_AMOUNT;
 						}
 						else {
-							if (isPasswordError(sw.getServiceMessage())) {
+							if (isPasswordError(sw.getMessage())) {
 								password = "";
 								pwdGroupIndex = 0;
 							}
@@ -633,7 +629,7 @@ public class StateRecharge {
 					clear();
 					state = STATE_SELECT_AMOUNT;
 				}
-			}*/
+			}
 		}
 	}
 
