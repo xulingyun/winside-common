@@ -172,7 +172,6 @@ public class AccountService extends AbstractHttpService{
 			String info[] = ConvertUtil.split(str, "#");
 			if(info[1].equals("0")){
 				result = 0;
-				message = info[2];
 			}else{
 				result = -1;
 				message = info[2];
@@ -245,6 +244,68 @@ public class AccountService extends AbstractHttpService{
 			message = e.getMessage();
 			e.printStackTrace();
 			return null;
+		}
+	}
+	
+	/**
+	 * 广东添加收藏接口
+	 * @param userid
+	 * @param username
+	 * @param gameid
+	 * @param spid
+	 * @param gameCode
+	 * @param timeStmp
+	 */
+	public void addFavor(String userid, String username, String gameid, String spid, String gameCode, String timeStmp){
+		String sendCmd = null;
+		serviceLocation += addr_add_favor;
+		
+		sendCmd = "userID=" + HURLEncoder.encode(userid) + 
+				  "&user="+ HURLEncoder.encode(username) + 
+				  "&gameID="+ HURLEncoder.encode(gameid) + 
+				  "&spid="+ HURLEncoder.encode(spid) + 
+				  "&code="+ HURLEncoder.encode(gameCode) + 
+				  "&timeStmp="+ HURLEncoder.encode(timeStmp);
+		
+		try {
+			String str = postViaHttpConnection(serviceLocation, sendCmd);
+			String info[] = ConvertUtil.split(str, "#");
+			if(info[1].equals("0")){
+				result = 0;
+			}else{
+				result = -1;
+				message = info[2];
+			}
+		} catch (IOException e) {
+			result = -1;
+			message = e.getMessage();
+			e.printStackTrace();
+		}
+	}
+	
+	/**
+	 * 进入大厅充值界面接口
+	 * @param userid
+	 */
+	public void gotoOrderPage(String userid){
+		String sendCmd = null;
+		serviceLocation += addr_goto_order_page;
+		
+		sendCmd = "userid=" + HURLEncoder.encode(userid); 
+		
+		try {
+			String str = postViaHttpConnection(serviceLocation, sendCmd);
+			String info[] = ConvertUtil.split(str, "#");
+			if(info[1].equals("0")){
+				result = 0;
+			}else{
+				result = -1;
+				message = info[2];
+			}
+		} catch (IOException e) {
+			result = -1;
+			message = e.getMessage();
+			e.printStackTrace();
 		}
 	}
 }

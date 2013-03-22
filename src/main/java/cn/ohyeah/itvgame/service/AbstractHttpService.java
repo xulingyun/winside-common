@@ -29,6 +29,9 @@ public abstract class AbstractHttpService {
 	public String addr_heartBeat = "heart_beat.do";					/*心跳命令地址*/
 	public String addr_news = "news.do";							/*查询公告地址*/
 	
+	public String addr_add_favor = "URL/IPTV_Advance/FavorGameServlet";	/*添加收藏地址*/
+	public String addr_goto_order_page = "goto_order_page";			/*进入大厅充值界面地址*/
+	
 	public String addr_query_coins = "query_coins";					/*元宝查询地址*/
 	public String addr_consume_coins = "consume_coins";				/*元宝扣除地址*/
 	public String addr_order_coins = "order_coins";					/*元宝充值地址*/

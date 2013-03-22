@@ -104,7 +104,7 @@ public final class EngineService implements Constant{
 		}
 		
 		/*天威游戏单位*/
-		if(Configurations.getInstance().isTelcomOperatorsTelcomgd()){
+		if(Configurations.getInstance().isTelcomOperatorsTianweiSZ()){
 			subProps.setExpendAmountUnit(expendAmountUnit_tw);
 		}else{
 			subProps.setExpendAmountUnit(expendAmountUnit);

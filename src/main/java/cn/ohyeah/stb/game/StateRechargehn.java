@@ -42,8 +42,8 @@ public class StateRechargehn {
 	private static final short PIC_ID_RECHARGE0 = NUM_PICS++;
 	private static final short PIC_ID_EXCHANGE0 = NUM_PICS++;
 	private static final short PIC_ID_PASSWORD_BG = NUM_PICS++;
-	private static final short PIC_ID_CHECKCODE = NUM_PICS++;
-	private static final short PIC_ID_NUMBER = NUM_PICS++;
+	//private static final short PIC_ID_CHECKCODE = NUM_PICS++;
+	//private static final short PIC_ID_NUMBER = NUM_PICS++;
 	
 	private static final String[] imagePaths = {
 		"/business/recharge-bg.jpg",
@@ -58,8 +58,8 @@ public class StateRechargehn {
 		"/business/recharge0.png",
 		"/business/exchange0.png",
 		"/business/password-bg.png",
-		"/business/checkcode.png",
-		"/business/number.png",
+		//"/business/checkcode.png",
+		//"/business/number.png",
 	};
 	
 	private static char[][] inputChars = {
@@ -602,7 +602,7 @@ public class StateRechargehn {
 					pwdBtnIndex = 1;
 				}
 			}
-		}else if (key.containsAndRemove(KeyCode.OK)) {/*
+		}else if (key.containsAndRemove(KeyCode.OK)) {
 			if (pwdGroupIndex == 0) {
 				pwdGroupIndex = 1;
 				pwdBtnIndex = 0;
@@ -617,18 +617,10 @@ public class StateRechargehn {
 					ServiceWrapper sw = engine.getServiceWrapper();
 					try {
 						if (curPayType == 0) {
-							sw.recharge(rechargeAmount, SubscribePayType.PAY_TYPE_BILL, 
-										engineService.getProductName()
-										+engineService.getRechargeCommand()
-										+rechargeAmount
-										+engineService.getSubscribeAmountUnit(), password);
+							sw.recharge(rechargeAmount, SubscribePayType.PAY_TYPE_BILL, password);
 						}
 						else {
-							sw.recharge(rechargeAmount*engineService.getCashToPointsRatio(), SubscribePayType.PAY_TYPE_POINTS, 
-										engineService.getProductName()
-										+engineService.getRechargeCommand()
-										+rechargeAmount*engineService.getCashToPointsRatio()
-										+engineService.getPointsUnit(), password);
+							sw.recharge(rechargeAmount*engineService.getCashToPointsRatio(), SubscribePayType.PAY_TYPE_POINTS, password);
 						}
 						if (sw.isServiceSuccessful()) {
 							resultMsg = engineService.getRechargeCommand()+"成功";
@@ -636,7 +628,7 @@ public class StateRechargehn {
 							engineService.passWord = password;
 						}
 						else {
-							resultMsg = engineService.getRechargeCommand()+"失败，原因："+sw.getServiceMessage();
+							resultMsg = engineService.getRechargeCommand()+"失败，原因："+sw.getMessage();
 						}
 					}
 					catch (Exception e) {
@@ -651,7 +643,7 @@ public class StateRechargehn {
 							state=STATE_SELECT_AMOUNT;
 						}
 						else {
-							if (isPasswordError(sw.getServiceMessage())) {
+							if (isPasswordError(sw.getMessage())) {
 								password = "";
 								pwdGroupIndex = 0;
 							}
@@ -668,7 +660,7 @@ public class StateRechargehn {
 					state = STATE_SELECT_AMOUNT;
 				}
 			}
-		*/}
+		}
 	}
 
 	private void handleInputPwd(KeyState key) {
@@ -767,7 +759,7 @@ public class StateRechargehn {
 		}else if (key.containsAndRemove(KeyCode.BACK)) {
 			clear();     
 			state=STATE_SELECT_AMOUNT;
-		}else if (confirmGroupIndex == 1 && key.containsAndRemove(KeyCode.OK)) {/*
+		}else if (confirmGroupIndex == 1 && key.containsAndRemove(KeyCode.OK)) {
 			if (confirmIndex == 0) {
 				if(!checkCode.equalsIgnoreCase(checkCodes)){
 					PopupText pt = UIResource.getInstance().buildDefaultPopupText();
@@ -785,26 +777,18 @@ public class StateRechargehn {
 				ServiceWrapper sw = engine.getServiceWrapper();
 				try {
 					if (curPayType == 0) {
-						//if(!engineService.isRechrageSuccess){
-							sw.recharge(rechargeAmount, SubscribePayType.PAY_TYPE_BILL, 
-									engineService.getProductName()
-									+engineService.getRechargeCommand()
-									+rechargeAmount
-									+engineService.getSubscribeAmountUnit(), "");
+						if(engineService.isRechrageSuccess && !Configurations.getInstance().isTelcomOperatorsTelcomah()){
+							sw.recharge(rechargeAmount, SubscribePayType.PAY_TYPE_BILL, engineService.passWord);
 						}else{
-							sw.recharge(rechargeAmount, SubscribePayType.PAY_TYPE_BILL, 
-									engineService.getProductName()
-									+engineService.getRechargeCommand()
-									+rechargeAmount
-									+engineService.getSubscribeAmountUnit(), engineService.passWord);
+							sw.recharge(rechargeAmount*engineService.getCashToPointsRatio(), SubscribePayType.PAY_TYPE_BILL, "");
 						}
 					}
 					else {
-						sw.recharge(rechargeAmount*engineService.getCashToPointsRatio(), SubscribePayType.PAY_TYPE_POINTS, 
-									engineService.getProductName()
-									+engineService.getRechargeCommand()
-									+rechargeAmount*engineService.getCashToPointsRatio()
-									+engineService.getPointsUnit(), "");
+						if(engineService.isRechrageSuccess && !Configurations.getInstance().isTelcomOperatorsTelcomah()){
+							sw.recharge(rechargeAmount*engineService.getCashToPointsRatio(), SubscribePayType.PAY_TYPE_POINTS, engineService.passWord);
+						}else{
+							sw.recharge(rechargeAmount*engineService.getCashToPointsRatio(), SubscribePayType.PAY_TYPE_POINTS, "");
+						}
 					}
 					if (sw.isServiceSuccessful()) {
 						resultMsg = engineService.getRechargeCommand()+"成功";
@@ -812,7 +796,7 @@ public class StateRechargehn {
 						engineService.passWord = password;
 					}
 					else {
-						resultMsg = engineService.getRechargeCommand()+"失败，原因："+sw.getServiceMessage();
+						resultMsg = engineService.getRechargeCommand()+"失败，原因："+sw.getMessage();
 					}
 				}
 				catch (Exception e) {
@@ -827,7 +811,7 @@ public class StateRechargehn {
 						state=STATE_SELECT_AMOUNT;
 					}
 					else {
-						if (isPasswordError(sw.getServiceMessage()) && !engineService.isRechrageSuccess) {
+						if (isPasswordError(sw.getMessage()) && !engineService.isRechrageSuccess) {
 							gotoStatePassword();
 						}
 						else {
@@ -843,7 +827,7 @@ public class StateRechargehn {
 				clear();
 				state=STATE_SELECT_AMOUNT;
 			}
-		*/}
+		}
 	}
 
 	private void handleSelectAmount(KeyState key) {
@@ -943,12 +927,12 @@ public class StateRechargehn {
 		checkCodes = String.valueOf(num_1*num_2);
 	}
 	
-	private void drawNum(SGraphics g, int num, int x, int y) {
+	/*private void drawNum(SGraphics g, int num, int x, int y) {
 		Image imgNumeber = resource.loadImage(PIC_ID_NUMBER);
 		String number = String.valueOf(num);
 		for (byte i = 0; i < number.length(); i++) {
 			g.drawRegion(imgNumeber, (number.charAt(i) - '0') * imgNumeber.getWidth()/10, 0, 
 					imgNumeber.getWidth()/10, imgNumeber.getHeight(), 0, x + i * (imgNumeber.getWidth()/10 + 1), y, 0);
 		}
-	}
+	}*/
 }

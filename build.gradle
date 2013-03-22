@@ -1,6 +1,6 @@
 ext.jmeGroup = 'ohyeah'
 ext.jmeArchivesBaseName = 'winside-common'
-ext.jmeVersion = '1.3.4'
+ext.jmeVersion = '1.4.1'
 
 configurations {
     refProvide

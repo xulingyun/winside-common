@@ -159,11 +159,11 @@ public class ConsumeService extends AbstractHttpService {
 	 * @param enterURL
 	 * @param zyUserToken
 	 * @param checkKey
-	 * @param password
+	 * @param payType
 	 * @return
 	 */
 	public int rechargeGd(String userid, String username, String spid, String stbType, String product, int money, String gameid,
-			String enterURL, String zyUserToken, String checkKey, String payType){
+			String enterURL, String zyUserToken, String checkKey, int payType){
 		String sendCmd = null;
 		serviceLocation += addr_order_coins;
 		String checkcode = userid 
@@ -182,7 +182,7 @@ public class ConsumeService extends AbstractHttpService {
 		          "&gameid=" + HURLEncoder.encode(gameid)+	
 		          "&enterURL=" + HURLEncoder.encode(enterURL)+	
 		          "&zyUserToken=" + HURLEncoder.encode(zyUserToken)+	
-		          "&payType=" + HURLEncoder.encode(payType)+	
+		          "&payType=" + HURLEncoder.encode(String.valueOf(payType))+	
 				  "&checkCode=" + HURLEncoder.encode(checkcode);	
 		
 		try {

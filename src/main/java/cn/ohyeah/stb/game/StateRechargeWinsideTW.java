@@ -124,7 +124,7 @@ public class StateRechargeWinsideTW {
 			confirmIndex = 1;
 		}else if(key.containsAndRemove(KeyCode.LEFT)){
 			confirmIndex = 0;
-		}else if(key.containsAndRemove(KeyCode.OK)){/*
+		}else if(key.containsAndRemove(KeyCode.OK)){
 			if(confirmIndex==0){
 				PopupText pt = UIResource.getInstance().buildDefaultPopupText();
 				pt.setText("正在"+engineService.getRechargeCommand()+"，请稍后...");
@@ -132,18 +132,14 @@ public class StateRechargeWinsideTW {
 				engine.flushGraphics();
 				ServiceWrapper sw = engine.getServiceWrapper();
 				try {
-					sw.recharge(amount*engineService.getCashToPointsRatio(), SubscribePayType.PAY_TYPE_POINTS, 
-								engineService.getProductName()
-								+engineService.getRechargeCommand()
-								+amount*engineService.getCashToPointsRatio()    
-								+engineService.getPointsUnit(), "");
+					sw.recharge(amount, SubscribePayType.PAY_TYPE_BILL, "");
 					if (sw.isServiceSuccessful()) {
 						resultMsg = "成功充值"+amount+"元，获得"+amount*engineService.getSubscribeCashToAmountRatio()+
 						"个"+engineService.getExpendAmountUnit()+",获得"+engineService.getExpendAmountUnit()
 						+"稍后将进入你的账号内，请注意查收";
 					}
 					else {
-						resultMsg = sw.getServiceMessage();
+						resultMsg = sw.getMessage();
 					}
 				}
 				catch (Exception e) {
@@ -152,14 +148,14 @@ public class StateRechargeWinsideTW {
 				}
 				finally {
 					state = STATE_RECHARGE_RESULT;
-					result = sw.getServiceResult();
+					result = sw.getResult();
 					clear();
 				}
 			}else{
 				state = STATE_SELECT_AMOUNT;
 				clear();
 			}
-		*/}
+		}
 	}
 
 	private int amountIndex, index, groupIndex;

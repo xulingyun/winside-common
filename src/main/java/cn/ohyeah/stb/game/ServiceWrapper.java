@@ -2,6 +2,7 @@ package cn.ohyeah.stb.game;
 
 import java.util.Date;
 
+import cn.ohyeah.itvgame.model.SubscribePayType;
 import cn.ohyeah.itvgame.service.AccountService;
 import cn.ohyeah.itvgame.service.ConsumeService;
 import cn.ohyeah.itvgame.service.PropService;
@@ -72,7 +73,7 @@ public final class ServiceWrapper {
 	}
 	
 	/*保存游戏记录*/
-	public void savrRecord(int index, String datas){
+	public void saveRecord(int index, String datas){
 		RecordService rs = new RecordService(server);
 		rs.saveRecord(pm.userId, pm.accountName, pm.product, index, datas);
 		message = rs.getMessage();
@@ -86,6 +87,23 @@ public final class ServiceWrapper {
 		message = rs.getMessage();
 		result = rs.getResult();
 		return datas;
+	}
+	
+	/*保存排行积分*/
+	public void saveScore(int score){
+		RecordService rs = new RecordService(server);
+		rs.saveScore(pm.userId, pm.accountName, pm.product, score);
+		message = rs.getMessage();
+		result = rs.getResult();
+	}
+	
+	/*读取排行*/
+	public String loadRanking(int type){
+		RecordService rs = new RecordService(server);
+		String str = rs.queryRank(pm.userId, pm.accountName, pm.product, type);
+		message = rs.getMessage();
+		result = rs.getResult();
+		return str;
 	}
 	
 	/*保存增值道具数据*/
@@ -148,26 +166,67 @@ public final class ServiceWrapper {
 		return money;
 	}
 	
+	public void recharge(int coins, int payType, String password){
+		if(Configurations.getInstance().isTelcomOperatorsTelcomgd()){
+			int money = rechargeGd(coins, payType);
+			engineService.balance += money;
+			if(payType == SubscribePayType.PAY_TYPE_POINTS){
+				engineService.availablePoints -= coins;
+			}
+		}else{
+			int money = recharge(coins, password);
+			engineService.balance += money;
+		}
+	}
+	
 	/*用户通用充值*/
-	public int recharge(int coins, String password){
+	private int recharge(int coins, String password){
 		ConsumeService cs = new ConsumeService(pm.buyURL);
 		int money = cs.recharge(pm.userId, pm.accountName, coins, pm.spid, pm.product, pm.userToken, pm.checkKey, password);
 		message = cs.getMessage();
 		result = cs.getResult();
-		return money;
+		if(cs.isSuccess()){
+			return money;
+		}else{
+			return 0;
+		}
 	}
 	
 	/*用户广东充值*/
-	public int rechargeGd(int coins, String payType){
+	private int rechargeGd(int coins, int payType){
 		ConsumeService cs = new ConsumeService(pm.buyURL);
 		int money = cs.rechargeGd(pm.userId, pm.accountName, pm.spid, pm.stbType, pm.product, coins, pm.gameid, pm.enterURL, pm.zyUserToken, pm.checkKey, payType);
 		message = cs.getMessage();
 		result = cs.getResult();
-		return money;
+		if(cs.isSuccess()){
+			return money;
+		}else{
+			return 0;
+		}
+	}
+	
+	/*添加收藏*/
+	public void addFavor(){
+		AccountService as = new AccountService(pm.hosturl);
+		as.addFavor(pm.userId, pm.accountName, pm.gameid, pm.spid, pm.checkKey, pm.timeStmp);
+		message = as.getMessage();
+		result = as.getResult();
+	}
+	
+	/*进入大厅充值界面*/
+	public void gotoOrderPage(){
+		AccountService as = new AccountService(pm.buyURL);
+		as.gotoOrderPage(pm.userId);
+		message = as.getMessage();
+		result = as.getResult();
 	}
 	
 	public String getMessage(){
 		return message;
+	}
+	
+	public int getResult(){
+		return result;
 	}
 	
 	public boolean isServiceSuccessful(){

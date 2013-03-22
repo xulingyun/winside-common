@@ -583,14 +583,10 @@ public class StateRecharge {
 					ServiceWrapper sw = engine.getServiceWrapper();
 					try {
 						if (curPayType == 0) {
-							//sw.recharge();
+							sw.recharge(rechargeAmount, SubscribePayType.PAY_TYPE_BILL, password);
 						}
 						else {
-							/*sw.recharge(rechargeAmount*engineService.getCashToPointsRatio(), SubscribePayType.PAY_TYPE_POINTS, 
-										engineService.getProduct()
-										+engineService.getRechargeCommand()
-										+rechargeAmount*engineService.getCashToPointsRatio()
-										+engineService.getPointsUnit(), password);*/
+							sw.recharge(rechargeAmount*engineService.getCashToPointsRatio(), SubscribePayType.PAY_TYPE_POINTS, password);
 						}
 						if (sw.isServiceSuccessful()) {
 							resultMsg = engineService.getRechargeCommand()+"成功";
@@ -669,7 +665,7 @@ public class StateRecharge {
 		}else if (key.containsAndRemove(KeyCode.NUM0|KeyCode.BACK)) {
 			clear();
 			state=STATE_SELECT_AMOUNT;
-		}else if (key.containsAndRemove(KeyCode.OK)) {/*
+		}else if (key.containsAndRemove(KeyCode.OK)) {
 			if (confirmIndex == 0) {
 				String resultMsg = "";
 				PopupText pt = UIResource.getInstance().buildDefaultPopupText();
@@ -680,32 +676,16 @@ public class StateRecharge {
 				try {
 					if (curPayType == 0) {
 						if(engineService.isRechrageSuccess && !Configurations.getInstance().isTelcomOperatorsTelcomah()){
-							sw.recharge(rechargeAmount, SubscribePayType.PAY_TYPE_BILL, 
-									engineService.getProductName()
-									+engineService.getRechargeCommand()
-									+rechargeAmount
-									+engineService.getSubscribeAmountUnit(), engineService.passWord);
+							sw.recharge(rechargeAmount, SubscribePayType.PAY_TYPE_BILL, engineService.passWord);
 						}else{
-							sw.recharge(rechargeAmount, SubscribePayType.PAY_TYPE_BILL, 
-									engineService.getProductName()
-									+engineService.getRechargeCommand()
-									+rechargeAmount
-									+engineService.getSubscribeAmountUnit(), "");
+							sw.recharge(rechargeAmount, SubscribePayType.PAY_TYPE_BILL, "");
 						}
 					}
 					else {
 						if(engineService.isRechrageSuccess && !Configurations.getInstance().isTelcomOperatorsTelcomah()){
-							sw.recharge(rechargeAmount*engineService.getCashToPointsRatio(), SubscribePayType.PAY_TYPE_POINTS, 
-									engineService.getProductName()
-									+engineService.getRechargeCommand()
-									+rechargeAmount*engineService.getCashToPointsRatio()
-									+engineService.getPointsUnit(), engineService.passWord);
+							sw.recharge(rechargeAmount*engineService.getCashToPointsRatio(), SubscribePayType.PAY_TYPE_POINTS, engineService.passWord);
 						}else{
-							sw.recharge(rechargeAmount*engineService.getCashToPointsRatio(), SubscribePayType.PAY_TYPE_POINTS, 
-									engineService.getProductName()
-									+engineService.getRechargeCommand()
-									+rechargeAmount*engineService.getCashToPointsRatio()
-									+engineService.getPointsUnit(), "");
+							sw.recharge(rechargeAmount*engineService.getCashToPointsRatio(), SubscribePayType.PAY_TYPE_POINTS, "");
 						}
 					}
 					if (sw.isServiceSuccessful()) {
@@ -714,7 +694,7 @@ public class StateRecharge {
 						engineService.passWord = password;
 					}
 					else {
-						resultMsg = engineService.getRechargeCommand()+"失败，原因："+sw.getServiceMessage();
+						resultMsg = engineService.getRechargeCommand()+"失败，原因："+sw.getMessage();
 						engineService.isRechrageSuccess = false;
 					}
 				}
@@ -730,7 +710,7 @@ public class StateRecharge {
 						state=STATE_SELECT_AMOUNT;
 					}
 					else {
-						if (isPasswordError(sw.getServiceMessage()) && !engineService.isRechrageSuccess) {
+						if (isPasswordError(sw.getMessage()) && !engineService.isRechrageSuccess) {
 							gotoStatePassword();
 						}
 						else {
@@ -746,7 +726,7 @@ public class StateRecharge {
 				clear();
 				state=STATE_SELECT_AMOUNT;
 			}
-		*/}
+		}
 	}
 
 	private void handleSelectAmount(KeyState key) {
