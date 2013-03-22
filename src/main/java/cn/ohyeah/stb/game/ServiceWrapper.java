@@ -2,11 +2,13 @@ package cn.ohyeah.stb.game;
 
 import java.util.Date;
 
+import cn.ohyeah.itvgame.model.GameRanking;
 import cn.ohyeah.itvgame.model.SubscribePayType;
 import cn.ohyeah.itvgame.service.AccountService;
 import cn.ohyeah.itvgame.service.ConsumeService;
 import cn.ohyeah.itvgame.service.PropService;
 import cn.ohyeah.itvgame.service.RecordService;
+import cn.ohyeah.stb.util.ConvertUtil;
 
 /**
  * 服务包装类，对服务类做了简单的包装，
@@ -97,13 +99,39 @@ public final class ServiceWrapper {
 		result = rs.getResult();
 	}
 	
-	/*读取排行*/
+	/*根据服务器返回的排行信息初始化排行数据*/
+	public int loadRanking(String datas, GameRanking[] gameRanking){
+		String[] data = ConvertUtil.split(datas, "|");
+		String[] str = ConvertUtil.split(data[data.length-1], ":");
+		String[] data2 = null;
+		GameRanking grk = null;
+		for(int i=0;i<gameRanking.length;i++){
+			data2 = ConvertUtil.split(data[i], ",");
+			grk = new GameRanking();
+			grk.setUserId(data2[0]);
+			grk.setScores(Integer.parseInt(data2[2]));
+			grk.setRanking(Integer.parseInt(data2[3]));
+			gameRanking[i] = grk;
+		}
+		if(str!=null && str[1]!=null){
+			String[] myRank = ConvertUtil.split(str[1], ",");
+			return Integer.parseInt(myRank[0]);
+		}else{
+			return -1;
+		}
+	}
+	
+	/*从服务器读取排行数据*/
 	public String loadRanking(int type){
 		RecordService rs = new RecordService(server);
-		String str = rs.queryRank(pm.userId, pm.accountName, pm.product, type);
+		String datas = rs.queryRank(pm.userId, pm.accountName, pm.product, type);
 		message = rs.getMessage();
 		result = rs.getResult();
-		return str;
+		if(rs.isSuccess()){
+			return datas;
+		}else{
+			return null;
+		}
 	}
 	
 	/*保存增值道具数据*/
