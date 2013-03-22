@@ -100,9 +100,23 @@ public final class ServiceWrapper {
 	}
 	
 	/*根据服务器返回的排行信息初始化排行数据*/
-	public int loadRanking(String datas, GameRanking[] gameRanking){
+	public GameRanking[] loadRanking(String datas, int offset, int length){
+		GameRanking[] gameRanking = null;
 		String[] data = ConvertUtil.split(datas, "|");
 		String[] str = ConvertUtil.split(data[data.length-1], ":");
+		if(str==null || str.equals("")){
+			if(data.length>(length-offset)){
+				gameRanking = new GameRanking[10];
+			}else{
+				gameRanking = new GameRanking[data.length];
+			}
+		}else{
+			if(data.length-1>(length-offset)){
+				gameRanking = new GameRanking[(length-offset)];
+			}else{
+				gameRanking = new GameRanking[data.length-1];
+			}
+		}
 		String[] data2 = null;
 		GameRanking grk = null;
 		for(int i=0;i<gameRanking.length;i++){
@@ -113,6 +127,12 @@ public final class ServiceWrapper {
 			grk.setRanking(Integer.parseInt(data2[3]));
 			gameRanking[i] = grk;
 		}
+		return gameRanking;
+	}
+	
+	public int getMyRanking(String datas){
+		String[] data = ConvertUtil.split(datas, "|");
+		String[] str = ConvertUtil.split(data[data.length-1], ":");
 		if(str!=null && str[1]!=null){
 			String[] myRank = ConvertUtil.split(str[1], ",");
 			return Integer.parseInt(myRank[0]);
