@@ -1,6 +1,7 @@
 package cn.ohyeah.itvgame.service;
 
 import java.io.IOException;
+import java.io.UnsupportedEncodingException;
 
 import cn.ohyeah.stb.util.ConvertUtil;
 import cn.ohyeah.stb.util.MD5Encrypt;
@@ -50,31 +51,40 @@ public class ConsumeService extends AbstractHttpService {
 	 * @param contents 扣费内容，指具体购买的道具名称
 	 * @param amount contents的数量，仅用于统计
 	 * @param coins 欲扣除的元宝总数
+	 * @throws UnsupportedEncodingException 
 	 */
 	public int consumeCoin(String userid, String username, String checkKey,
 			String product, String contents, int amount, int coins){
 		
-		String sendCmd = null;
-		serviceLocation += addr_consume_coins;
-		String checkcode = userid 
-						+ "|" + username
-						+ "|" + product
-						+ "|" + contents
-						+ "|" + amount
-						+ "|" + coins
-						+ "|" +checkKey;
-		checkcode = MD5Encrypt.toMD5(checkcode).toLowerCase();
-		System.out.println("consume checkcode:"+checkcode);
-		
-		sendCmd = "userid=" + HURLEncoder.encode(userid)+
-				  "&username=" + HURLEncoder.encode(username)+	
-				  "&product=" + HURLEncoder.encode(product)+	
-				  "&contents=" + HURLEncoder.encode(contents)+	
-				  "&amount=" + HURLEncoder.encode(String.valueOf(amount))+	
-				  "&coins=" + HURLEncoder.encode(String.valueOf(coins))+	
-				  "&checkcode=" + HURLEncoder.encode(String.valueOf(checkcode));	
-		
-		try {
+		try 
+		{
+			String sendCmd = null;
+			serviceLocation += addr_consume_coins;
+			/*String gb = new String(contents.getBytes("UTF-8"), "GBK");
+			String u8 = new String(gb.getBytes("GBK"), "UTF-8");
+			String ss = HURLEncoder.encode(u8);
+			System.out.println("consume contents:"+contents);
+			System.out.println("consume u8:"+u8);
+			System.out.println("consume ss:"+ss);*/
+			String checkcode = userid 
+							+ "|" + username
+							+ "|" + product
+							+ "|" + contents
+							+ "|" + amount
+							+ "|" + coins
+							+ "|" +checkKey;
+			System.out.println("consume checkcode:"+checkcode);
+			checkcode = MD5Encrypt.toMD5(checkcode).toLowerCase();
+			System.out.println("consume checkcode:"+checkcode);
+			
+			sendCmd = "userid=" + HURLEncoder.encode(userid)+
+					  "&username=" + HURLEncoder.encode(username)+	
+					  "&product=" + HURLEncoder.encode(product)+	
+					  "&contents=" + HURLEncoder.encode(contents)+	
+					  "&amount=" + HURLEncoder.encode(String.valueOf(amount))+	
+					  "&coins=" + HURLEncoder.encode(String.valueOf(coins))+	
+					  "&checkcode=" + HURLEncoder.encode(String.valueOf(checkcode));
+			
 			String str = postViaHttpConnection(serviceLocation, sendCmd);
 			String info[] = ConvertUtil.split(str, "#");
 			if(info[1].equals("0")){

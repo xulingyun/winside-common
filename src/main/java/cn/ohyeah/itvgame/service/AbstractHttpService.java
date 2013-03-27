@@ -28,8 +28,8 @@ public abstract class AbstractHttpService {
 	public String addr_log = "log.do";								/*向服务器写购买日志地址*/
 	public String addr_heartBeat = "heart_beat.do";					/*心跳命令地址*/
 	public String addr_news = "news.do";							/*查询公告地址*/
-	
-	public String addr_add_favor = "URL/IPTV_Advance/FavorGameServlet";	/*添加收藏地址*/
+
+	public String addr_add_favor = "IPTV_Advance/FavorGameServlet";	/*添加收藏地址*/
 	public String addr_goto_order_page = "goto_order_page";			/*进入大厅充值界面地址*/
 	
 	public String addr_query_coins = "query_coins";					/*元宝查询地址*/
@@ -84,6 +84,7 @@ public abstract class AbstractHttpService {
 			System.out.println("url:"+url);
 			httpConnection = (HttpConnection) Connector.open(url);
 			httpConnection.setRequestMethod(HttpConnection.GET);
+			//httpConnection.setRequestProperty("Content-Type", "application/x-www-form-urlencoded");
 			rc = httpConnection.getResponseCode();
 			if (rc != HttpConnection.HTTP_OK) {
 				result = -1;
@@ -105,6 +106,43 @@ public abstract class AbstractHttpService {
 			String str = new String(bytes,"utf-8");
 			System.out.println("return message:"+str);
 			return str;
+		} catch (ClassCastException e) {
+			result = -1;
+			throw new IllegalArgumentException("Not an HTTP URL");
+		} finally {
+			close();
+		}
+	}
+	
+	/**
+	 * 添加收藏发送命令
+	 */
+	public byte[] postViaHttpConnection_addFavor(String url, String cmd) throws IOException {
+		int rc;
+		try {
+			url += "?" + cmd;
+			System.out.println("url:"+url);
+			httpConnection = (HttpConnection) Connector.open(url);
+			httpConnection.setRequestMethod(HttpConnection.GET);
+			rc = httpConnection.getResponseCode();
+			if (rc != HttpConnection.HTTP_OK) {
+				result = -1;
+				throw new IOException("HTTP response code: " + rc);
+			}
+			System.out.println("request state:"+rc);
+			inputStream = httpConnection.openInputStream();
+			
+			int count = 0;
+			while (count == 0) {
+				count = inputStream.available();
+			}
+			byte[] bytes = new byte[count];
+			int readCount = 0; // 已经成功读取的字节的个数
+			while (readCount < count) {
+				readCount += inputStream.read(bytes, readCount, count - readCount);
+			}
+			
+			return bytes;
 		} catch (ClassCastException e) {
 			result = -1;
 			throw new IllegalArgumentException("Not an HTTP URL");

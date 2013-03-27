@@ -98,6 +98,7 @@ public class RecordService extends AbstractHttpService {
 			String info[] = ConvertUtil.split(str, "#");
 			if(info[1].equals("0")){
 				result = 0;
+				System.out.println("success info:"+info[2]);
 				return info[2];
 			}else{
 				result = -1;

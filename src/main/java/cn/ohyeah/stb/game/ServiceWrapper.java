@@ -1,7 +1,6 @@
 package cn.ohyeah.stb.game;
 
 import java.util.Date;
-
 import cn.ohyeah.itvgame.model.GameRanking;
 import cn.ohyeah.itvgame.model.SubscribePayType;
 import cn.ohyeah.itvgame.service.AccountService;
@@ -51,10 +50,14 @@ public final class ServiceWrapper {
 	/*查询系统时间*/
 	public Date querySystemTime(){
 		AccountService as = new AccountService(server);
-		Date date = as.querySystemTime(pm.userId, pm.accountName, pm.product, 0);
+		Date datas = as.querySystemTime(pm.userId, pm.accountName, pm.product, 0);
 		message = as.getMessage();
 		result = as.getResult();
-		return date;
+		if(as.isSuccess() && !datas.equals("0") && !datas.equals("")){
+			return datas;
+		}else{
+			return null;
+		}
 	}
 	
 	/*保存游戏全局数据*/
@@ -68,10 +71,14 @@ public final class ServiceWrapper {
 	/*加载游戏全局数据*/
 	public String loadGobalData(){
 		AccountService as = new AccountService(server);
-		String data = as.loadGobalData(pm.userId, pm.accountName, pm.product);
+		String datas = as.loadGobalData(pm.userId, pm.accountName, pm.product);
 		message = as.getMessage();
 		result = as.getResult();
-		return data;
+		if(as.isSuccess() && !datas.equals("0") && !datas.equals("")){
+			return datas;
+		}else{
+			return null;
+		}
 	}
 	
 	/*保存游戏记录*/
@@ -88,7 +95,11 @@ public final class ServiceWrapper {
 		String datas = rs.loadRecord(pm.userId, pm.accountName, pm.product, index);
 		message = rs.getMessage();
 		result = rs.getResult();
-		return datas;
+		if(rs.isSuccess() && !datas.equals("0") && !datas.equals("")){
+			return datas;
+		}else{
+			return null;
+		}
 	}
 	
 	/*保存排行积分*/
@@ -141,13 +152,24 @@ public final class ServiceWrapper {
 		}
 	}
 	
+	public int getMyScore(String datas){
+		String[] data = ConvertUtil.split(datas, "|");
+		String[] str = ConvertUtil.split(data[data.length-1], ":");
+		if(str!=null && str[1]!=null){
+			String[] myRank = ConvertUtil.split(str[1], ",");
+			return Integer.parseInt(myRank[1]);
+		}else{
+			return -1;
+		}
+	}
+	
 	/*从服务器读取排行数据*/
 	public String loadRanking(int type){
 		RecordService rs = new RecordService(server);
 		String datas = rs.queryRank(pm.userId, pm.accountName, pm.product, type);
 		message = rs.getMessage();
 		result = rs.getResult();
-		if(rs.isSuccess()){
+		if(rs.isSuccess() && !datas.equals("0") && !datas.equals("")){
 			return datas;
 		}else{
 			return null;
@@ -168,7 +190,11 @@ public final class ServiceWrapper {
 		String datas = ps.loadPropItem(pm.userId, pm.accountName, pm.product);
 		message = ps.getMessage();
 		result = ps.getResult();
-		return datas;
+		if(ps.isSuccess() && !datas.equals("0") && !datas.equals("")){
+			return datas;
+		}else{
+			return null;
+		}
 	}
 	
 	/*向服务器写购买道具的日志*/
@@ -190,10 +216,14 @@ public final class ServiceWrapper {
 	/*查询公告*/
 	public String queryNews(){
 		AccountService as = new AccountService(server);
-		String str = as.queryNews(pm.product);
+		String datas = as.queryNews(pm.product);
 		message = as.getMessage();
 		result = as.getResult();
-		return str;
+		if(as.isSuccess() && !datas.equals("0") && !datas.equals("")){
+			return datas;
+		}else{
+			return null;
+		}
 	}
 	
 	/*查询用户余额*/
@@ -206,11 +236,14 @@ public final class ServiceWrapper {
 	}
 	
 	/*用户消费*/
-	public int consume(int amount, int coins){
+	public int consume(int amount, int coins, String info){
 		ConsumeService cs = new ConsumeService(pm.buyURL);
-		int money = cs.consumeCoin(pm.userId, pm.accountName, pm.checkKey, pm.product, "consumes", amount, coins);
+		int money = cs.consumeCoin(pm.userId, pm.accountName, pm.checkKey, pm.product, info, amount, coins);
 		message = cs.getMessage();
 		result = cs.getResult();
+		if(cs.isSuccess()){
+			engineService.balance -= money;
+		}
 		return money;
 	}
 	
@@ -256,7 +289,7 @@ public final class ServiceWrapper {
 	/*添加收藏*/
 	public void addFavor(){
 		AccountService as = new AccountService(pm.hosturl);
-		as.addFavor(pm.userId, pm.accountName, pm.gameid, pm.spid, pm.checkKey, pm.timeStmp);
+		as.addFavor(pm.userId, pm.accountName, pm.gameid, pm.spid, pm.code, pm.timeStmp);
 		message = as.getMessage();
 		result = as.getResult();
 	}

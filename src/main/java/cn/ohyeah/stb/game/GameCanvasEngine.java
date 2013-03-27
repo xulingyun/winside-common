@@ -51,7 +51,7 @@ abstract public class GameCanvasEngine extends GameCanvas implements Runnable, I
 	protected int loadingProgress;
 	protected String loadingMessage;
 	private Image logoPic;
-	private String errorMessage;
+	public String errorMessage;
 	private OnlineThread onlineThread;
 	
 	private long recordTime;
@@ -332,11 +332,11 @@ abstract public class GameCanvasEngine extends GameCanvas implements Runnable, I
             if (engineService.userLogin()) {
                 subState = 2;
             } else {
-                errorMessage = "用户登录失败。"+"\n";
-                errorMessage += "原因： "+engineService.getLoginMessage()+"\n";
-                errorMessage += "#R请按#Y确认\\OK键#R重试，请按#Y其他键#R退出";
-                showError();
-                subState = 1;
+	    		 errorMessage = "用户登录失败。"+"\n";
+	             errorMessage += "原因： "+engineService.getLoginMessage()+"\n";
+	             errorMessage += "#R请按#Y确认\\OK键#R重试，请按#Y其他键#R退出";
+	             showError();
+	             subState = 1;
             }
         }
 	}

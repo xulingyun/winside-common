@@ -268,13 +268,13 @@ public class AccountService extends AbstractHttpService{
 				  "&timeStmp="+ HURLEncoder.encode(timeStmp);
 		
 		try {
-			String str = postViaHttpConnection(serviceLocation, sendCmd);
-			String info[] = ConvertUtil.split(str, "#");
-			if(info[1].equals("0")){
-				result = 0;
+			byte[] b = postViaHttpConnection_addFavor(serviceLocation, sendCmd);
+			int r = littleEndianByteArrayToInt(b);
+			if(r==1){
+				message = "收藏成功!";
 			}else{
-				result = -1;
-				message = info[2];
+				result = r;
+				message = getAddFavoriteErrorMessage(r);
 			}
 		} catch (IOException e) {
 			result = -1;
@@ -307,5 +307,31 @@ public class AccountService extends AbstractHttpService{
 			message = e.getMessage();
 			e.printStackTrace();
 		}
+	}
+	
+	private int littleEndianByteArrayToInt(byte[] data) {
+		int v = data[0]&0XFF;
+		v |= (data[1]&0XFF)<<8;
+		v |= (data[2]&0XFF)<<16;
+		v |= (data[3]&0XFF)<<24;
+		return v;
+	}
+	
+	public static String getAddFavoriteErrorMessage(int errorCode) {
+		String message = null;
+		switch (errorCode) {
+		case -1: message = "收藏夹已满"; break;
+		case -2: message = "该游戏已经收藏"; break;
+		case -11: message = "用户帐号不正确"; break;
+		case -12: message = "中游id不正确"; break;
+		case -13: message = "游戏ID不正确"; break;
+		case -14: message = "spid不正确"; break;
+		case -15: message = "timeStmp不正确"; break;
+		case -16: message = "请求超时"; break;
+		case -17: message = "code不正确"; break;
+		case -101: message = "系统异常"; break;
+		default: message = "位置错误"; break;
+		}
+		return message;
 	}
 }

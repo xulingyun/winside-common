@@ -38,13 +38,18 @@ public class MD5Encrypt
    //private byte test;
    public String getMD5ofStr(String s)
    {//·µ»ØMD5´®£»
-       int i;
-       md5Init();
-       md5Update(s.getBytes(), s.length());
-       md5Final();
-       digestHexStr = "";
-       for(i = 0;i<16;i++)
-         digestHexStr=digestHexStr+byteHEX(digest[i]);
+	   try{
+		   byte[] sByte = s.getBytes("utf-8");
+		   md5Init();
+	       md5Update(sByte, sByte.length);
+	       int i;
+	       md5Final();
+	       digestHexStr = "";
+	       for(i = 0;i<16;i++)
+	    	   digestHexStr=digestHexStr+byteHEX(digest[i]);
+	   }catch(Exception e){
+		   e.printStackTrace();
+	   }
        return digestHexStr;
    }
    public MD5Encrypt()

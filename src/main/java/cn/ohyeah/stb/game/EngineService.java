@@ -88,7 +88,7 @@ public final class EngineService implements Constant{
 		subProps.setRechargeRatio(rechargeRatio);
 		
 		/*海南不支持充值和订购*/
-		if(Configurations.getInstance().isTelcomOperatorsTelcomhn()){
+		if(Configurations.getInstance().isTelcomOperatorsTelcomfj()){
 			subProps.setSupportRecharge(isSupportRecharge_hn);
 			subProps.setSupportSubscribe(isSupportSubscribe_hn);
 		}else{
@@ -121,6 +121,7 @@ public final class EngineService implements Constant{
 	
 	public boolean userLogin() {
 		ServiceWrapper sw = engine.getServiceWrapper();
+		sw.userQuit();
 		sw.userLogin();
 		if(sw.isServiceSuccessful()){
 			assignLoginInfo();
