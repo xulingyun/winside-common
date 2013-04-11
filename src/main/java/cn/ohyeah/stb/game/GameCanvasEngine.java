@@ -281,6 +281,7 @@ abstract public class GameCanvasEngine extends GameCanvas implements Runnable, I
 				System.out.println("\n程序发生异常，请记录异常发生时的上下文，并将所有异常信息提交开发人员分析, Thanks!");
 				System.gc();
 				errorMessage = "程序发生异常，"+t.getMessage()
+							+"\n"+errorMessage
 							+"\n对您造成的不便深表歉意，我们会尽快修复此问题，感谢您的关注!\n请按任意键退出!";
 				state = STATE_ERROR;
 			}
