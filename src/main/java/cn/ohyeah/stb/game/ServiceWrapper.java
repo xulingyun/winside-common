@@ -81,7 +81,11 @@ public final class ServiceWrapper {
 		}
 	}
 	
-	/*保存游戏记录*/
+	/**
+	 * 保存游戏记录（可以将较长记录分成多条记录，记录索引做标识）
+	 * @param index  记录索引
+	 * @param datas
+	 */
 	public void saveRecord(int index, String datas){
 		RecordService rs = new RecordService(server);
 		rs.saveRecord(pm.userId, pm.accountName, pm.product, index, datas);
